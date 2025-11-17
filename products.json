@@ -1,0 +1,191 @@
+[
+    {
+        "article_name": "Iphone 17 PRO",
+        "article_id": "0001",
+        "brand": "Apple",
+        "price_SEK": 14995.00,
+        "category": "phones",
+        "discount_precentage": 0.0,
+        "stock_amount": 24
+    },
+    {
+        "article_name": "Samsung Galaxy Z Fold7",
+        "article_id": "0002",
+        "brand": "Samsung",
+        "price_SEK": 19990.00,
+        "category": "phones",
+        "discount_precentage": 0.0,
+        "stock_amount": 32
+    },
+    {
+        "article_name": "Google Pixel 9a 5G smartphone 8",
+        "article_id": "0003",
+        "brand": "Google",
+        "price_SEK": 3790,
+        "category": "phones",
+        "discount_precentage": 0.0,
+        "stock_amount": 4
+    },
+    {
+        "article_name": "Lenovo Tab 4 GB",
+        "article_id": "0004",
+        "brand": "Lenovo",
+        "price_SEK": 1190.00,
+        "category": "tablets",
+        "discount_precentage": 0.0,
+        "stock_amount": 19
+    },
+    {
+        "article_name": "Samsung Galaxy Tab A9",
+        "article_id": "0005",
+        "brand": "Samsung",
+        "price_SEK": 1490.00,
+        "category": "tablets",
+        "discount_precentage": 0.0,
+        "stock_amount": 3
+    },
+    {
+        "article_name": "Ipad 11\" (11th gen)",
+        "article_id": "0006",
+        "brand": "Apple",
+        "price_SEK": 0,
+        "category": "tablets",
+        "discount_precentage": 0.0,
+        "stock_amount": 21
+    },
+    {
+        "article_name": "Galaxy Buds FE",
+        "article_id": "0007",
+        "brand": "Samsung",
+        "price_SEK": 1200.00,
+        "category": "headphones",
+        "discount_precentage": 0.0,
+        "stock_amount": 20
+    },
+    {
+        "article_name": "Airpods Max",
+        "article_id": "0008",
+        "brand": "Apple",
+        "price_SEK": 8990.00,
+        "category": "headphones",
+        "discount_precentage": 0.0,
+        "stock_amount": 3
+    },
+    {
+        "article_name": "Pixel Buds pro 2",
+        "article_id": "0009",
+        "brand": "Google",
+        "price_SEK": 2590.00,
+        "category": "headphones",
+        "discount_precentage": 0.0,
+        "stock_amount": 16
+    },
+    {
+        "article_name": "Sonos Era 100 Speaker",
+        "article_id": "0010",
+        "brand": "Sonos",
+        "price_SEK": 2790.00,
+        "category": "speakers",
+        "discount_precentage": 0.0,
+        "stock_amount": 9
+    },
+    {
+        "article_name": "Samsung 11.1.4ch HW-Q995F Soundbar",
+        "article_id": "0011",
+        "brand": "Samsung",
+        "price_SEK": 9990.00,
+        "category": "speakers",
+        "discount_precentage": 0.0,
+        "stock_amount": 32
+    },
+    {
+        "article_name": "JBL Partybox",
+        "article_id": "0012",
+        "brand": "JBL",
+        "price_SEK": 2990.00,
+        "category": "speakers",
+        "discount_precentage": 0.0,
+        "stock_amount": 8
+    },
+    {
+        "article_name": "MacBook Pro 14\"",
+        "article_id": "0013",
+        "brand": "Apple",
+        "price_SEK": 15145.00,
+        "category": "computers",
+        "discount_precentage": 0.0,
+        "stock_amount": 2
+    },
+    {
+        "article_name": "Dell 16 Premium Laptop",
+        "article_id": "0014",
+        "brand": "Dell",
+        "price_SEK": 20799.00,
+        "category": "computers",
+        "discount_precentage": 0.0,
+        "stock_amount": 6
+    },
+    {
+        "article_name": "Lenovo Chromebook Plus 14",
+        "article_id": "0015",
+        "brand": "Lenovo",
+        "price_SEK": 7100.00,
+        "category": "computers",
+        "discount_precentage": 0.0,
+        "stock_amount": 4
+    },
+    {
+        "article_name": "Apple Watch Series 9",
+        "article_id": "0016",
+        "brand": "Apple",
+        "price_SEK": 2899.00,
+        "category": "smart watches",
+        "discount_precentage": 0.0,
+        "stock_amount": 20
+    },
+    {
+        "article_name": "Samsung Galaxy Watch 6",
+        "article_id": "0017",
+        "brand": "Samsung",
+        "price_SEK": 1999.00,
+        "category": "smart watches",
+        "discount_precentage": 0.0,
+        "stock_amount": 0
+    },
+    {
+        "article_name": "Amazfit GTR 4",
+        "article_id": "0018",
+        "brand": "Amazfit",
+        "price_SEK": 1299.00,
+        "category": "smart watches",
+        "discount_precentage": 0.0,
+        "stock_amount": 16
+    },
+    {
+        "article_name": "JETech Wallet Case for Iphone",
+        "article_id": "0019",
+        "brand": "JETech",
+        "price_SEK": 119.00,
+        "category": "accessories",
+        "discount_precentage": 0.0,
+        "stock_amount": 13
+    },
+    {
+        "article_name": "Anker Nano Power Bank",
+        "article_id": "0020",
+        "brand": "Ankor",
+        "price_SEK": 599.00,
+        "category": "accessories",
+        "discount_precentage": 0.0,
+        "stock_amount": 7
+    },
+    {
+        "article_name": "15W charging cable USB-C",
+        "article_id": "0021",
+        "brand": "Samsung",
+        "price_SEK": 99.00,
+        "category": "accessories",
+        "discount_precentage": 0.0,
+        "stock_amount": 14
+    }
+]
