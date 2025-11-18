@@ -15,8 +15,8 @@ def list_all_products():
 Name: {product}
 Brand: {brand}
 Standard price: {price}
-Current discount: {discount}
-Current price: {price - int(discount * 100)}"""
+Current discount: {int(discount * 100)}%
+Current price: {price - (price * discount)}"""
         
         all_products.append(format)
     return all_products
