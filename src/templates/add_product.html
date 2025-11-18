@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add product</title>
+</head>
+
+<body style="background-color: #faebfa;">
+    <h1>Add new product</h1>
+
+    <!-- flash message for successfully added item -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div style="background: #d4edda; color: #155724;padding: 12px; margin: 15px 0; border-radius: 5px; border: 1px solid #c3e6cb;">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+
+    <!-- FORM FOR GETTING NEW PRODUCT INFORMATION -->
+    <form method="POST" action="{{ url_for('add_product_page') }}">
+
+        <!-- input for all the required fields-->
+        <div style="margin-bottom: 15px;">
+            <label><strong>Product name:</strong></label><br>
+            <input type="text" name="name" required style="padding: 8px; width: 300px">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label><strong>Brand:</strong></label><br>
+            <input type="text" name="brand" required style="padding: 8px; width: 300px">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label><strong>Price (SEK):</strong></label><br>
+            <input type="number" name="price" step="0.01" required style="padding: 8px; width: 300px">
+        </div>
+
+        <!-- select category drop down -->
+        <div style="margin-bottom: 15px;">
+            <label><strong>Category:</strong></label><br>
+            <select name="category" required style="padding: 8px; width: 320px">
+                <option value="">Select category</option>
+                <option value="phones">Phones</option>
+                <option value="tablets">Tablets</option>
+                <option value="headphones">Headphones</option>
+                <option value="speakers">Speakers</option>
+                <option value="computers">Computers</option>
+                <option value="smart watches">Smart watches</option>
+                <option value="accessories">Accessories</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label><strong>Discount amount (%):</strong></label><br>
+            <input type="number" name="discount" step="0.01" style="padding: 8px; width: 300px">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label><strong>Stock amount:</strong></label><br>
+            <input type="number" name="stock" required style="padding: 8px; width: 300px">
+        </div>
+
+        <!-- Button to confirm add product -->
+        <button type="submit" style="background-color: #FFD6FE; padding: 10px 20px; border: none; cursor: pointer; margin-right: 10px;">
+            Add
+        </button>
+
+        <button type="button" style="background-color: #FFD6FE; padding: 10px 20px; border: none; cursor: pointer;"
+        onclick="window.location.href='{{ url_for('display_inventory') }}'">
+            Cancel
+        </button>
+    </form>
+
+
+</body>
+
+</html>
