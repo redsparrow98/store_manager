@@ -1,4 +1,10 @@
-from reader import load_json
+from reader import *
+from pathlib import Path
+
+# this is to avoid the file path issues we had
+BASE_DIR = Path(__file__).parent.parent
+FILE_PATH = BASE_DIR / "dataset" / "products.json"
+
 
 def list_all_products():
     all_products =[]
