@@ -1,6 +1,7 @@
 from reader import load_json
 
 def list_all_products():
+    all_products =[]
     data = load_json('dataset/products.json')
     for id, info in data.items():
         article_id = id
@@ -9,11 +10,14 @@ def list_all_products():
         price = info['price_SEK']
         discount = info['discount_percentage']
 
-        print(f"""art#{article_id}
+        format = f"""art#{article_id}
 -------
 Name: {product}
 Brand: {brand}
 Standard price: {price}
 Current discount: {discount}
-Current price: {price - int(discount * 100)}""")
+Current price: {price - int(discount * 100)}"""
+        
+        all_products.append(format)
+    return all_products
         
