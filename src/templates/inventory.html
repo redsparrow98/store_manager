@@ -8,10 +8,17 @@
 <body style="background-color: #FAEBF9"></bodystyle>
     <h1>Inventory</h1>
     <h4>Choose inventory management options below</h4>
+    
 <button style="background-color:#FFD6FE; display:block; margin-bottom:10px;"
         onclick="window.location.href='{{ url_for('display_all_products') }}'">
     All Products
 </button>
+
+<!-- ADD NEW PRODUCT BUTTON -->
+<button style="background-color: #FFD6FE; display:block; margin-bottom:10px;" 
+        onclick="window.location.href='{{ url_for('add_product_page') }}'">
+    Add new product
+    </button>
 
 <button style="background-color:#FFD6FE; display:block; position: absolute; top: 20px; right: 20px"
         onclick="window.location.href='{{ url_for('display_dashboard') }}'">
