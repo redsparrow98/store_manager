@@ -5,10 +5,10 @@ def delete_products():
     
     data = load_json("dataset/products.json")
     
-    # List of all products to choose from
-    list_all_products()
-
-    delete_product = input("Input the article id of the product you want to delete. ")
+    for product in data:
+        print(f"{product} - {data[product]["article_name"]}")
+    
+    delete_product = input("Input the article id of the product you want to delete: ")
     
     if delete_product in data:
         validation = input(f"Are you sure you want to delete \'{data[delete_product]["article_name"]}\'? (yes/no) ").lower()
@@ -24,4 +24,3 @@ def delete_products():
     else:
         print("Product not found")
         return
-    
