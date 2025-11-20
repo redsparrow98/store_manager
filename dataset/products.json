@@ -196,5 +196,14 @@
     "category": "phones",
     "discount_percentage": 0.0,
     "stock_amount": 5
+  },
+  "0023": {
+    "article_name": "test 2",
+    "article_id": "0023",
+    "brand": "test 2",
+    "price_SEK": 2000.0,
+    "category": "phones",
+    "discount_percentage": 0.0,
+    "stock_amount": 0
   }
 }
