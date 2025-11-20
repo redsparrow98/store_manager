@@ -1,5 +1,6 @@
 from reader import *
 from pathlib import Path
+from flask import Flask, request, render_template
 
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
@@ -101,3 +102,81 @@ def access_product():
         print("Product not found")
         return
     
+
+
+# Error handling reused to validate user input in update functions
+def is_number(text: str):
+    try:
+        float(text)
+        return True
+    except:
+        return False
+    
+    
+# Render template with article info for update product functions
+def create_template(article, info=""):
+    return render_template(
+    "update_product.html", 
+    name=article["article_name"], 
+    id=article["article_id"], 
+    brand = article["brand"],
+    price = article["price_SEK"], 
+    category = article["category"], 
+    discount = article["discount_percentage"],
+    stock = article["stock_amount"],
+    info = info)
+
+
+# Searches through json and validates if input matches existing article, if not, displays an error message
+def update_product_finder():
+    data = load_json(FILE_PATH)
+    if request.method == "POST":
+
+        article_id = request.form.get("article_id")
+        
+        if article_id in data: # If article id found, renders new page where you update info
+            article = data[article_id]
+            return create_template(article)
+        else:
+            info = "No such product found. Try again." # If article not found, renders the same page the user is on and displays error message
+            return render_template("update_product_finder.html", info = info)
+        
+    return render_template("update_product_finder.html")
+
+
+def update_product():
+    data = load_json(FILE_PATH)
+    pressed = request.form.get("btn") # Registers if "Back" button is pressed
+    
+    if pressed == "back": # If button is pressed, the user gets sent back to first page
+        return render_template("update_product_finder.html")
+    else: # Reads new input per category from user, except for id and discount percentage which should not be changed in this function
+        article_id = request.form.get("article_id") 
+        article = data[article_id]
+        
+        article["article_name"] = request.form.get("name")
+        article["brand"] = request.form.get("brand")
+        article["price_SEK"] = request.form.get("price")
+        article["category"] = request.form.get("category")
+        article["stock_amount"] = request.form.get("stock")
+
+        #Below is error handling for the different kinds of user input
+        if article["article_name"].isdigit() or article["article_name"] == "":
+            return create_template(article, "Article name cannot be digit or blank.")
+        
+        elif article["brand"].isdigit() or article["brand"] == "":
+            return create_template(article, "Article brand cannot be digit or blank.")
+        
+        elif is_number(article["price_SEK"]) == False or float(article["price_SEK"]) < 0:
+            return create_template(article, "Article price cannot be text, blank or negative.")
+        
+        elif article["category"].isdigit() or article["category"] == "":
+            return create_template(article, "Article category cannot be digit or blank.")
+                
+        elif not article["stock_amount"].isdigit(): #isdigit() returns false for non integers and empty values.
+            return create_template(article, "Article price cannot be text, blank or negative.")
+        
+        else: # If no errors occur, the input is written to the json file
+            write_json(FILE_PATH, data)
+            info = "Product information successfully updated!"
+            return create_template(article, info)

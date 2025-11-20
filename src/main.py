@@ -70,5 +70,15 @@ def show_notifications():
     return render_template("notifications.html" , notifications = notifications)
 
 
+@app.route('/inventory/update-product-finder', methods = ['GET', 'POST'])
+def update_product_finder_page():
+    return update_product_finder()
+
+
+@app.route('/inventory/update-product', methods = ['GET', 'POST'])
+def update_product_two():
+    return update_product()
+
+
 if __name__=='__main__':
     app.run(debug=True)

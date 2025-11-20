@@ -1,0 +1,14 @@
+<html>
+<h1>Update product</h1>
+
+<form method="post" action="/inventory/update-product-finder"> <!-- action="/search" connects to html file to find_update_product function -->
+    Enter product id: <input name="article_id"> <br><br> <!-- Passes integer value from user to as variable article_id-->
+
+    <button type="Search">Search</button>
+    <button type="button" onclick="window.location.href='{{ url_for('display_inventory') }}'">
+        Cancel
+    </button>
+
+    <pre>{{info}}</pre><br> <!-- Previews pre defined string from function find_update_products in case user input is invalid-->
+</form>
+</html>

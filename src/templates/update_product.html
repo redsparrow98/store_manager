@@ -1,0 +1,30 @@
+<html>
+<h1>Update product</h1>
+
+<form method="post" action="/inventory/update-product"> <!-- action="/search" connects to html file to update_product function -->
+
+    <!-- Code below shows existing product information connected to product id-->
+    Article name: <input name="name" value="{{name}}"></input> <br><br>
+    Article id: <input name="article_id" value="{{id}}" readonly></input> <br><br>
+    Brand: <input name="brand" value="{{brand}}"></input> <br><br>
+    Price: <input name="price" value="{{price}}"></input> <br><br>
+    Category: <input name="category" value="{{category}}"></input> <br><br>
+    Discount percentage: <input name="discount" value="{{discount}}" readonly></input> <br><br>
+    Stock amount: <input name="stock" value="{{stock}}"></input> <br><br>
+
+    <pre>{{info}}</pre><br> <!-- Displays message to user, etiher if product has been added or error appeared -->
+
+    <button name="btn" value="update" type="Update">
+        Update
+    </button>
+
+    <button type="button" onclick="window.location.href='{{ url_for('update_product_finder_page') }}'">
+        Back to search
+    </button>
+
+    <button type="button" onclick="window.location.href='{{ url_for('display_inventory') }}'">
+        Back to inventory
+    </button>
+
+</form>
+</html>
