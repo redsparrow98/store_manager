@@ -12,6 +12,7 @@
         style="position:absolute; top:20px; background-color: none; border:none; cursor:pointer; font-size:28px;"
     >
     🔔
+    {% if notif_count > 0 %}
     <span style="
         position:absolute;
         top:-5px;
@@ -24,6 +25,7 @@
     ">
         {{ notif_count }}
     </span>
+    {% endif %}
      </a>   
 
     <button 
