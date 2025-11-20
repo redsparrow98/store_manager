@@ -5,42 +5,47 @@ app = Flask(__name__)
 app.secret_key = "demo-key1234"
 
 
-@app.route('/')
-def display_dashboard():
-    return render_template('dashboard.html')
+from reader import load_json
+from inventory_manager import list_all_products
 
+labels = {
+    "article_name": "Product name",
+    "article_id": "Product ID",
+    "brand": "Brand",
+    "price_SEK": "Price",
+    "category": "Category",
+    "discount_percentage": "Discount percentage",
+    "stock_amount": "Stock amount",
+}
 
-@app.route('/inventory')
-def display_inventory():
-    return render_template('inventory.html')
-
-
-@app.route('/inventory/all-products')
-def display_all_products():
-    all_products = list_all_products()
-    return render_template('all_products.html', all_products = all_products)
-
-
-@app.route('/inventory/add-product', methods=['GET', 'POST'])
-def add_product_page():
-    # gets triggered once add-product button in inventory is selected
-    if request.method == "GET":
-        return render_template("add_product.html")
-    # gets triggered when the add button is selected in the add-product route
+def format_value(key, value):
+    if key == "price_SEK":
+        return f"{value:.2f} SEK"
+    
+    elif key == "discount_percentage":
+        return f"{int(value)}%"
+    
+    elif key == "category":
+        return str(value).capitalize()
+    
     else:
-        name = request.form["name"]
-        brand = request.form["brand"]
-        price = request.form["price"]
-        category = request.form["category"]
-        discount = request.form.get("discount", 0)
-        stock = request.form.get("stock", 0)
+        return str(value)
 
-        add_product(name,brand,price,category,discount,stock)
+def access_product():
+    data = load_json("dataset/products.json")
+    list_all_products()
 
-        flash(f"product \"{name}\" has been added successfully", "success")
-        return render_template("add_product.html")
+    accessed_product = input("\nInput the product id of the product you want to access: ").strip()
 
+    if accessed_product in data:
+        product = data[accessed_product]
+        print(f"\nPrinting product information for {product['article_name']}:")
 
+        for key in product:
+            print(f"{labels.get(key, key)}: {format_value(key, product[key])}")
+
+    else:
+        print("Product not found")
 
 if __name__=='__main__':
     app.run(debug=True)
