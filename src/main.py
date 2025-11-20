@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
+from notification import notifications, scan_low_stock
 
 app = Flask(__name__)
 app.secret_key = "demo-key1234"
@@ -62,6 +63,12 @@ def delete_product_page():
         else:
             flash (f"Product with article id {article_id} not found", "error")
             return redirect(url_for("delete_product_page"))
+        
+@app.route("/notifications")
+def show_notifications():
+    scan_low_stock()
+    return render_template("notifications.html" , notifications = notifications)
+
 
 if __name__=='__main__':
     app.run(debug=True)
