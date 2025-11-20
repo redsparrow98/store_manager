@@ -8,7 +8,7 @@ FILE_PATH = BASE_DIR / "dataset" / "products.json"
 
 def list_all_products():
     all_products =[]
-    data = load_json('dataset/products.json')
+    data = load_json(FILE_PATH)
     for id, info in data.items():
         article_id = id
         product = info['article_name']
@@ -29,6 +29,7 @@ Current price: {price - (price * discount)}"""
         
 
 
+
 def add_product(name,brand,price,category,discount,stock):
     """creates a new product for the database from the given parameters.
     The article id is calculated based on the current database
@@ -42,25 +43,89 @@ def add_product(name,brand,price,category,discount,stock):
         stock (Integer): _description_
     """
     products = load_json(FILE_PATH)
+
+    errors = []
+
+    if not name.strip():
+        errors.append("Product name is required")
+    if not brand.strip():
+        errors.append("Brand is required")
+    if float(price) < 0:
+        errors.append("Price cant be negative")
+    if not category.strip():
+        errors.append("Category is required")
+    if not (0<= float(discount) <=100):
+        errors.append("Discount amount is not valid (0-100%)")
+    if int(stock) < 0:
+        errors.append("Stock cant be negative")
     
-    # find the next ID in sequence using the ternary operator
-    current_ids = products.keys()
-    next_id_int = int(max(current_ids)) + 1 if current_ids else 1
-    next_id = str(next_id_int).zfill(4)
+    if errors:
+        return False, errors
+
+    else:
+        # find the next ID in sequence using the ternary operator
+        current_ids = products.keys()
+        next_id_int = int(max(current_ids)) + 1 if current_ids else 1
+        next_id = str(next_id_int).zfill(4)
 
 
-    new_item = {
-        "article_name": name,
-        "article_id": next_id,
-        "brand": brand,
-        "price_SEK": float(price),
-        "category": category,
-        "discount_percentage": float(discount),
-        "stock_amount": int(stock)
-    }
+        new_item = {
+            "article_name": name,
+            "article_id": next_id,
+            "brand": brand,
+            "price_SEK": float(price),
+            "category": category,
+            "discount_percentage": float(discount),
+            "stock_amount": int(stock)
+        }
 
-    products[next_id] = new_item
-    write_json(FILE_PATH, products)
+        products[next_id] = new_item
+        write_json(FILE_PATH, products)
+        return True, f"Product name '{name}' added successfully, ID: {next_id}"
 
+
+
+def delete_products():
     
+    data = load_json(FILE_PATH)
     
+    for product in data:
+        print(f"{product} - {data[product]["article_name"]}")
+    
+    delete_product = input("Input the article id of the product you want to delete: ")
+    
+    if delete_product in data:
+        validation = input(f"Are you sure you want to delete \'{data[delete_product]["article_name"]}\'? (yes/no) ").lower()
+        if validation != "yes":
+            print("Deletion cancelled")
+            return
+        
+
+        print(f"Product \'{data[delete_product]["article_name"]}\' succesfully deleted.")
+        data.pop(delete_product)
+        write_json("dataset/products.json", data)
+
+    else:
+        print("Product not found")
+        return
+
+
+
+def access_product():
+    
+    data = load_json(FILE_PATH)
+    
+    # List of all products to choose from
+    list_all_products()
+
+    accessed_product = input("Input the product id of the product you want to access. ")
+
+    if accessed_product in data:
+        print(f"Printing product information for {data[accessed_product]["article_name"]}:")
+        
+        for key in data[accessed_product]:
+            print (f"{key}: {data[accessed_product][key]}")
+            
+    else:
+        print("Product not found")
+        return
