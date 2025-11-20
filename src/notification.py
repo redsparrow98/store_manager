@@ -48,6 +48,7 @@ def add_notification(article_id: str, message: str):
             "creat_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
         })
 
+
 def get_threshold(category: str) -> int:
     return CATEGORY_THRESHOLDS.get(category.lower(), DEFAULT_THRESHOLD)
 
@@ -60,8 +61,15 @@ def scan_low_stock():
         category = info.get("category", "")
 
         threshold = get_threshold(category)
-        
+
         if stock <= threshold:
             message = f"{product_name} (ID {article_id}) is low: {stock} left"
             add_notification(article_id, message)
+
+def get_notifications():
+    """
+    Return the current notifications list.
+    This is what Flask will call to pass notifications to templates.
+    """
+    return notifications
     
