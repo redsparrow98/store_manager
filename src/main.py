@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
-from notification import notifications, scan_low_stock
+from notification import notifications, scan_low_stock, get_notifications
 
 app = Flask(__name__)
 app.secret_key = "demo-key1234"
@@ -8,7 +8,9 @@ app.secret_key = "demo-key1234"
 
 @app.route('/')
 def display_dashboard():
-    return render_template('dashboard.html')
+    scan_low_stock()
+    notif_count = len(get_notifications())
+    return render_template('dashboard.html',notif_count=notif_count)
 
 
 @app.route('/inventory')
