@@ -13,22 +13,12 @@ def list_all_products():
         article_id = id
         product = info['article_name']
         brand = info['brand']
-        price = info['price_SEK']
-        discount = info['discount_percentage']
 
-        format = f"""art#{article_id}
--------
-Name: {product}
-Brand: {brand}
-Standard price: {price}
-Current discount: {int(discount * 100)}%
-Current price: {price - (price * discount)}"""
+        format = f"#{article_id} - {product} - {brand}"
         
         all_products.append(format)
     return all_products
         
-
-
 
 def add_product(name,brand,price,category,discount,stock):
     """creates a new product for the database from the given parameters.
