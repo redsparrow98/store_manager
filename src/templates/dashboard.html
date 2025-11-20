@@ -8,8 +8,7 @@
 <body style="background-color: #faebfa">
     <h1 style="text-align:center;">Welcome!</h1>
 
-    <button
-        onclick="window.location,href = '{{url_for('show_notifications')}}'"
+     <a href="{{ url_for('show_notifications') }}"
         style="position:absolute; top:20px; background-color: none; border:none; cursor:pointer; font-size:28px;"
     >
     🔔
@@ -25,8 +24,7 @@
     ">
         {{ notif_count }}
     </span>
-    
-    </button>    
+     </a>   
 
     <button 
         onclick="toggleMenu()"
