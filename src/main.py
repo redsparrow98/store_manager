@@ -69,7 +69,8 @@ def delete_product_page():
 @app.route("/notifications")
 def show_notifications():
     scan_low_stock()
-    return render_template("notifications.html" , notifications = notifications)
+    notifications_list = get_notifications()
+    return render_template("notifications.html" , notifications = notifications_list)
 
 
 if __name__=='__main__':
