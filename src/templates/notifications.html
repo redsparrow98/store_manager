@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+</head>
+<body style="background-color: #faebfa; font-family: Arial;">
+
+    <h1 style="text-align:center;">Notifications</h1>
+    <h3 style="text-align:center;">Low stock alerts</h3>
+
+    {% if notifications %}
+        {% for n in notifications %}
+           <div style="background: #faebfa; margin: 15px auto; padding: 10px; width: 60%; border-radius: 8px;">
+               <b>{{ n.product_name }}</b>
+               <p>{{ n.message }}</p>
+               <small>Product ID: {{ n.product_id }}</small>
+           </div>
+        {% endfor %}
+    {% else %}
+        <p style="text-align: center; margin-top: 40px;">No Notifications 🎉</p>
+    {% endif %}
+    
+    <!--Back Button-->
+    <button
+        style="background-color:#FFD6FE; display:block; margin:30px auto; padding:10px 20px; border-radius:6px;"
+        onclick="window.location.href='{{ url_for('display_dashboard') }}'">
+        &lt; Back to Dashboard
+    </button>   
+
+</body>
+</html>
