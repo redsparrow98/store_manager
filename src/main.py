@@ -56,11 +56,6 @@ def delete_product_page():
             return redirect(url_for("delete_product_page"))
 
 
-        for key in product:
-            print(f"{labels.get(key, key)}: {format_value(key, product[key])}")
-
-    else:
-        print("Product not found")
 
 if __name__=='__main__':
     app.run(debug=True)
