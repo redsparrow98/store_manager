@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Product</title>
+</head>
+
+<body style="background-color: #faebfa;">
+    <h1 style="text-align: center;">Delete Product</h1>
+    <div style="text-align: center;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {%for category, message in messages %}
+
+            {% if category == 'success' %}
+            <div style="background: #b9e1c3; color: #155724;padding: 12px; margin: 15px 0; border: none;">
+                {{ message }}
+            </div>
+            {% elif category == 'error' %}
+            <div style="background: #e40909; color: #000000;padding: 12px; margin: 15px 0; border: none;">
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('delete_product_page') }}" method="POST">
+            <label for="article_id">Article ID:</label>
+            <br><br>
+            <input type="text" id="article_id" name="article_id" required>
+            <br><br>
+            <button type="submit" style="background-color: #FFD6FE; padding: 10px 20px; border: none; cursor: pointer; margin-right: 10px;">
+                Delete
+            </button>
+            <button type="button" style="background-color: #FFD6FE; padding: 10px 20px; border: none; cursor: pointer;"
+            onclick="window.location.href='{{ url_for('display_inventory') }}'">
+            Cancel
+            </button>
+        </form>
+    </div>
+</body>
+</html>

@@ -61,3 +61,10 @@ def add_product(name,brand,price,category,discount,stock):
 
     products[next_id] = new_item
     write_json(FILE_PATH, products)
+
+def delete_product(article_id):
+    products = load_json(FILE_PATH)
+    products.pop(article_id)
+    write_json(FILE_PATH, products)
+    
+    

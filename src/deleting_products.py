@@ -1,5 +1,4 @@
 from reader import write_json, load_json
-from inventory_manager import list_all_products
 
 def delete_products():
     
