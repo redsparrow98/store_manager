@@ -2,6 +2,8 @@ from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
 from notification import notifications, scan_low_stock, get_notifications
 
+
+
 app = Flask(__name__)
 app.secret_key = "demo-key1234"
 
@@ -81,6 +83,30 @@ def update_product_finder_page():
 @app.route('/inventory/update-product', methods = ['GET', 'POST'])
 def update_product_two():
     return update_product()
+
+@app.route('/inventory/apply-discount', methods=['GET', 'POST'])
+def apply_discount_page():
+    if request.method == "GET":
+        
+        return render_template("apply_discount.html")
+
+    else:
+        try:
+            discount_percentage = float(request.form["discount_percentage"])
+            category = request.form.get("category")  
+
+            apply_discount_to_products(discount_percentage, category)
+
+            flash(f"Applied {discount_percentage}% discount successfully!", "success")
+        except ValueError as ve:
+            flash(str(ve), "error")
+        except FileNotFoundError as fe:
+            flash(str(fe), "error")
+        except Exception as e:
+            flash(f"Unexpected error: {e}", "error")
+
+        return redirect(url_for("apply_discount_page"))
+
 
 
 if __name__=='__main__':

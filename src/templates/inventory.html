@@ -1,65 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Products</title>
     <style>
-        .round-btn{
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: none;
-            overflow: hidden; 
-            padding: 0;
-            cursor: pointer;
-            background-color: #FFD6FE
-        }
+      .round-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: none;
+        overflow: hidden;
+        padding: 0;
+        cursor: pointer;
+        background-color: #ffd6fe;
+      }
 
-        .round-btn img {
-            width: 70%;
-            height: 70%;
-            object-fit: cover;
-        }
-</style>
-</head>
-<body style="background-color: #FAEBF9">
-
-<button class="round-btn" style="top: 20px; left: 20px;" onclick="window.location.href='{{ url_for('display_dashboard') }}'"> 
-    <img src=https://www.iconpacks.net/icons/2/free-home-icon-2502-thumb.png alt="home-button">
-</button>
+      .round-btn img {
+        width: 70%;
+        height: 70%;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body style="background-color: #faebf9">
+    <button
+      class="round-btn"
+      style="top: 20px; left: 20px"
+      onclick="window.location.href='{{ url_for('display_dashboard') }}'"
+    >
+      <img src=https://www.iconpacks.net/icons/2/free-home-icon-2502-thumb.png
+      alt="home-button">
+    </button>
 
     <h1>Manage inventory</h1>
     <h4>Choose inventory management options below</h4>
-    
-<!--DISPLAY ALL PRODUCTS BUTTON-->
-<button style="background-color:#FFD6FE; display:block; margin-bottom:10px; padding: 5px 15px;"
-        onclick="window.location.href='{{ url_for('display_all_products') }}'">
-    All Products
-</button>
 
-<!-- ADD NEW PRODUCT BUTTON -->
-<button style="background-color: #FFD6FE; display:block; margin-bottom:10px; padding: 5px 15px;" 
-        onclick="window.location.href='{{ url_for('add_product_page') }}'">
-    Add new product
+    <!--DISPLAY ALL PRODUCTS BUTTON-->
+    <button
+      style="
+        background-color: #ffd6fe;
+        display: block;
+        margin-bottom: 10px;
+        padding: 5px 15px;
+      "
+      onclick="window.location.href='{{ url_for('display_all_products') }}'"
+    >
+      All Products
     </button>
 
-<!-- DELETE PRODUCT BUTTON -->
-<button style="background-color: #FFD6FE; display:block; margin-bottom:10px; padding: 5px 15px;" 
-        onclick="window.location.href='{{ url_for('delete_product_page') }}'">
-    Delete Product
+    <!-- ADD NEW PRODUCT BUTTON -->
+    <button
+      style="
+        background-color: #ffd6fe;
+        display: block;
+        margin-bottom: 10px;
+        padding: 5px 15px;
+      "
+      onclick="window.location.href='{{ url_for('add_product_page') }}'"
+    >
+      Add new product
     </button>
 
-<!-- UPDATE PRODUCT BUTTON -->
-<button style="background-color: #FFD6FE; display:block; margin-bottom:10px; padding: 5px 15px;" 
-        onclick="window.location.href='{{ url_for('update_product_finder_page') }}'">
-    Update Product
+    <!-- DELETE PRODUCT BUTTON -->
+    <button
+      style="
+        background-color: #ffd6fe;
+        display: block;
+        margin-bottom: 10px;
+        padding: 5px 15px;
+      "
+      onclick="window.location.href='{{ url_for('delete_product_page') }}'"
+    >
+      Delete Product
     </button>
 
-<button style="background-color:#FFD6FE; display:block; position: absolute; top: 20px; right: 20px"
-        onclick="window.location.href='{{ url_for('display_dashboard') }}'">
-    &lt; Back
-</button>
+    <!-- UPDATE PRODUCT BUTTON -->
+    <button
+      style="
+        background-color: #ffd6fe;
+        display: block;
+        margin-bottom: 10px;
+        padding: 5px 15px;
+      "
+      onclick="window.location.href='{{ url_for('update_product_finder_page') }}'"
+    >
+      Update Product
+    </button>
 
-</body>
+    <!-- APPLY DISCOUNT BUTTON -->
+    <button
+      style="
+        background-color: #ffd6fe;
+        display: block;
+        margin-bottom: 10px;
+        padding: 5px 15px;
+      "
+      onclick="window.location.href='{{ url_for('apply_discount_page') }}'"
+    >
+      Apply Discount
+    </button>
+
+    <button
+      style="
+        background-color: #ffd6fe;
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      "
+      onclick="window.location.href='{{ url_for('display_dashboard') }}'"
+    >
+      &lt; Back
+    </button>
+  </body>
 </html>
