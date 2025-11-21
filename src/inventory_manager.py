@@ -115,7 +115,7 @@ def delete_product(article_id):
 
 
 #ACCESSING A PRODUCT FEATURE
-def access_product():
+def access_product2():
     
     data = load_json(FILE_PATH)
     

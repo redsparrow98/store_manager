@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
 from notification import notifications, scan_low_stock, get_notifications
-
+from access_product_info import *
 
 
 app = Flask(__name__)
@@ -107,7 +107,9 @@ def apply_discount_page():
 
         return redirect(url_for("apply_discount_page"))
 
-
+@app.route("/inventory/access-product-information", methods=["GET", "POST"])
+def access_product():
+    return access_product_landing_page()
 
 if __name__=='__main__':
     app.run(debug=True)

@@ -68,8 +68,7 @@ def find_brand_matches(products_data, search_term):
 
     return matches
 
-@app.route("/inventory/access-product-information", methods=["GET", "POST"])
-def access_product():
+def access_product_landing_page():
     products_data = load_json(str(FILE_PATH))
     product_list = create_product_list(products_data)
     
