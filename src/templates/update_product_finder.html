@@ -1,14 +1,29 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+<body style = "background-color: #faebfa">
 <h1>Update product</h1>
+<button style="background-color:#FFD6FE; display:block; position: absolute; top: 20px; right: 20px"
+        onclick="window.location.href='{{ url_for('display_inventory') }}'">
+    &lt; Back
+    </button>
 
 <form method="post" action="/inventory/update-product-finder"> <!-- action="/search" connects to html file to find_update_product function -->
     Enter product id: <input name="article_id"> <br><br> <!-- Passes integer value from user to as variable article_id-->
+    
+    <button style="background-color: #FFD6FE;" type="Search">
+        Search
+    </button>
 
-    <button type="Search">Search</button>
-    <button type="button" onclick="window.location.href='{{ url_for('display_inventory') }}'">
+    <button style="background-color: #FFD6FE;" type="button" onclick="window.location.href='{{ url_for('display_inventory') }}'">
         Cancel
     </button>
 
     <pre>{{info}}</pre><br> <!-- Previews pre defined string from function find_update_products in case user input is invalid-->
+
 </form>
 </html>
