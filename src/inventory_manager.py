@@ -5,8 +5,40 @@ from flask import Flask, request, render_template
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
+import json
+import os
 
+#APPLY DISCOUNT FUNCTION
+def apply_discount_to_products(discount_percentage, category = None):
+    """
+    Applies a discount to all products from our dataset with an option to choose a category to apply the discount to. Uses parameters:
+    1. discount_percentage(float) if input 10, discount percentage is 10%
+    2. File path to the JSON file
+    3. category: optional product category to apply the discount to"""
 
+    if not (0 <= discount_percentage <= 100):
+        raise ValueError("Discount must be between 0 and 100")
+    if not os.path.exists(FILE_PATH):
+        raise FileNotFoundError(f"File not found: {FILE_PATH}")
+    
+    dataset = load_json(FILE_PATH)
+
+    #counter to check how many products were updated(implement a message in flask?)
+    updated_count = 0
+    for product_id, product in dataset.items():
+        if category is None or product.get("category") == category:
+            original_price = product.get("price_SEK" , 0)
+            if original_price > 0:
+                discounted_price = round (original_price * (1 - discount_percentage / 100) , 2)
+                product["discounted_price_SEK"] = discounted_price
+                product["discount_percentage"] = discount_percentage
+                updated_count += 1
+
+    write_json(FILE_PATH, dataset)
+
+    print(f"Applied {discount_percentage}% discount to all products.")  
+
+#LISTING ALL PRODUCTS FEATURE
 def list_all_products():
     all_products =[]
     data = load_json(FILE_PATH)
@@ -20,7 +52,7 @@ def list_all_products():
         all_products.append(format)
     return all_products
         
-
+#ADDING A PRODUCT FEATURE
 def add_product(name,brand,price,category,discount,stock):
     """creates a new product for the database from the given parameters.
     The article id is calculated based on the current database
@@ -75,14 +107,14 @@ def add_product(name,brand,price,category,discount,stock):
         return True, f"Product name '{name}' added successfully, ID: {next_id}"
 
 
-
+#DELETING A PRODUCT FEATURE
 def delete_product(article_id):
     products = load_json(FILE_PATH)
     products.pop(article_id)
     write_json(FILE_PATH, products)
 
 
-
+#ACCESSING A PRODUCT FEATURE
 def access_product():
     
     data = load_json(FILE_PATH)
@@ -143,7 +175,7 @@ def update_product_finder():
         
     return render_template("update_product_finder.html")
 
-
+#UPDATING A PRODUCT FEATURE
 def update_product():
     data = load_json(FILE_PATH)
     pressed = request.form.get("btn") # Registers if "Back" button is pressed
