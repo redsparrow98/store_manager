@@ -4,9 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update</title>
+<style>
+        .round-btn{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            overflow: hidden; 
+            padding: 0;
+            cursor: pointer;
+            background-color: #FFD6FE
+        }
+
+        .round-btn img {
+            width: 70%;
+            height: 70%;
+            object-fit: cover;
+        }
+</style>
 </head>
-<body style = "background-color: #faebfa">
+<body style="background-color: #FAEBF9">
+
+<button class="round-btn" style="top: 20px; left: 20px;" onclick="window.location.href='{{ url_for('display_dashboard') }}'"> 
+    <img src=https://www.iconpacks.net/icons/2/free-home-icon-2502-thumb.png alt="home-button">
+</button>
+
 <h1>Update product</h1>
+
 <button style="background-color:#FFD6FE; display:block; position: absolute; top: 20px; right: 20px"
         onclick="window.location.href='{{ url_for('display_inventory') }}'">
     &lt; Back
@@ -15,11 +39,11 @@
 <form method="post" action="/inventory/update-product-finder"> <!-- action="/search" connects to html file to find_update_product function -->
     Enter product id: <input name="article_id"> <br><br> <!-- Passes integer value from user to as variable article_id-->
     
-    <button style="background-color: #FFD6FE;" type="Search">
+    <button style="background-color: #FFD6FE; padding: 5px 15px;" type="Search">
         Search
     </button>
 
-    <button style="background-color: #FFD6FE;" type="button" onclick="window.location.href='{{ url_for('display_inventory') }}'">
+    <button style="background-color: #FFD6FE; padding: 5px 15px;" type="button" onclick="window.location.href='{{ url_for('display_inventory') }}'">
         Cancel
     </button>
 
