@@ -1,5 +1,12 @@
-<html>
-<h1>Update product</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+<body style = "background-color: #faebfa">
+<h1 style="text-align:center;">Update product</h1>
 
 <form method="post" action="/inventory/update-product"> <!-- action="/search" connects to html file to update_product function -->
 
@@ -14,17 +21,23 @@
 
     <pre>{{info}}</pre><br> <!-- Displays message to user, etiher if product has been added or error appeared -->
 
-    <button name="btn" value="update" type="Update">
+    <button style="background-color: #FFD6FE;" name="btn" value="update" type="Update"> 
         Update
     </button>
 
-    <button type="button" onclick="window.location.href='{{ url_for('update_product_finder_page') }}'">
+    <button style="background-color: #FFD6FE;" type="button" onclick="window.location.href='{{ url_for('update_product_finder_page') }}'">
         Back to search
     </button>
 
-    <button type="button" onclick="window.location.href='{{ url_for('display_inventory') }}'">
+    <button style="background-color: #FFD6FE;" type="button" onclick="window.location.href='{{ url_for('display_inventory') }}'">
         Back to inventory
     </button>
 
+    <button type="button" style="background-color:#FFD6FE; display:block; position: absolute; top: 20px; right: 20px"
+        onclick="window.location.href='{{ url_for('display_inventory') }}'">
+    &lt; Back
+    </button>
+
 </form>
+</body>
 </html>
