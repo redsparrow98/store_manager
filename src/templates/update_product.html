@@ -4,8 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update</title>
+    
+<style>
+        .round-btn{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            overflow: hidden; 
+            padding: 0;
+            cursor: pointer;
+            background-color: #FFD6FE
+        }
+
+        .round-btn img {
+            width: 70%;
+            height: 70%;
+            object-fit: cover;
+        }
+</style>
 </head>
-<body style = "background-color: #faebfa">
+<body style="background-color: #FAEBF9">
+
+<button class="round-btn" style="top: 20px; left: 20px;" onclick="window.location.href='{{ url_for('display_dashboard') }}'"> 
+    <img src=https://www.iconpacks.net/icons/2/free-home-icon-2502-thumb.png alt="home-button">
+</button>
+
 <h1 style="text-align:center;">Update product</h1>
 
 <form method="post" action="/inventory/update-product"> <!-- action="/search" connects to html file to update_product function -->
@@ -21,15 +45,15 @@
 
     <pre>{{info}}</pre><br> <!-- Displays message to user, etiher if product has been added or error appeared -->
 
-    <button style="background-color: #FFD6FE;" name="btn" value="update" type="Update"> 
+    <button style="background-color: #FFD6FE; padding: 5px 15px;" name="btn" value="update" type="Update"> 
         Update
     </button>
 
-    <button style="background-color: #FFD6FE;" type="button" onclick="window.location.href='{{ url_for('update_product_finder_page') }}'">
+    <button style="background-color: #FFD6FE; padding: 5px 15px;" type="button" onclick="window.location.href='{{ url_for('update_product_finder_page') }}'">
         Back to search
     </button>
 
-    <button style="background-color: #FFD6FE;" type="button" onclick="window.location.href='{{ url_for('display_inventory') }}'">
+    <button style="background-color: #FFD6FE; padding: 5px 15px;" type="button" onclick="window.location.href='{{ url_for('display_inventory') }}'">
         Back to inventory
     </button>
 

@@ -4,9 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Product</title>
-</head>
+    
+<style>
+        .round-btn{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            overflow: hidden; 
+            padding: 0;
+            cursor: pointer;
+            background-color: #FFD6FE
+        }
 
-<body style="background-color: #faebfa;">
+        .round-btn img {
+            width: 70%;
+            height: 70%;
+            object-fit: cover;
+        }
+</style>
+</head>
+<body style="background-color: #FAEBF9">
+
+<button class="round-btn" style="top: 20px; left: 20px;" onclick="window.location.href='{{ url_for('display_dashboard') }}'"> 
+    <img src=https://www.iconpacks.net/icons/2/free-home-icon-2502-thumb.png alt="home-button">
+</button>
+
     <h1 style="text-align: center;">Delete Product</h1>
     <div style="text-align: center;">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -31,10 +54,10 @@
             <br><br>
             <input type="text" id="article_id" name="article_id" required>
             <br><br>
-            <button type="submit" style="background-color: #FFD6FE; padding: 10px 20px; border: none; cursor: pointer; margin-right: 10px;">
+            <button type="submit" style="background-color: #FFD6FE; cursor: pointer; margin-right: 10px; padding: 5px 15px;">
                 Delete
             </button>
-            <button type="button" style="background-color: #FFD6FE; padding: 10px 20px; border: none; cursor: pointer;"
+            <button type="button" style="background-color: #FFD6FE; cursor: pointer; padding: 5px 15px;"
             onclick="window.location.href='{{ url_for('display_inventory') }}'">
             Cancel
             </button>

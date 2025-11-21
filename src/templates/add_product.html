@@ -4,9 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add product</title>
-</head>
 
-<body style="background-color: #faebfa;">
+<style>
+        .round-btn{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            overflow: hidden; 
+            padding: 0;
+            cursor: pointer;
+            background-color: #FFD6FE
+        }
+
+        .round-btn img {
+            width: 70%;
+            height: 70%;
+            object-fit: cover;
+        }
+</style>
+</head>
+<body style="background-color: #FAEBF9">
+
+<button class="round-btn" style="top: 20px; left: 20px;" onclick="window.location.href='{{ url_for('display_dashboard') }}'"> 
+    <img src=https://www.iconpacks.net/icons/2/free-home-icon-2502-thumb.png alt="home-button">
+</button>
+
     <h1>Add new product</h1>
 
     <!-- flash message for successfully added item -->
@@ -66,11 +89,11 @@
         </div>
 
         <!-- Button to confirm add product -->
-        <button type="submit" style="background-color: #FFD6FE; padding: 10px 20px; border: none; cursor: pointer; margin-right: 10px;">
+        <button type="submit" style="background-color: #FFD6FE; padding: 10px 20px; cursor: pointer; margin-right: 10px;">
             Add
         </button>
 
-        <button type="button" style="background-color: #FFD6FE; padding: 10px 20px; border: none; cursor: pointer;"
+        <button type="button" style="background-color: #FFD6FE; padding: 10px 20px; cursor: pointer;"
         onclick="window.location.href='{{ url_for('display_inventory') }}'">
             Cancel
         </button>
