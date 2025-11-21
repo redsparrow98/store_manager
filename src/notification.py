@@ -3,9 +3,9 @@ from pathlib import Path
 from datetime import datetime
 
 """
-1. Read products.json
+1.Read products.json
 2.Check stock
-3. Create notifications when stock is low
+3.Create notifications when stock is low
 """
 
 #Paths
@@ -18,15 +18,15 @@ notifications = []
 #Thresholds
 
 CATEGORY_THRESHOLDS = {
-    "phones": 5,
-    "tablets": 5,
+    "phones": 3,
+    "tablets": 3,
     "headphones": 3,
-    "speakers": 5,
+    "speakers": 3,
     "computers": 3,
-    "smart watches": 5,
+    "smart watches": 3,
     "accessories": 3,
 }
-DEFAULT_THRESHOLD = 5
+DEFAULT_THRESHOLD = 3
 
 #functions for json
 
