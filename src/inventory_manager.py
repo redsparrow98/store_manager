@@ -10,11 +10,16 @@ import os
 
 #APPLY DISCOUNT FUNCTION
 def apply_discount_to_products(discount_percentage, category = None):
-    """
-    Applies a discount to all products from our dataset with an option to choose a category to apply the discount to. Uses parameters:
-    1. discount_percentage(float) if input 10, discount percentage is 10%
-    2. File path to the JSON file
-    3. category: optional product category to apply the discount to"""
+    """Applies a discount to all products from our dataset with an option to choose a category to apply the discount to.
+
+    Args:
+        discount_percentage (Float): if input 10, discount percentage is 10%
+        category (String, optional): Applies discount to specific category if parameter is passed. Defaults to None.
+
+    Raises:
+        ValueError: If discount amount is not in the expected range of 0 to 100%
+        FileNotFoundError: If DB file is not found
+    """    
 
     if not (0 <= discount_percentage <= 100):
         raise ValueError("Discount must be between 0 and 100")
