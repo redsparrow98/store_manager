@@ -1,20 +1,25 @@
 from reader import *
+import os
 from pathlib import Path
-from flask import Flask, request, render_template
+from flask import request, render_template
 
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
-import json
-import os
+
 
 #APPLY DISCOUNT FUNCTION
 def apply_discount_to_products(discount_percentage, category = None):
+    """Applies a discount to all products from our dataset with an option to choose a category to apply the discount to
+
+    Args:
+        discount_percentage (float): if input 10, discount percentage is 10%
+        category (String, optional): Applies discount to a category if parameter is inputted, Defaults to None.
+
+    Raises:
+        ValueError: Raises a value error if discount parameter is outside of expected range 0-100.
+        FileNotFoundError: Raises a file not found error if the DB file is not existent.
     """
-    Applies a discount to all products from our dataset with an option to choose a category to apply the discount to. Uses parameters:
-    1. discount_percentage(float) if input 10, discount percentage is 10%
-    2. File path to the JSON file
-    3. category: optional product category to apply the discount to"""
 
     if not (0 <= discount_percentage <= 100):
         raise ValueError("Discount must be between 0 and 100")
@@ -25,7 +30,7 @@ def apply_discount_to_products(discount_percentage, category = None):
 
     #counter to check how many products were updated(implement a message in flask?)
     updated_count = 0
-    for product_id, product in dataset.items():
+    for product in dataset.values():
         if category is None or product.get("category") == category:
             original_price = product.get("price_SEK" , 0)
             if original_price > 0:
@@ -35,11 +40,15 @@ def apply_discount_to_products(discount_percentage, category = None):
                 updated_count += 1
 
     write_json(FILE_PATH, dataset)
-
     print(f"Applied {discount_percentage}% discount to all products.")  
 
 #LISTING ALL PRODUCTS FEATURE
 def list_all_products():
+    """Lists all current products in the inventory
+
+    Returns:
+        List: List of all the products in the DB
+    """
     all_products =[]
     data = load_json(FILE_PATH)
     for id, info in data.items():
@@ -51,24 +60,23 @@ def list_all_products():
         
         all_products.append(format)
     return all_products
-        
+
 #ADDING A PRODUCT FEATURE
 def add_product(name,brand,price,category,discount,stock):
     """creates a new product for the database from the given parameters.
     The article id is calculated based on the current database
 
     Args:
-        name (String): _description_
-        brand (String): _description_
-        price (Float): _description_
-        category (String): _description_
-        discount (Float): _description_
-        stock (Integer): _description_
+        name (String): Name of the new product
+        brand (String): Brand of the new product
+        price (Float): base price of the new product
+        category (String): Category of the new product
+        discount (Float): Discount amount of the new product
+        stock (Integer): Stock amount of the new product
     """
     products = load_json(FILE_PATH)
 
     errors = []
-
     if not name.strip():
         errors.append("Product name is required")
     if not brand.strip():
@@ -109,33 +117,123 @@ def add_product(name,brand,price,category,discount,stock):
 
 #DELETING A PRODUCT FEATURE
 def delete_product(article_id):
+    """Deleted an article using the article id frm the DB
+
+    Args:
+        article_id (String): Article ID key for the DB
+    """
     products = load_json(FILE_PATH)
     products.pop(article_id)
     write_json(FILE_PATH, products)
 
 
-#ACCESSING A PRODUCT FEATURE
-def access_product2():
-    
-    data = load_json(FILE_PATH)
-    
-    # List of all products to choose from
-    list_all_products()
+#ACCESSING A PRODUCT FEATURE AND HELPER FUNCTIONS
+def format_product_data(product_info):
+    labels = {
+    "article_name": "Product name",
+    "article_id": "Product ID", 
+    "brand": "Brand",
+    "price_SEK": "Price",
+    "category": "Category",
+    "discount_percentage": "Discount percentage",
+    "stock_amount": "Stock amount",
+    }
 
-    accessed_product = input("Input the product id of the product you want to access. ")
+    formatted_data = []
 
-    if accessed_product in data:
-        print(f"Printing product information for {data[accessed_product]['article_name']}:")
-        
-        for key in data[accessed_product]:
-            print (f"{key}: {data[accessed_product][key]}")
+    for key, value in labels.items():
+        if key in product_info:
+            raw_value = product_info[key]
+
+            if key == "price_SEK":
+                formatted_value = f"{float(raw_value):,.2f} SEK"
+            elif key == "discount_percentage":
+                formatted_value = f"{int(raw_value)}%"
+            elif key == "category":
+                formatted_value = str(raw_value).capitalize()
+            else:
+                formatted_value = str(raw_value)
+
+            formatted_data.append((value, formatted_value))
+
+    return formatted_data
+
+def find_brand_matches(products_data, search_term):
+    matches = []
+    search_lower = search_term.lower()
+    
+    for product_id, product_info in products_data.items():
+        if not product_info:
+            continue
             
+        brand_value = product_info.get("brand")
+        if brand_value and brand_value.lower() == search_lower:
+            formatted_products = format_product_data(product_info)
+            matches.append((product_id, product_info, formatted_products))
+
+    return matches
+
+def access_product_landing_page(search_term):
+    products_data = load_json(FILE_PATH)
+
+    # create a product list
+    product_list = []
+    for product_id, product_info in products_data.items():
+        product_name = product_info["article_name"]
+        product_list.append((product_id, product_name))
+
+
+    if not search_term:
+        return {
+            "template": "access_product_info.html",
+            "products": product_list,
+            "product": None,
+            "display": None,
+            "brand_results": None,
+            "error": None,
+        }
+
+    # Matches product ID 
+    if search_term in products_data:
+        matching_product = products_data[search_term]
+        formatted_display = format_product_data(matching_product)
+
+        return {
+            "template": "access_product_info.html",
+            "products": product_list,
+            "product": matching_product,
+            "display": formatted_display,
+            "brand_results": None,
+            "error": None,
+        }
+
+    # Matches brand
+    brand_matches = find_brand_matches(products_data, search_term)
+    if brand_matches:
+        return {
+            "template": "access_product_info.html",
+            "products": product_list,
+            "product": None,
+            "display": None,
+            "brand_results": brand_matches,
+            "brand_searched": search_term,
+            "error": None,
+        }
+
+    # No match
     else:
-        print("Product not found")
-        return
-    
+        return {
+            "template": "access_product_info.html",
+            "products": product_list,
+            "product": None,
+            "display": None,
+            "brand_results": None,
+            "error": f"No match found for '{search_term}'",
+        }
 
 
+
+#UPDATING A PRODUCT FEATURE AND HELPER FUNCTIONS
 # Error handling reused to validate user input in update functions
 def is_number(text: str):
     try:
@@ -143,8 +241,8 @@ def is_number(text: str):
         return True
     except:
         return False
-    
-    
+
+
 # Render template with article info for update product functions
 def create_template(article, info=""):
     return render_template(

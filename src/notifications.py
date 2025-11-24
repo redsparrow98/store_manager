@@ -1,16 +1,10 @@
-import json
+from reader import *
 from pathlib import Path
 from datetime import datetime
 
-"""
-1.Read products.json
-2.Check stock
-3.Create notifications when stock is low
-"""
-
 #Paths
 
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 
 notifications = []
@@ -28,16 +22,8 @@ CATEGORY_THRESHOLDS = {
 }
 DEFAULT_THRESHOLD = 3
 
-#functions for json
 
-def load_products():
-    if not FILE_PATH.exists():
-        return{}
-    with open(FILE_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
-    
-#add notification if doesnt exist
-    
+#add notification if doesn't exist
 def add_notification(article_id: str, message: str):
     for n in notifications:
         if n ["id"] == article_id and n ["message"] == message:
@@ -53,11 +39,11 @@ def get_threshold(category: str) -> int:
     return CATEGORY_THRESHOLDS.get(category.lower(), DEFAULT_THRESHOLD)
 
 def scan_low_stock():
-    products = load_products()
+    products = load_json(FILE_PATH)
     for article_id, info in products.items():
 
         product_name = info.get("article_name", "Unnamed Product")
-        stock = info.get("stock_amount", 0)
+        stock = int(info.get("stock_amount", 0))
         category = info.get("category", "")
 
         threshold = get_threshold(category)

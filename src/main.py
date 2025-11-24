@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
-from notification import notifications, scan_low_stock, get_notifications
-from access_product_info import *
+from notifications import *
+
 
 
 app = Flask(__name__)
@@ -28,10 +28,8 @@ def display_all_products():
 
 @app.route('/inventory/add-product', methods=['GET', 'POST'])
 def add_product_page():
-    # gets triggered once add-product button in inventory is selected
     if request.method == "GET":
         return render_template("add_product.html")
-    # gets triggered when the add button is selected in the add-product route
     else:
         name = request.form["name"]
         brand = request.form["brand"]
@@ -49,7 +47,8 @@ def add_product_page():
                 flash(error, "error")
         
         return render_template("add_product.html")
-    
+
+
 @app.route('/inventory/delete-product', methods=['GET','POST'])
 def delete_product_page():
     if request.method == "GET":
@@ -67,7 +66,8 @@ def delete_product_page():
         else:
             flash (f"Product with article id {article_id} not found", "error")
             return redirect(url_for("delete_product_page"))
-        
+
+
 @app.route("/notifications")
 def show_notifications():
     scan_low_stock()
@@ -83,6 +83,7 @@ def update_product_finder_page():
 @app.route('/inventory/update-product', methods = ['GET', 'POST'])
 def update_product_two():
     return update_product()
+
 
 @app.route('/inventory/apply-discount', methods=['GET', 'POST'])
 def apply_discount_page():
@@ -107,9 +108,33 @@ def apply_discount_page():
 
         return redirect(url_for("apply_discount_page"))
 
+
 @app.route("/inventory/access-product-information", methods=["GET", "POST"])
 def access_product():
-    return access_product_landing_page()
+    search_input = request.values.get("search_term", "")
+    stripped_search = search_input.strip()
+
+    result_data = access_product_landing_page(stripped_search)
+    if "brand_search" in result_data:
+        return render_template(
+            result_data["template"],
+            products = result_data["products"],
+            product = result_data["product"],
+            display = result_data["display"],
+            brand_results = result_data["brand_results"],
+            brand_search = result_data["brand_search"],
+            error = result_data["error"]
+            )
+    else:
+        return render_template(
+            result_data["template"],
+            products = result_data["products"],
+            product = result_data["product"],
+            display = result_data["display"],
+            brand_results = result_data["brand_results"],
+            error = result_data["error"]
+            )
+
 
 if __name__=='__main__':
     app.run(debug=True)
