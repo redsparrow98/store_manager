@@ -1,0 +1,11 @@
+{
+    "manager": {
+        "manager1": "managerpassword",
+        "manager2": "antoherpassword"
+    },
+    "employee": {
+        "employee1": "password1",
+        "employee2": "password2",
+        "employee3": "password3"
+    }
+}
