@@ -10,7 +10,7 @@ body {
 /*adjust main content to not hide behind the navbar*/
 .main-content {
   margin-top: 7vh;
-  margin-left: 14vw;
+  margin-left: 20vw;
   padding: 20px;
 }
 /* Top navigation bar */
@@ -46,7 +46,7 @@ body {
 
 /* Sidebar styles */
 .sidebar {
-  width: 220px;
+  width: 15vw;
   background-color: #262a35;
   color: white;
   display: flex;
@@ -57,6 +57,7 @@ body {
   top: 0;
   left: 0;
   margin-top: 6vh;
+  min-width: 120px;
 }
 
 .sidebar-user {
@@ -64,13 +65,13 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
-  margin-top: 30px;
+  margin-bottom: 3vh;
+  margin-top: 3vh;
 }
 
 .user-icon-img {
-  width: 60px;
-  height: 60px;
+  width: 6vw;
+  height: 7vh;
   display: block;
 }
 
@@ -89,7 +90,7 @@ body {
   font-family: "Roboto", sans-serif;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 3vh;
   color: white;
   text-decoration: none;
   margin: 10px 0;
@@ -101,7 +102,7 @@ body {
   color: white;
   cursor: pointer;
   border-left: 5px solid #d9d9d9;
-  width: 180px;
+  width: 110px;
   height: 20px;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
