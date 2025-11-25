@@ -1,13 +1,13 @@
 import json
 
 def load_json(file_path):
-    """Reads the database JSON file and returns the read data.
+    """Read the DB file
 
     Args:
-        file_path (String): absolute file path using the Pathlib library
+        file_path (String): File path to the DB
 
     Returns:
-        Dictionary: "key": product id - "value": product information
+        Dictionary: loads all the data into a dictionary to be used
     """
     with open(file_path, "r", encoding="UTF-8") as file:
         data = json.load(file)
