@@ -1,0 +1,20 @@
+[
+    {
+        "user_id": "m01",
+        "username": "managerusername",
+        "password": "managerpassword",
+        "access_level": "manager"
+    },
+    {
+        "user_id": "e01",
+        "username" : "employeepassword",
+        "password": "employeepassword",
+        "access_level": "employee"
+    },
+    {
+        "user_id": "e02",
+        "username" : "employeepassword",
+        "password": "employeepassword",
+        "access_level": "employee"
+    }
+]
