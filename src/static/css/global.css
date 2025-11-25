@@ -1,10 +1,47 @@
 /* Global reset and layout */
 body {
   margin: 0;
+  padding: 20px;
   font-family: "Roboto", sans-serif;
   background-color: #efefef;
   display: flex;
   min-height: 100vh;
+}
+/*adjust main content to not hide behind the navbar*/
+.main-content {
+  margin-top: 7vh;
+  margin-left: 14vw;
+  padding: 20px;
+}
+/* Top navigation bar */
+.top-navbar {
+  height: 7vh;
+  width: 100%;
+  background-color: white;
+  padding: 0 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.header-icon {
+  display: flex;
+  gap: 3vw;
+  align-items: center;
+  margin-right: 5vw;
+}
+.top-navbar .logo img {
+  height: 80%;
+}
+
+.notification-btn img {
+  width: 6vh;
+  height: 6vh;
+  cursor: pointer;
 }
 
 /* Sidebar styles */
@@ -15,6 +52,11 @@ body {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-top: 6vh;
 }
 
 .sidebar-user {
@@ -22,7 +64,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   margin-top: 30px;
 }
 
@@ -30,18 +72,17 @@ body {
   width: 60px;
   height: 60px;
   display: block;
-  margin-bottom: 10px;
 }
 
 .user-label {
   font-size: 24px;
   color: white;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .navigation {
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 .sidebar-nav a {
@@ -72,12 +113,13 @@ body {
 }
 
 .logout-btn {
-  margin-top: auto;
   background: #3b4668;
   border-radius: 12px;
   color: white;
   padding: 10px;
   cursor: pointer;
+  margin-bottom: 12vh;
+  margin-top: auto;
 }
 
 /* Main content area on dashboard */
@@ -120,12 +162,6 @@ body {
 .date-icon {
   width: 20px;
   height: 20px;
-}
-
-/* Logo styling */
-.logo-img {
-  width: 150px;
-  height: auto;
 }
 
 /* Overview section */
@@ -247,6 +283,9 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.inventory-header h1 {
+  margin-left: 20px;
+}
 
 .inventory-actions {
   display: flex;
@@ -324,7 +363,6 @@ body {
   color: #2b2b2b;
   vertical-align: middle;
 }
-
 .col-name {
   width: 28%;
 }
@@ -338,13 +376,13 @@ body {
   width: 14%;
 }
 .col-discount {
-  width: 16%;
+  width: 10%;
 }
 .col-amount {
-  width: 14%;
+  width: 10%;
 }
 .col-actions {
-  width: 14%;
+  width: 25%;
 }
 
 /*Icons in the table*/
