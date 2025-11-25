@@ -234,79 +234,102 @@ def access_product_landing_page(search_term):
 
 
 #UPDATING A PRODUCT FEATURE AND HELPER FUNCTIONS
-# Error handling reused to validate user input in update functions
-def is_number(text: str):
+
+# handles all the user input error checks for the back end before updating the item.
+def validate_product_update_data(user_update_data):
+    name = user_update_data.get("name", "").strip()
+    brand = user_update_data.get("brand", "").strip()
+    price = user_update_data.get("price", "")
+    category = user_update_data.get("category", "")
+    stock = user_update_data.get("stock", "")
+
+    if not name or name.isdigit():
+        return False, "Article name cannot be blank or digit"
+    if not brand or brand.isdigit():
+        return False, "Article brand cannot be blank or digit."
+    if not price:
+        return False, "Article price cannot be blank"
     try:
-        float(text)
-        return True
-    except:
-        return False
-
-
-# Render template with article info for update product functions
-def create_template(article, info=""):
-    return render_template(
-    "update_product.html", 
-    name=article["article_name"], 
-    id=article["article_id"], 
-    brand = article["brand"],
-    price = article["price_SEK"], 
-    category = article["category"], 
-    discount = article["discount_percentage"],
-    stock = article["stock_amount"],
-    info = info)
+        price_float = float(price)
+        if price_float < 0:
+            return False, "Article price cannot be text"
+    except (ValueError, TypeError):
+        return False, "Article price cannot be text"
+    if not category or category.isdigit():
+        return False, "Article category cannot be blank or digit."
+    if not stock:
+        return False, "Article stock cannot be blank"
+    if not stock.isdigit() or int(stock) < 0:
+        return False, "Article stock cannot be text or negative"
+    
+    return True, ""
 
 
 # Searches through json and validates if input matches existing article, if not, displays an error message
-def update_product_finder():
+def update_product_finder(article_id):
     data = load_json(FILE_PATH)
-    if request.method == "POST":
+    product = data.get(article_id)
 
-        article_id = request.form.get("article_id")
-        
-        if article_id in data: # If article id found, renders new page where you update info
-            article = data[article_id]
-            return create_template(article)
-        else:
-            info = "No such product found. Try again." # If article not found, renders the same page the user is on and displays error message
-            return render_template("update_product_finder.html", info = info)
-        
-    return render_template("update_product_finder.html")
+    if product:
+        return {
+            "success": True,
+            "product": product,
+            "message": "Product found successfully"
+        }
+    
+    else:
+        return {
+            "success": False,
+            "product": None,
+            "message": "No such product found. Try again."
+        }
+
 
 #UPDATING A PRODUCT FEATURE
-def update_product():
-    data = load_json(FILE_PATH)
-    pressed = request.form.get("btn") # Registers if "Back" button is pressed
-    
-    if pressed == "back": # If button is pressed, the user gets sent back to first page
-        return render_template("update_product_finder.html")
-    else: # Reads new input per category from user, except for id and discount percentage which should not be changed in this function
-        article_id = request.form.get("article_id") 
-        article = data[article_id]
-        
-        article["article_name"] = request.form.get("name")
-        article["brand"] = request.form.get("brand")
-        article["price_SEK"] = request.form.get("price")
-        article["category"] = request.form.get("category")
-        article["stock_amount"] = request.form.get("stock")
+def update_product(update_data):
 
-        #Below is error handling for the different kinds of user input
-        if article["article_name"].isdigit() or article["article_name"] == "":
-            return create_template(article, "Article name cannot be digit or blank.")
-        
-        elif article["brand"].isdigit() or article["brand"] == "":
-            return create_template(article, "Article brand cannot be digit or blank.")
-        
-        elif is_number(article["price_SEK"]) == False or float(article["price_SEK"]) < 0:
-            return create_template(article, "Article price cannot be text, blank or negative.")
-        
-        elif article["category"].isdigit() or article["category"] == "":
-            return create_template(article, "Article category cannot be digit or blank.")
-                
-        elif not article["stock_amount"].isdigit(): #isdigit() returns false for non integers and empty values.
-            return create_template(article, "Article price cannot be text, blank or negative.")
-        
-        else: # If no errors occur, the input is written to the json file
-            write_json(FILE_PATH, data)
-            info = "Product information successfully updated!"
-            return create_template(article, info)
+    # first we check if the user input data is correct if not we terminate the action
+    is_valid, error_message = validate_product_update_data(update_data)
+    if not is_valid:
+        return {
+            "success": False,
+            "product": None,
+            "message": error_message
+        }
+
+    # loads the data and extracts the article_id from the user input form
+    data = load_json(FILE_PATH)
+    article_id = update_data.get("article_id")
+
+    # additional check if the product exists since another user could have deleted it while one user is still submitting the form (just a safety to not crash the system)
+    product = data.get(article_id)
+    if not product:
+        return {
+            "success": False,
+            "product": None,
+            "message": "Product not found in database"
+        }
+    
+    # try to update product write new data in the DB adn return success
+    try:
+        product["article_name"] = update_data.get("name")
+        product["brand"] = update_data.get("brand")
+        product["price_SEK"] = float(update_data.get("price"))
+        product["category"] = update_data.get("category")
+        product["stock_amount"] = int(update_data.get("stock"))
+
+        write_json(FILE_PATH, data)
+
+        return {
+            "success": True,
+            "product": product,
+            "message": "Product information successfully updated!"
+        }
+    
+    # Return any unexpected errors
+    except Exception as e:
+        return {
+            "success": False,
+            "product": product,
+            "message": f"Error while updating product: {e}"
+        }
