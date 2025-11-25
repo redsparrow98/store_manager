@@ -156,10 +156,10 @@
     "article_name": "Amazfit GTR 4",
     "article_id": "0018",
     "brand": "Amazfit",
-    "price_SEK": 1299.0,
+    "price_SEK": "1299.0",
     "category": "smart watches",
     "discount_percentage": 0.0,
-    "stock_amount": 16
+    "stock_amount": "16"
   },
   "0019": {
     "article_name": "JETech Wallet Case for Iphone",
