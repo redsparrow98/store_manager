@@ -1,54 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-<body style="background-color: #faebfa">
-    <h1 style="text-align:center;">Welcome!</h1>
-
-     <a href="{{ url_for('show_notifications') }}"
-        style="position: absolute; top: 20px; right: 20px" background-color: none; border:none; cursor:pointer; font-size:28px;"
-    >
-    🔔
-    {% if notif_count > 0 %}
-    <span style="
-        position:absolute;
-        top:-5px;
-        right:-5px;
-        background:red;
-        color:white;
-        padding:2px 6px;
-        font-size:12px;
-        border-radius:50%;
-    ">
-        {{ notif_count }}
-    </span>
-    {% endif %}
-     </a>   
-
-    <button 
-        onclick="toggleMenu()"
-        style="min-width: 400px; background-color: #FFD6FE; display:block; margin:auto; padding: 5px 15px;"
-    >
-        Menu
+{% extends "base.html" %} {% block title %}Dashboard{% endblock %} {% block
+content %}
+<header class="main-header">
+  <h1>Welcome User!</h1>
+  <div class="header-right">
+    <!-- Date button with icon -->
+    <button class="date-btn">
+      <img
+        src="{{ url_for('static', filename='images/calendar.png') }}"
+        alt="Calendar Icon"
+        class="date-icon"
+      />
+      Today's Date
     </button>
 
-    <div id='menu-options' style="display:none; margin-top:20px; text-align:center;">
-        <button 
-            onclick="window.location.href='{{ url_for('display_inventory') }}'"
-            style="background-color: #FFD6FE; padding: 5px 15px;"
-        >
-            Manage inventory
-        </button>
+    <!-- Logo image -->
+    <div class="logo">
+      <img
+        src="{{ url_for('static', filename='images/logo.png') }}"
+        alt="Company Logo"
+        class="logo-img"
+      />
+    </div>
+  </div>
+</header>
+<!-- Overview section -->
+<section class="overview">
+  <h2>Overview</h2>
+  <div class="overview-cards">
+    <!-- Total Products card -->
+    <div class="overview-card">
+      <div class="icon">
+        <img
+          src="{{ url_for('static', filename='images/packagebox.png') }}"
+          alt="Products Icon"
+          class="card-icon"
+        />
+      </div>
+      <div class="value">1200</div>
+      <div class="label">Total Products</div>
     </div>
 
-    <script>
-    function toggleMenu() {
-        const menu = document.getElementById('menu-options');
-        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-    }
-    </script>
-</body>
-</html>
+    <!-- Low stock card -->
+    <div class="overview-card">
+      <div class="icon">
+        <img
+          src="{{ url_for('static', filename='images/chart-arrow-down.png') }}"
+          alt="Low Stock Icon"
+          class="card-icon"
+        />
+      </div>
+      <div class="value">345</div>
+      <div class="label">Low Stock</div>
+    </div>
+    <!-- Returns card -->
+    <div class="overview-card">
+      <div class="icon">
+        <img
+          src="{{ url_for('static', filename='images/cart-minus.png') }}"
+          alt="Returns Icon"
+          class="card-icon"
+        />
+      </div>
+      <div class="value">23</div>
+      <div class="label">N. of Returns</div>
+    </div>
+  </div>
+</section>
+<!-- Number of accounts section -->
+<section class="accounts">
+  <h2>Number of accounts</h2>
+  <div class="accounts-box">
+    <div class="icon">
+      <img
+        src="{{ url_for('static', filename='images/users.png') }}"
+        alt="Returns Icon"
+        class="card-icon"
+      />
+    </div>
+    <div class="value">Xnum</div>
+    <div class="label">Total Users</div>
+  </div>
+</section>
+
+<!-- Optional empty section -->
+<section class="placeholders">
+  <div class="placeholder"></div>
+  <div class="placeholder"></div>
+  <div class="placeholder"></div>
+</section>
+{% endblock %}
