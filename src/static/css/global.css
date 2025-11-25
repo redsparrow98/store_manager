@@ -25,18 +25,21 @@ body {
   margin-bottom: 30px;
   margin-top: 30px;
 }
+
 .user-icon-img {
   width: 60px;
   height: 60px;
   display: block;
   margin-bottom: 10px;
 }
+
 .user-label {
   font-size: 24px;
   color: white;
   text-align: center;
   margin-top: 20px;
 }
+
 .navigation {
   margin-top: 50px;
 }
@@ -62,6 +65,7 @@ body {
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
 }
+
 .nav-icon {
   width: 20px;
   height: 20px;
@@ -131,9 +135,11 @@ body {
   padding: 20px;
   border-radius: 20px;
 }
+
 .overview h2 {
   color: #3b4668;
 }
+
 .overview-cards {
   display: flex;
   gap: 20px;
@@ -165,6 +171,7 @@ body {
   font-size: 14px;
   color: #666;
 }
+
 /* Accounts section */
 .accounts {
   margin-top: 40px;
@@ -192,6 +199,7 @@ body {
   font-size: 14px;
   color: #666;
 }
+
 /* empty placeholder cards */
 .placeholders {
   margin-top: 30px;
@@ -207,14 +215,15 @@ body {
   background-color: white;
   border-radius: 8px;
 }
+
 /*INVENTORY PAGE STYLES*/
 /*Buttons on top bar(search and add)*/
-
 .round-btn img {
   width: 70%;
   height: 70%;
   object-fit: contain;
 }
+
 .plus-btn {
   width: 40px;
   height: 40px;
@@ -226,6 +235,7 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .plus-btn img {
   width: 20px;
   height: 20px;
@@ -237,6 +247,7 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
 .inventory-actions {
   display: flex;
   gap: 20px;
@@ -257,19 +268,24 @@ body {
   cursor: pointer;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
+
 .btn:hover {
   filter: brightness(0.98);
 }
+
 .btn:active {
   transform: translateY(1px);
 }
+
 .btn-search {
   width: 200px;
 }
+
 .btn-search img {
   width: 16px;
   height: 16px;
 }
+
 .btn-discount {
   background-color: #efefef;
   align-self: left;
@@ -291,6 +307,7 @@ body {
   border-collapse: collapse;
   table-layout: fixed;
 }
+
 .products-table thead th {
   background: white;
   color: #3d3d3d;
@@ -299,6 +316,7 @@ body {
   padding: 14px 16px;
   border-bottom: 2px solid #ebe4ec;
 }
+
 /* Body rows */
 .products-table tbody td {
   padding: 14px 16px;
@@ -306,6 +324,7 @@ body {
   color: #2b2b2b;
   vertical-align: middle;
 }
+
 .col-name {
   width: 28%;
 }
@@ -327,6 +346,7 @@ body {
 .col-actions {
   width: 14%;
 }
+
 /*Icons in the table*/
 .icon-btn {
   display: inline-flex;
@@ -339,6 +359,7 @@ body {
   background: #e4e9ff; /* soft blue for view/edit */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
+
 .icon-btn img {
   width: 25px;
   height: 25px;
@@ -357,6 +378,7 @@ body {
     gap: 10px;
   }
 }
+
 /*for inventory*/
 @media (max-width: 900px) {
   .col-name {
