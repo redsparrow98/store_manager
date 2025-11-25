@@ -17,13 +17,8 @@ def display_dashboard():
 
 @app.route('/inventory')
 def display_inventory():
-    return render_template('inventory.html')
-
-
-@app.route('/inventory/all-products')
-def display_all_products():
     all_products = list_all_products()
-    return render_template('all_products.html', all_products = all_products)
+    return render_template('inventory.html', all_products=all_products)
 
 
 @app.route('/inventory/add-product', methods=['GET', 'POST'])

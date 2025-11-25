@@ -207,6 +207,142 @@ body {
   background-color: white;
   border-radius: 8px;
 }
+/*INVENTORY PAGE STYLES*/
+/*Buttons on top bar(search and add)*/
+
+.round-btn img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+.plus-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #efefef;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.plus-btn img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.inventory-actions {
+  display: flex;
+  gap: 20px;
+}
+
+.btn {
+  background-color: #efefef;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+.btn:hover {
+  filter: brightness(0.98);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-search {
+  width: 200px;
+}
+.btn-search img {
+  width: 16px;
+  height: 16px;
+}
+.btn-discount {
+  background-color: #efefef;
+  align-self: left;
+  width: 100px;
+}
+
+/* Table container */
+.table-wrap {
+  margin: 0 20px 20px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+/* Table */
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.products-table thead th {
+  background: white;
+  color: #3d3d3d;
+  font-weight: 700;
+  text-align: left;
+  padding: 14px 16px;
+  border-bottom: 2px solid #ebe4ec;
+}
+/* Body rows */
+.products-table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid gray; /*table separator lines*/
+  color: #2b2b2b;
+  vertical-align: middle;
+}
+.col-name {
+  width: 28%;
+}
+.col-id {
+  width: 12%;
+}
+.col-cat {
+  width: 16%;
+}
+.col-price {
+  width: 14%;
+}
+.col-discount {
+  width: 16%;
+}
+.col-amount {
+  width: 14%;
+}
+.col-actions {
+  width: 14%;
+}
+/*Icons in the table*/
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  border-radius: 5px;
+  background: #e4e9ff; /* soft blue for view/edit */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+.icon-btn img {
+  width: 25px;
+  height: 25px;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -220,4 +356,45 @@ body {
     align-items: flex-start;
     gap: 10px;
   }
+}
+/*for inventory*/
+@media (max-width: 900px) {
+  .col-name {
+    width: 30%;
+  }
+  .col-id {
+    width: 14%;
+  }
+  .col-cat {
+    width: 18%;
+  }
+  .col-price {
+    width: 16%;
+  }
+  .col-discount {
+    width: 12%;
+  }
+  .col-amount {
+    width: 10%;
+  }
+  .col-actions {
+    width: 18%;
+  }
+
+  .topbar {
+    flex-wrap: wrap;
+  }
+  .topbar-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .table-wrap {
+    overflow-x: auto;
+  }
+  .products-table {
+    min-width: 760px;
+  } /* allow horizontal scroll rather than breaking layout */
 }

@@ -51,14 +51,17 @@ def list_all_products():
     """
     all_products =[]
     data = load_json(FILE_PATH)
-    for id, info in data.items():
-        article_id = id
-        product = info['article_name']
-        brand = info['brand']
-
-        format = f"#{article_id} - {product} - {brand}"
+    for article_id, info in data.items():
+        all_products.append({
+            "article_id" : article_id,
+            "article_name": info.get("article_name", ""),
+            "category": info.get("category", ""),
+            "price_SEK": info.get("price_SEK", 0),
+            "discount_percentage": info.get("discount_percentage", 0),
+            "stock_amount": info.get("stock_amount", 0),
+            "brand": info.get("brand", "")
+        })
         
-        all_products.append(format)
     return all_products
 
 #ADDING A PRODUCT FEATURE
