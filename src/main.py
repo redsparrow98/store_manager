@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
 from notifications import *
+from account_manager import *
 
 app = Flask(__name__)
 app.secret_key = "demo-key1234"
@@ -191,7 +192,28 @@ def access_product():
             brand_results = result_data["brand_results"],
             error = result_data["error"]
             )
+@app.route('/dashboard/create-account', methods=['GET', 'POST'])
+def create_account_page():
+    
+    if request.method == "GET":
+        return render_template("create_account.html")
+    
+    else:
+        username = request.form['username']
+        access_level = request.form['access_level'] 
+        password = request.form['password']
+        repeat_password = request.form['repeat_password']
 
+        success, result = create_account(username, access_level, password, repeat_password)
+
+        # User gets passed to the login and a success message gets flashed
+        if success:
+            flash (result, "success")
+            return redirect(url_for("create_account_page"))
+        else:
+            for error in result:
+                flash (error, "error")
+            return redirect(url_for("create_account_page"))
 
 if __name__=='__main__':
     app.run(debug=True)

@@ -18,10 +18,10 @@ def create_account(username, access_level, password, repeat_password):
     errors = []
 
     if username in users:
-        errors.append("Username already exists, please choose another username", "error")
-    if not username.strip() == 0:
+        errors.append("Username already exists, please choose another username")
+    if len(username.strip()) == 0:
         errors.append("Username is required")
-    if not password.strip() == 0:
+    if len(password.strip()) == 0:
         errors.append("Password is required")
     if repeat_password != password:
         errors.append("Repeated password doesn't match password")
@@ -49,33 +49,7 @@ def delete_user(deleted_user):
     
     print(users)
     return True
-
-# Flask that will go into main.py
-@app.route('/dashboard/create-account', methods=['GET', 'POST'])
-def create_account_page():
-    
-    if request.method == "GET":
-        return render_template("create_account.html")
-    
-    else:
-        username = request.form['username']
-        access_level = request.form['access level'] 
-        password = request.form['passsword']
-        repeat_password = request.form['repeat_password']
-
-        success, result = create_account(username, access_level, password, repeat_password)
-
-        # User gets passed to the login and a success message gets flashed
-        if success:
-            flash (result, "success")
-            
-            return redirect(url_for("login_page"))
-        else:
-            for error in result:
-                flash (error, "error")
-            return redirect(url_for("create_account_page"))
         
-
 # Checks if username and password are entered correctly
 def check_credentials(username, password):
     users = load_json(FILE_PATH)

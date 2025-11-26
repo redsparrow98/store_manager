@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+
+</head>
+<body style="background-color: #FAEBF9">
+
+    <h1>Create Account</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ category }}">
+                    {{ category }} - {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('create_account_page') }}">
+        
+        <br>
+        <label  for="username">Username:</label>
+        <br>
+
+        <input type="text" id="username" name="username" required style="padding: 8px; width: 300px">
+        <br><br>
+        <label for="access_level">Access Level:</label>
+        <br>
+        
+        <select id="access_level" name="access_level" style="padding: 8px; width: 300px">
+            <option value ="">Select access level</option>
+            <option value="employee">Employee</option>
+            <option value="manager">Manager</option>
+        </select>
+
+        <br><br>
+        <label for="password">Password:</label>
+        <br>
+        <input type="password" id="password" name="password" required style="padding: 8px; width: 300px">
+        <br><br>
+
+        <label for="repeat_password">Repeat Password:</label>
+        <br>
+        <input type="password" id="repeat_password" name="repeat_password" required style="padding: 8px; width: 300px" ><br>
+        <br>
+
+
+        <button type="submit" style="background-color: #FFD6FE; cursor: pointer; margin-right: 10px; padding: 5px 15px;">
+            Create Account
+        </button>
+
+    </form>
+</body>
+</html>
