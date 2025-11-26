@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
 from notifications import *
+from account_manager import *
 
 app = Flask(__name__)
 app.secret_key = "demo-key1234"
@@ -195,6 +196,32 @@ def access_product():
             brand_results = result_data["brand_results"],
             error = result_data["error"]
             )
+        
+
+@app.route('/dashboard/delete-user', methods=['GET','POST'])
+def delete_user_page():
+    if request.method == "GET":
+        return render_template("delete_user.html")
+    
+    else:
+        # Asks the user to put in their own username and password to check access level
+        username = request.form['username']
+        password = request.form['password']
+        
+        # Checks if credentials are correct
+        if check_credentials(username, password) == False:
+            flash (f"Wrong username or password.", "error")
+            return redirect(url_for("delete_user_page"))
+    
+        # If credentials are correct, asks user to input username for which user they want to delete
+        deleted_user = request.form['deleted_user']
+        
+        if delete_user(deleted_user) == False:
+            flash (f"User with username '{deleted_user}' not found.", "error")
+            return redirect(url_for("delete_user_page"))
+        
+        flash (f"User '{deleted_user}' has been deleted successfully.", "success")            
+        return render_template("delete_user.html")
 
 
 if __name__=='__main__':

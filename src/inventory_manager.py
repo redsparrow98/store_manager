@@ -1,7 +1,6 @@
 from reader import *
 import os
 from pathlib import Path
-from flask import request, render_template
 
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
