@@ -19,7 +19,6 @@ def delete_user(deleted_user):
         print(users)
         return True
 
-
 # Checks if username and password are entered correctly
 def check_credentials(username, password):
     users = load_json(FILE_PATH)
