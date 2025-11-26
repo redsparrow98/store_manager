@@ -1,71 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Product</title>
-    
-<style>
-        .round-btn{
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: none;
-            overflow: hidden; 
-            padding: 0;
-            cursor: pointer;
-            background-color: #FFD6FE
-        }
+{% extends "base.html" %} {% block title %}Delete product{% endblock %} {% block
+content %}
 
-        .round-btn img {
-            width: 70%;
-            height: 70%;
-            object-fit: cover;
-        }
-</style>
-</head>
-<body style="background-color: #FAEBF9">
+<div class="inventory-header">
+  <h1 class="title">Delete product</h1>
+</div>
 
-<button class="round-btn" style="top: 20px; left: 20px;" onclick="window.location.href='{{ url_for('display_dashboard') }}'"> 
-    <img src=https://www.iconpacks.net/icons/2/free-home-icon-2502-thumb.png alt="home-button">
-</button>
+<div style="text-align: center;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {%for category, message in messages %}
+        {% if category == 'success' %}
+        <div class="success-message">
+            {{ message }}
+        </div>
 
-    <h1 style="text-align: center;">Delete Product</h1>
-    <div style="text-align: center;">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {%for category, message in messages %}
-
-            {% if category == 'success' %}
-            <div style="background: #b9e1c3; color: #155724;padding: 12px; margin: 15px 0; border-radius: 5px; border: 1px solid #3d7c4c;">
-                {{ message }}
-            </div>
-            {% elif category == 'error' %}
-            <div style="background: #e40909; color: #000000;padding: 12px; margin: 15px 0; border-radius: 5px; border: 1px solid #000000;">
-                {{ message }}
-            </div>
-            {% endif %}
-        {% endfor %}
+        {% elif category == 'error' %}
+        <div class="error-message">
+           {{ message }}
+        </div>
         {% endif %}
-        {% endwith %}
 
-        <form action="{{ url_for('delete_product_page') }}" method="POST">
-            <label for="article_id">Article ID:</label>
-            <br><br>
-            <input type="text" id="article_id" name="article_id" required>
-            <br><br>
-            <button type="submit" style="background-color: #FFD6FE; cursor: pointer; margin-right: 10px; padding: 5px 15px;">
-                Delete
-            </button>
-            <button type="button" style="background-color: #FFD6FE; cursor: pointer; padding: 5px 15px;"
-            onclick="window.location.href='{{ url_for('display_inventory') }}'">
-            Cancel
-            </button>
-            <button style="background-color:#FFD6FE; display:block; position: absolute; top: 20px; right: 20px"
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <form action="{{ url_for('delete_product_page') }}" method="POST">
+        <h3 class="title" for="article_id" class="product-modal .modal-header h2">Article ID:</h3>
+        <br><br>
+
+        <input type="text" id="article_id" name="article_id" required>
+        <br><br>
+
+        <button class="btn-edit" type="submit">
+            Delete
+        </button>
+        <button class="btn-edit"
         onclick="window.location.href='{{ url_for('display_inventory') }}'">
-    &lt; Back
-    </button>
-        </form>
-    </div>
-</body>
-</html>
+        Cancel
+        </button>
+        <button style="background-color:#FFD6FE; display:block; position: absolute; top: 20px; right: 20px"
+    onclick="window.location.href='{{ url_for('display_inventory') }}'">
+&lt; Back
+</button>
+    </form>
+</div>
+{% endblock %}
