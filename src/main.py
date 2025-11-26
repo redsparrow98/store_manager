@@ -12,10 +12,6 @@ def display_dashboard():
     notif_count = len(get_notifications())
     return render_template('dashboard.html',notif_count=notif_count)
 
-@app.route('/locked-out')
-def display_timer():
-    return render_template('locked.html', countdown=180)
-
 
 @app.route('/inventory')
 def display_inventory():
