@@ -13,6 +13,10 @@ def display_dashboard():
     notif_count = len(get_notifications())
     return render_template('dashboard.html',notif_count=notif_count)
 
+@app.route('/locked-out')
+def display_countdown():
+    return render_template('locked.html', coundown = 180)
+
 
 @app.route('/inventory')
 def display_inventory():
@@ -192,6 +196,33 @@ def access_product():
             brand_results = result_data["brand_results"],
             error = result_data["error"]
             )
+        
+
+@app.route('/dashboard/delete-user', methods=['GET','POST'])
+def delete_user_page():
+    if request.method == "GET":
+        return render_template("delete_user.html")
+    
+    else:
+        # Asks the user to put in their own username and password to check access level
+        username = request.form['username']
+        password = request.form['password']
+        
+        # Checks if credentials are correct
+        if check_credentials(username, password) == False:
+            flash (f"Wrong username or password.", "error")
+            return redirect(url_for("delete_user_page"))
+    
+        # If credentials are correct, asks user to input username for which user they want to delete
+        deleted_user = request.form['deleted_user']
+        
+        if delete_user(deleted_user) == False:
+            flash (f"User with username '{deleted_user}' not found.", "error")
+            return redirect(url_for("delete_user_page"))
+        
+        flash (f"User '{deleted_user}' has been deleted successfully.", "success")            
+        return render_template("delete_user.html")
+    
 @app.route('/dashboard/create-account', methods=['GET', 'POST'])
 def create_account_page():
     

@@ -44,12 +44,15 @@ def create_account(username, access_level, password, repeat_password):
 def delete_user(deleted_user):
     users = load_json(FILE_PATH)
     
-    users.pop(deleted_user)
-    write_json(FILE_PATH, users)
+    if deleted_user not in users:
+        return False
+    else:
+        users.pop(deleted_user)
+        write_json(FILE_PATH, users)
     
-    print(users)
-    return True
-        
+        print(users)
+        return True
+
 # Checks if username and password are entered correctly
 def check_credentials(username, password):
     users = load_json(FILE_PATH)
@@ -68,33 +71,3 @@ def is_manager(username):
         return True
     else:
         return False
-
-
-
-#This will go in main
-@app.route('/dashboard/delete-user', methods=['GET','POST'])
-def delete_user_page():
-    if request.method == "GET":
-        return render_template("delete_user.html")
-    
-    else:
-        # Loads dataset with users data
-        users = load_json('dataset/users.json')
-        
-        # Asks the user to put in their own username and password to check access level
-        username = request.form['username']
-        password = request.form['password']
-        
-        # Checks if credentials and acccess level is correct. 
-        if check_credentials(username, password) == False or is_manager(username) == False:
-            flash (f"Access denied. You don't have the access level to delete a user.", "error")
-            return redirect(url_for("delete_user_page"))
-        # If correct, asks user to input username for which user they want to delete
-        deleted_user = request.form['deleted_user']
-        
-        if delete_user(deleted_user) == False:
-            flash (f"User with username '{users[delete_user]}' not found.", "error")
-            return redirect(url_for("delete_user_page"))
-        
-        flash (f"{users[delete_user]} with access level {[delete_user]['access_level']} has been deleted successfully.", "success")            
-        return render_template("delete_user.html")

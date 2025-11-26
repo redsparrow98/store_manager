@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locked-out</title>
+</head>
+<body style = "background-color: #EDF1F5">
+    <h1 style = "font-family: Roboto; text-align: center">You have been locked out</h1>
+    <h3 style = "font-family: Roboto; text-align: center">When the timer is completed you will be redirected back to the login page</h3>
+
+    <h2 id="countdown" style="text-align:center; font-family: Roboto"></h2>
+
+<script>
+    let timeLeft = {{ countdown }}; 
+    const countdownEl = document.getElementById("countdown")
+
+    function updateTimer() {
+        const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+        const secs = String(timeLeft % 60).padStart(2, '0');
+        countdownEl.textContent = `${mins}:${secs}`
+    }
+
+    updateTimer();
+
+    const timer = setInterval(() => {
+        timeLeft--;
+        if (timeLeft < 0) {
+            clearInterval(timer);
+        } else {
+            updateTimer();
+        }
+    }, 1000);
+
+</script>
+
+</body>
+</html>
