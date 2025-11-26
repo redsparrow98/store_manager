@@ -14,7 +14,7 @@ def display_dashboard():
 
 @app.route('/locked-out')
 def display_countdown():
-    return render_template('locket.html', coundown = 180)
+    return render_template('locked.html', coundown = 180)
 
 
 @app.route('/inventory')
