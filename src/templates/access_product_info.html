@@ -1,9 +1,11 @@
-{% extends "base.html" %}
+{% extends "base.html"%}
 {% block title %}Inventory{% endblock %}
 {% block content %}
 
-
-<div class="access-product-info-container">
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/access.css') }}"
+/>
 
   <!-- Match brand -->
   {% if brand_results %}
@@ -48,7 +50,4 @@
       </footer>
     </div>
   {% endif %}
-
-</div>
-
 {% endblock %}
