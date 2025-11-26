@@ -2,8 +2,6 @@ from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
 from notifications import *
 
-
-
 app = Flask(__name__)
 app.secret_key = "demo-key1234"
 
@@ -17,13 +15,8 @@ def display_dashboard():
 
 @app.route('/inventory')
 def display_inventory():
-    return render_template('inventory.html')
-
-
-@app.route('/inventory/all-products')
-def display_all_products():
     all_products = list_all_products()
-    return render_template('all_products.html', all_products = all_products)
+    return render_template('inventory.html', all_products=all_products)
 
 
 @app.route('/inventory/add-product', methods=['GET', 'POST'])
@@ -77,12 +70,76 @@ def show_notifications():
 
 @app.route('/inventory/update-product-finder', methods = ['GET', 'POST'])
 def update_product_finder_page():
-    return update_product_finder()
+    if request.method == "GET":
+        return render_template("update_product_finder.html")
+    else:
+        # get user input for article id and check if it exists
+        article_id = request.form.get("article_id")
+        result = update_product_finder(article_id)
+
+        # if it exists render the update product with existing product data
+        if result["success"]:
+            product = result["product"]
+            return render_template(
+                "update_product.html",
+                name = product["article_name"],
+                id = product["article_id"],
+                brand = product["brand"],
+                price = product["price_SEK"],
+                category = product["category"],
+                discount = product["discount_percentage"],
+                stock = product["stock_amount"],
+                info = ""
+            )
+        
+        # otherwise show the error for no product found
+        else:
+            return render_template("update_product_finder.html", info = result["message"])
 
 
 @app.route('/inventory/update-product', methods = ['GET', 'POST'])
-def update_product_two():
-    return update_product()
+def update_product_page():
+    if request.method == "GET":
+        return redirect(url_for("update_product_finder_page"))
+    
+    else:
+        update_data = {
+            "article_id": request.form.get("article_id"),
+            "name": request.form.get("name"),
+            "brand": request.form.get("brand"),
+            "price": request.form.get("price"),
+            "category": request.form.get("category"),
+            "stock": request.form.get("stock")
+        }
+
+        result = update_product(update_data)
+        if result["success"]:
+            product = result["product"]
+            return render_template(
+                "update_product.html",
+                name = product["article_name"],
+                id = product["article_id"],
+                brand = product["brand"],
+                price = product["price_SEK"],
+                category = product["category"],
+                discount = product["discount_percentage"],
+                stock = product["stock_amount"],
+                info = result["message"]
+            )
+        
+        else:
+            product = result["product"] or {}
+            return render_template(
+                "update_product.html",
+                name = request.form.get("name", ""),
+                id = request.form.get("article_id", ""),
+                brand = request.form.get("brand", ""),
+                price = request.form.get("price", ""),
+                category = request.form.get("category", ""),
+                discount = request.form.get("discount", ""),
+                stock = request.form.get("stock", ""),
+                info = result["message"]
+            )
 
 
 @app.route('/inventory/apply-discount', methods=['GET', 'POST'])

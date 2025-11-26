@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/global.css') }}"
+    />
+  </head>
+  <body>
+    <!-- Top navigation bar -->
+    <header class="top-navbar">
+        <div class = "header-icon">
+            <div class="notification">
+                <a href="{{ url_for('show_notifications') }}" class="notification-btn">
+                <img
+                    src="{{ url_for('static', filename='images/notification-Copy.png') }}"
+                    alt="Notifications"
+                />
+                </a>
+            </div>
+            <div class="logo">
+                <img
+                    src="{{ url_for('static', filename='images/logo.png') }}"
+                    alt="Logo"
+                />
+        </div>
+    </header>
+
+    <!-- Sidebar navigation  -->
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="user-icon">
+          <img
+            src="{{ url_for('static', filename='images/usericon.png') }}"
+            alt="User Icon"
+            class="user-icon"
+          />
+        </div>
+        <span class="user-label">User</span>
+      </div>
+      <nav class="sidebar-nav">
+        <nav class="navigation">
+          <a href="{{ url_for('display_dashboard') }}">
+            <img
+              src="{{ url_for('static', filename='images/home.png') }}"
+              alt="Home Icon"
+              class="nav-icon"
+            />
+            Home
+          </a>
+          <a href="{{ url_for('display_inventory') }}">
+            <img
+              src="{{ url_for('static', filename='images/shoppingbag.png') }}"
+              alt="Inventory Icon"
+              class="nav-icon"
+            />
+            Inventory
+          </a>
+          <a href="#">
+            <img
+              src="{{ url_for('static', filename='images/orders.png') }}"
+              alt="Orders Icon"
+              class="nav-icon"
+            />
+            Orders
+          </a>
+          <a href="#">
+            <img
+              src="{{ url_for('static', filename='images/notepad.png') }}"
+              alt="Returns Icon"
+              class="nav-icon"
+            />
+            Returns
+          </a>
+        </nav>
+      </nav>
+      <button class="logout-btn">Log Out</button>
+    </aside>
+
+    <!-- Main content area -->
+    <main class="main-content">
+      <section class="content">{% block content %}{% endblock %}</section>
+      <!--Add a notification button and logo here-->
+    </main>
+  </body>
+</html>

@@ -3,10 +3,10 @@
     "article_name": "Iphone 17 PRO",
     "article_id": "0001",
     "brand": "Apple",
-    "price_SEK": "14995.0",
+    "price_SEK": 14995.0,
     "category": "phones",
     "discount_percentage": 0.0,
-    "stock_amount": "24"
+    "stock_amount": 24
   },
   "0002": {
     "article_name": "Samsung Galaxy Z Fold7",
@@ -21,10 +21,10 @@
     "article_name": "Google Pixel 9a 5G smartphone 8",
     "article_id": "0003",
     "brand": "Google",
-    "price_SEK": "3790",
+    "price_SEK": 3790.0,
     "category": "phones",
     "discount_percentage": 0.0,
-    "stock_amount": "5"
+    "stock_amount": 5
   },
   "0004": {
     "article_name": "Lenovo Tab 4 GB",
