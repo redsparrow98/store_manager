@@ -221,6 +221,33 @@ def delete_user_page():
         
         flash (f"User '{deleted_user}' has been deleted successfully.", "success")            
         return render_template("delete_user.html")
+    
+@app.route('dashboard/my-account', methods=['GET', 'POST'])
+def account_page():
+    if request == "GET":
+        return render_template("my_account.html")
+    
+    else:
+        """I will need the same username used to log in, but for now it is just a dummy value"""
+        users = load_json('dataset/users.json')
+        
+        username = list(users.keys())[0]
+        access_level = users[username]["access_level"]
+        current_password = request.form['current_password']
+        new_password = request.form['new_password']
+        repeat_new_password = request.form['repeat_new_password']
+
+        success, result = update_password_page(username, current_password, new_password, repeat_new_password)
+
+        if success:
+            flash (result, "success")
+            return render_template("my_account.html")
+        
+        else:
+            for error in result:
+                flash (error, "error")
+            return redirect(url_for("account_page"))
+
 
 
 if __name__=='__main__':
