@@ -2,7 +2,6 @@ from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
 from notifications import *
 from account_manager import *
-
 app = Flask(__name__)
 app.secret_key = "demo-key1234"
 
