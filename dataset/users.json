@@ -10,9 +10,5 @@
   "bobby_tables": {
     "password": "bobbyspassword",
     "access_level": "employee"
-  },
-  "username": {
-    "password": "password",
-    "access_level": "employee"
   }
 }
