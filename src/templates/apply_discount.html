@@ -1,9 +1,11 @@
 {% extends "base.html" %} {% block title %}Apply discount{% endblock %} {% block
 content %}
-    
-<header class="modal-header">
-        <h2>Apply Discount</h2>
-      </header>
+
+<div class="product-modal" role="dialog" aria-modal="true">
+  <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
+  <header class="modal-header">
+    <h2>Apply Discount</h2>
+    </header>
 
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %}
@@ -46,5 +48,5 @@ content %}
         Cancel
       </button>
     </form>
- 
+</div>
 {% endblock %}

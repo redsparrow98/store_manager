@@ -1,27 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete User</title>
-    
+{% extends "base.html"%}
+{% block title %}Delete User{% endblock %}
+{% block content %}
 
-</head>
-<body style="background-color: #FAEBF9">
-
-    <h1 class = "main-header" >Delete user</h1>
-
-    <div style="text-align: center;">
+<div class="product-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_dashboard') }}'">×</button>
+    <header class="modal-header">
+    <h2>Delete User</h2>
+    </header>
+    <div>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {%for category, message in messages %}
 
             {% if category == 'success' %}
-            <div style="background: #b9e1c3; color: #155724;padding: 12px; margin: 15px 0; border-radius: 5px; border: 1px solid #3d7c4c;">
+            <div class="success-message">
                 {{ message }}
             </div>
             {% elif category == 'error' %}
-            <div style="background: #e40909; color: #000000;padding: 12px; margin: 15px 0; border-radius: 5px; border: 1px solid #000000;">
+            <div class="error-message">
                 {{ message }}
             </div>
             {% endif %}
@@ -30,37 +26,26 @@
         {% endwith %}
 
         <form action="{{ url_for('delete_user_page') }}" method="POST">
-            <div>
-                <label> Your username: </label>
-                <input type="text" name="username" required>
+            <div style="margin-bottom: 20px">
+                <label style="margin-right: 10px"> Your username: </label>
+                <input class="btn" type="text" name="username" required>
             </div>
-            <div>
-                <label> Your password: </label>
-                <input type="text" name="password" required>
+            <div style="margin-bottom: 20px">
+                <label style="margin-right: 10px"> Your password: </label>
+                <input class="btn" type="text" name="password" required>
             </div>
-            <div>
-                <label> Username for user you want to delete: </label>
-                <input type="text" name="deleted_user" required>
+            <div style="margin-bottom: 20px">
+                <label style="margin-right: 10px"> Username for user you want to delete: </label>
+                <input style="margin-top: 10px" class="btn" type="text" name="deleted_user" required>
             </div>
-        
-            <button type="submit" style="background-color: #FFD6FE; cursor: pointer; margin-right: 10px; padding: 5px 15px;">
-                Delete
-            </button>
 
-
-            <button type="button" style="background-color: #FFD6FE; cursor: pointer; padding: 5px 15px;"
-            onclick="window.location.href='{{ url_for('display_dashboard') }}'">
-            Cancel
-            </button>
-
-
-            <button style="background-color:#FFD6FE; display:block; position: absolute; top: 20px; right: 20px"
-        onclick="window.location.href='{{ url_for('display_dashboard') }}'">
-    &lt; Back
-    </button>
+            <footer class="modal-footer">
+                <a class="btn btn-cancel" href="{{ url_for('display_dashboard') }}">Cancel</a>
+                <a class="btn btn-edit">Submit</a>
+                </footer>
 
         </form>
     </div>
+</div>
 
-</body>
-</html>
+{% endblock %}
