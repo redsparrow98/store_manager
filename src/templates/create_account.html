@@ -1,0 +1,63 @@
+{% extends "base.html" %} 
+{% block title %}Create account{% endblock %} 
+{% block content %}
+
+<div class="product-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_dashboard') }}'"></button>
+    <header class="modal-header">
+    <h2>Add User</h2>
+    </header>
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            {% if category == 'success' %}
+                <div class= "success-message">
+                    {{ message }}
+                </div>
+            {% elif category == 'error' %}
+                <div class="error-message">
+                    {{ message }}
+                </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+    
+        <form action="{{ url_for('create_account_page') }}" method="POST">
+            <div style="margin-bottom: 8px;">
+                <label style="margin-right: 10px;"></label>
+                <p>Username:</p>
+                <input class="btn" type="text" name="username" required>
+            </div>
+            
+            <div style="margin-bottom: 8px;">
+            <label style="margin-right: 10px;"></label>
+            <p>Password:</p>
+            <input class="btn" type="password" name="password" required>
+            </div>
+
+            <div style="margin-bottom: 8px;">
+            <label style="margin-right: 10px;"></label>
+            <p>Repeat Password:</p>
+            <input class="btn" type="password" name="repeat_password" required>
+            </div>
+
+            <div style="margin-bottom: 8px;">
+            <label style="margin-right: 10px;"></label>
+            <p>Access Level:</p>
+            <select class="btn" name="access_level" required>
+                <option value="">Select Access Level</option>
+                <option value="employee">Employee</option>
+                <option value="manager">Manager</option>
+            </select>
+            </div>
+
+            <footer class="modal-footer">
+                <a class="btn btn-cancel" href="{{ url_for('display_dashboard') }}">Cancel</a>
+                <button type="submit" class="btn btn-edit">Create Account</button>
+                </footer>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -221,7 +221,29 @@ def delete_user_page():
         
         flash (f"User '{deleted_user}' has been deleted successfully.", "success")            
         return render_template("delete_user.html")
+    
+@app.route('/dashboard/create-account', methods=['GET', 'POST'])
+def create_account_page():
+    
+    if request.method == "GET":
+        return render_template("create_account.html")
+    
+    else:
+        username = request.form['username']
+        access_level = request.form['access_level'] 
+        password = request.form['password']
+        repeat_password = request.form['repeat_password']
 
+        success, result = create_account(username, access_level, password, repeat_password)
+
+        # User gets passed to the login and a success message gets flashed
+        if success:
+            flash (result, "success")
+            return render_template("create_account.html")
+        else:
+            for error in result:
+                flash (error, "error")
+            return redirect(url_for("create_account_page"))
 
 if __name__=='__main__':
     app.run(debug=True)
