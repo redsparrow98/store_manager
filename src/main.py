@@ -21,7 +21,7 @@ def load_user(user_id):
         return User(username=user_id, access_level=user_data["access_level"])
     return None
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         username = request.form.get("username")
@@ -29,7 +29,7 @@ def login():
         user = authenticate(username, password)
         if user:
             login_user(user)
-            flash(f"Welcome, {username}!," "success")
+            flash(f"Welcome, {username}!", "success")
             return redirect(url_for("dashboard"))
         else:
             flash("Invalid username or password", "danger")
@@ -41,7 +41,7 @@ def dashboard():
     return f"Hello, {current_user.id}! Your access level is {current_user.access_level}."
 
 
-@app.route('/')
+@app.route('/dashboard')
 def display_dashboard():
     scan_low_stock()
     notif_count = len(get_notifications())
