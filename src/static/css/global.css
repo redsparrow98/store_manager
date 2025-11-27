@@ -123,6 +123,69 @@ body {
   margin-top: auto;
 }
 
+/* Login page styling */
+.login-section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.login-container{
+  width: 30vw;
+  padding: 2vw;
+  background-color: #e4e9ff;
+  border-radius: 1vw;
+  box-shadow: 0 0 1vw rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-container h2{
+  font-size: 2vw;
+  margin-bottom: 2vh;
+}
+.error-msg{
+  color: red;
+  font-size: 1.2vw;
+  margin-bottom: 1.5vh;
+  text-align: center;
+}
+
+.login-form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+
+.login-form label{
+  font-size: 1.2vw;
+}
+
+.login-form input{
+  padding: 1vh 1vw;
+  font-size: 1vw;
+  border-radius: 0.5vw;
+  border: 1px solid #ccc;
+}
+
+.login-form button{
+  margin-top: 2vh;
+  padding: 1vh;
+  font-size: 1.2vh;
+  border: none;
+  border-radius: 0.5vw;
+  background-color: #007bff;
+  color: whitesmoke;
+  cursor: pointer;
+}
+
+.login-form button:hover{
+  background-color: #0056b3;
+}
+
 /* Main content area on dashboard */
 .main-content {
   flex: 1;
