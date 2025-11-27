@@ -2,61 +2,62 @@
 {% block title %}Create account{% endblock %} 
 {% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account</title>
-
-</head>
-<body style="background-color: #FAEBF9">
-
-    <h1>Create Account</h1>
+<div class="product-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_dashboard') }}'"></button>
+    <header class="modal-header">
+    <h2>Add User</h2>
+    </header>
+    <div>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
-                <div class="{{ category }}">
-                    {{ category }} - {{ message }}
+            {% if category == 'success' %}
+                <div class= "success-message">
+                    {{ message }}
                 </div>
+            {% elif category == 'error' %}
+                <div class="error-message">
+                    {{ message }}
+                </div>
+            {% endif %}
             {% endfor %}
         {% endif %}
-    {% endwith %}
+        {% endwith %}
+    
+        <form action="{{ url_for('create_account_page') }}" method="POST">
+            <div style="margin-bottom: 8px;">
+                <label style="margin-right: 10px;"></label>
+                <p>Username:</p>
+                <input class="btn" type="text" name="username" required>
+            </div>
+            
+            <div style="margin-bottom: 8px;">
+            <label style="margin-right: 10px;"></label>
+            <p>Password:</p>
+            <input class="btn" type="password" name="password" required>
+            </div>
 
-    <form method="POST" action="{{ url_for('create_account_page') }}">
-        
-        <br>
-        <label  for="username">Username:</label>
-        <br>
+            <div style="margin-bottom: 8px;">
+            <label style="margin-right: 10px;"></label>
+            <p>Repeat Password:</p>
+            <input class="btn" type="password" name="repeat_password" required>
+            </div>
 
-        <input type="text" id="username" name="username" required style="padding: 8px; width: 300px">
-        <br><br>
-        <label for="access_level">Access Level:</label>
-        <br>
-        
-        <select id="access_level" name="access_level" style="padding: 8px; width: 300px">
-            <option value ="">Select access level</option>
-            <option value="employee">Employee</option>
-            <option value="manager">Manager</option>
-        </select>
-        <br><br>
-        
-        <label for="password">Password:</label>
-        <br>
-        <input type="password" id="password" name="password" required style="padding: 8px; width: 300px">
-        <br><br>
+            <div style="margin-bottom: 8px;">
+            <label style="margin-right: 10px;"></label>
+            <p>Access Level:</p>
+            <select class="btn" name="access_level" required>
+                <option value="">Select Access Level</option>
+                <option value="employee">Employee</option>
+                <option value="manager">Manager</option>
+            </select>
+            </div>
 
-        <label for="repeat_password">Repeat Password:</label>
-        <br>
-        <input type="password" id="repeat_password" name="repeat_password" required style="padding: 8px; width: 300px" ><br>
-        <br>
-
-
-        <button type="submit" style="background-color: #FFD6FE; cursor: pointer; margin-right: 10px; padding: 5px 15px;">
-            Create Account
-        </button>
-
-    </form>
-</body>
-</html>
+            <footer class="modal-footer">
+                <a class="btn btn-cancel" href="{{ url_for('display_dashboard') }}">Cancel</a>
+                <button type="submit" class="btn btn-edit">Create Account</button>
+                </footer>
+        </form>
+    </div>
+</div>
 {% endblock %}

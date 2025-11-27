@@ -239,7 +239,7 @@ def create_account_page():
         # User gets passed to the login and a success message gets flashed
         if success:
             flash (result, "success")
-            return redirect(url_for("create_account_page"))
+            return render_template("create_account.html")
         else:
             for error in result:
                 flash (error, "error")
