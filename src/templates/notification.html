@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block title %}Notifications{% endblock %} {% block
+content %}
+
+<div class="product-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
+    <header class="modal-header">
+        <h2>Notifications</h2>
+    </header>
+    {% if notifications %}
+        {% for n in notifications %}
+           <div>
+               <b>{{ n.product_name }}</b>
+               <p>{{ n.message }}</p>
+               <small>Product ID: {{ n.product_id }}</small>
+           </div>
+        {% endfor %}
+    {% else %}
+
+        <header class="modal-header" style="text-align: center">
+        <h4>No notifications</h4>
+      </header>
+    {% endif %}    
+</div>
+{% endblock %}

@@ -1,10 +1,44 @@
 from reader import *
 import os
 from pathlib import Path
+from flask import Flask, request, render_template, flash, redirect, url_for
+
+
+app = Flask(__name__)
+app.secret_key = "demo-key1234"
 
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "users.json"
+
+# Creates a new account if username not already taken
+def create_account(username, access_level, password, repeat_password):
+    users = load_json(FILE_PATH)
+    
+    errors = []
+
+    if username in users:
+        errors.append("Username already exists, please choose another username")
+    if len(username.strip()) == 0:
+        errors.append("Username is required")
+    if len(password.strip()) == 0:
+        errors.append("Password is required")
+    if repeat_password != password:
+        errors.append("Repeated password doesn't match password")
+    if not access_level.strip():
+        errors.append("Access level is required.")
+
+    if errors: 
+        return False, errors
+    
+    else:
+        users[username] = {
+            "password": password,
+            "access_level": access_level,
+        }
+        write_json(FILE_PATH, users)
+        return True, "Account succesfully created."
+
 
 # Deletes user if correct access level
 def delete_user(deleted_user):

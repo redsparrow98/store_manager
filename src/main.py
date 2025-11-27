@@ -69,7 +69,7 @@ def delete_product_page():
 def show_notifications():
     scan_low_stock()
     notifications_list = get_notifications()
-    return render_template("notifications.html" , notifications = notifications_list)
+    return render_template("notification.html" , notifications = notifications_list)
 
 
 @app.route('/inventory/update-product-finder', methods = ['GET', 'POST'])
@@ -221,7 +221,29 @@ def delete_user_page():
         
         flash (f"User '{deleted_user}' has been deleted successfully.", "success")            
         return render_template("delete_user.html")
+        
+@app.route('/dashboard/create-account', methods=['GET', 'POST'])
+def create_account_page():
     
+    if request.method == "GET":
+        return render_template("create_account.html")
+    
+    else:
+        username = request.form['username']
+        access_level = request.form['access_level'] 
+        password = request.form['password']
+        repeat_password = request.form['repeat_password']
+
+        success, result = create_account(username, access_level, password, repeat_password)
+
+        # User gets passed to the login and a success message gets flashed
+        if success:
+            flash (result, "success")
+            return render_template("create_account.html")
+        else:
+            for error in result:
+                flash (error, "error")
+            return redirect(url_for("create_account_page"))
 @app.route('dashboard/my-account', methods=['GET', 'POST'])
 def account_page():
     if request == "GET":
