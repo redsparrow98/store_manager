@@ -24,10 +24,10 @@ content %}
     {% endif %}
     {% endwith %}
     <form action="{{ url_for('delete_product_page') }}" method="POST">
-        <h3 class="title" for="article_id" class="product-modal .modal-header h2">Article ID:</h3>
+        <h3 class="title" for="article_id" style="margin-bottom: 0px;">Article ID:</h3>
         <br><br>
 
-        <input type="text" id="article_id" name="article_id" required>
+        <input class="btn" type="text" id="article_id" name="article_id" required>
         <br><br>
 
         <button class="btn-edit" type="submit">
