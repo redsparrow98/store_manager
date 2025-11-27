@@ -2,8 +2,43 @@ from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
 from notifications import *
 from account_manager import *
+from login import authenticate, User, load_users
+from flask_login import LoginManager, login_user, login_required, current_user
 app = Flask(__name__)
 app.secret_key = "demo-key1234"
+
+
+"""Flask Login Setup"""
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+@login_manager.user_loader
+def load_user(user_id):
+    users = load_users()
+    user_data = users.get(user_id)
+    if user_data:
+        return User(username=user_id, access_level=user_data["access_level"])
+    return None
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        user = authenticate(username, password)
+        if user:
+            login_user(user)
+            flash(f"Welcome, {username}!," "success")
+            return redirect(url_for("dashboard"))
+        else:
+            flash("Invalid username or password", "danger")
+    return render_template("login.html")
+
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    return f"Hello, {current_user.id}! Your access level is {current_user.access_level}."
 
 
 @app.route('/')
