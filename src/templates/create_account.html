@@ -1,3 +1,7 @@
+{% extends "base.html" %} 
+{% block title %}Create account{% endblock %} 
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,8 +39,8 @@
             <option value="employee">Employee</option>
             <option value="manager">Manager</option>
         </select>
-
         <br><br>
+        
         <label for="password">Password:</label>
         <br>
         <input type="password" id="password" name="password" required style="padding: 8px; width: 300px">
@@ -55,3 +59,4 @@
     </form>
 </body>
 </html>
+{% endblock %}
