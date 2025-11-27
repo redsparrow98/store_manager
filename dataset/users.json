@@ -1,14 +1,14 @@
 {
-    "jane_doe": {
-        "password": "janespassword",
-        "access_level": "manager"
-    },
-    "joe_doe": {
-        "password": "joespassword",
-        "access_level": "employee"
-    },
-    "bobby_tables": {
-        "password": "bobbyspassword",
-        "access_level": "employee"
-    }
+  "jane_doe": {
+    "password": "janespassword",
+    "access_level": "Manager"
+  },
+  "joe_doe": {
+    "password": "joespassword",
+    "access_level": "Employee"
+  },
+  "bobby_tables": {
+    "password": "bobbyspassword",
+    "access_level": "Employee"
+  }
 }

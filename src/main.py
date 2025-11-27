@@ -244,17 +244,22 @@ def create_account_page():
             for error in result:
                 flash (error, "error")
             return redirect(url_for("create_account_page"))
-@app.route('dashboard/my-account', methods=['GET', 'POST'])
+
+@app.route('/dashboard/my-account', methods=['GET', 'POST'])
 def account_page():
-    if request == "GET":
-        return render_template("my_account.html")
-    
+    """
+    The variables username and access_level is here because they need to be defined before
+    the if-statement since they are supposed to be displayed all the time in the account info
+
+    I will need the same username used to log in, but for now it is just a dummy value"""
+    users = load_json('dataset/users.json')
+    username = list(users.keys())[0]
+    access_level = users[username]["access_level"]
+
+    if request.method == "GET":
+        return render_template("my_account.html", username=username,
+                               access_level=access_level)    
     else:
-        """I will need the same username used to log in, but for now it is just a dummy value"""
-        users = load_json('dataset/users.json')
-        
-        username = list(users.keys())[0]
-        access_level = users[username]["access_level"]
         current_password = request.form['current_password']
         new_password = request.form['new_password']
         repeat_new_password = request.form['repeat_new_password']
@@ -263,14 +268,11 @@ def account_page():
 
         if success:
             flash (result, "success")
-            return render_template("my_account.html")
-        
+
         else:
             for error in result:
                 flash (error, "error")
-            return redirect(url_for("account_page"))
-
-
+        return redirect(url_for("account_page"))
 
 if __name__=='__main__':
     app.run(debug=True)
