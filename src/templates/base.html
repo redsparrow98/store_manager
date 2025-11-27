@@ -12,6 +12,10 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/global.css') }}"
     />
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/access.css') }}"
+    />
   </head>
   <body>
     <!-- Top navigation bar -->
@@ -43,7 +47,13 @@
             class="user-icon"
           />
         </div>
-        <span class="user-label">User</span>
+        <span class="user-label">
+          {% if current_user and current_user.get('username') %}
+              {{current_user.username}}
+          {% else %}
+              Guest
+          {% endif %}  
+        </span>
       </div>
       <nav class="sidebar-nav">
         <nav class="navigation">
@@ -78,6 +88,14 @@
               class="nav-icon"
             />
             Returns
+          </a>
+          <a href="{{ url_for('delete_user_page') }}">
+            <img
+              src="{{ url_for('static', filename='images/users.png') }}"
+              alt="Users Icon"
+              class="nav-icon"
+            />
+            Account
           </a>
         </nav>
       </nav>

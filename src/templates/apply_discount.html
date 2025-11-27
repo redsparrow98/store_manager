@@ -1,55 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Apply Discount</title>
-    <style>
-      /* Reuse the same round button style so navigation looks consistent across pages */
-      .round-btn {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        border: none;
-        overflow: hidden;
-        padding: 0;
-        cursor: pointer;
-        background-color: #ffd6fe;
-      }
+{% extends "base.html" %} {% block title %}Apply discount{% endblock %} {% block
+content %}
 
-      .round-btn img {
-        width: 70%;
-        height: 70%;
-        object-fit: cover;
-      }
-    </style>
-  </head>
-  <body style="background-color: #faebf9">
-    <button
-      class="round-btn"
-      style="top: 20px; left: 20px"
-      onclick="window.location.href='{{ url_for('display_dashboard') }}'"
-    >
-      <img
-        src="https://www.iconpacks.net/icons/2/free-home-icon-2502-thumb.png"
-        alt="home-button"
-      />
-    </button>
-
-    <h1>Apply Discount</h1>
-
-    <button
-      style="
-        background-color: #ffd6fe;
-        display: block;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-      "
-      onclick="window.location.href='{{ url_for('display_inventory') }}'"
-    >
-      &lt; Back
-    </button>
+<div class="product-modal" role="dialog" aria-modal="true">
+  <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
+  <header class="modal-header">
+    <h2>Apply Discount</h2>
+    </header>
 
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %}
@@ -64,6 +20,7 @@
       <label for="discount_percentage">Discount Percentage:</label>
       <!-- Number input with step allows precise decimal discounts -->
       <input
+        class="btn"
         type="number"
         step="0.01"
         name="discount_percentage"
@@ -74,22 +31,22 @@
 
       <label for="category">Category (optional):</label>
       <!-- Optional field lets user apply discount globally or to a specific category -->
-      <input type="text" name="category" /><br /><br />
+      <input class="btn" type="text" name="category" /><br /><br />
 
       <!--Submit button  -->
       <button
-        style="background-color: #ffd6fe; padding: 5px 15px"
+        class="btn btn-edit"
         type="submit"
       >
         Apply Discount
       </button>
       <button
-        style="background-color: #ffd6fe; padding: 5px 15px"
+        class="btn btn-cancel"
         type="button"
         onclick="window.location.href='{{ url_for('display_inventory') }}'"
       >
         Cancel
       </button>
     </form>
-  </body>
-</html>
+</div>
+{% endblock %}

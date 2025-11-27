@@ -1,29 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Access product information</title>
-</head>
-<body style="background-color: #edf1f5">
-    <h1>Access product information</h1>
+{% extends "base.html"%}
+{% block title %}Inventory{% endblock %}
+{% block content %}
 
-  <!-- Match product ID -->
-  {% if product %}
-    <p><a href="{{ url_for('access_product') }}">Back to search</a></p>
-    <h2>{{ product.article_name or product.article_id }}</h2>
-    <ul>
-      {% for label, value in display %}
-        <li><strong>{{ label }}:</strong> {{ value }}</li>
-      {% endfor %}
-    </ul>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/access.css') }}"
+/>
 
-    <!-- Match brand -->
-  {% elif brand_results %}
+  <!-- Match brand -->
+  {% if brand_results %}
     <p><a href="{{ url_for('access_product') }}">Back to search</a></p>
     <h2>Brand: {{ brand_searched }}</h2>
+
     {% for product_id, product_info, product_display in brand_results %}
-      <div>
+      <div class="brand-result">
         <h3>{{ product_info.article_name or product_id }} ({{ product_id }})</h3>
         <ul>
           {% for label, value in product_display %}
@@ -32,33 +22,32 @@
         </ul>
       </div>
     {% endfor %}
-
-    <!-- Error message -->
-  {% else %}
-    {% if error %}
-      <p>{{ error }}</p>
-    {% endif %}
-
-    <form method="POST">
-      <label>Search by product ID or brand:</label><br>
-      <input type="text" name="search_term" placeholder="Enter product ID or brand">
-      <button type="submit">Search</button>
-    </form>
-
-    <!-- Lists all products -->
-    {% if products %}
-      <hr>
-      <div>
-        <h3>All Products</h3>
-        <ul>
-          {% for product_id, name in products %}
-            <li>
-              <a href="{{ url_for('access_product') }}?search_term={{ product_id }}">{{ product_id }}{% if name %} - {{ name }}{% endif %}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endif %}
   {% endif %}
-</body>
-</html>
+
+  {% if product %}
+    <div class="product-modal" role="dialog" aria-modal="true">
+      <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
+
+      <header class="modal-header">
+        <h2>Product Information</h2>
+      </header>
+
+      <div class="modal-body">
+        <div class="form-grid">
+          
+          {% for label, value in display %}
+            <div class="form-row">
+              <div class="field-label">{{ label }}</div>
+              <div class="field-box">{{ value }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <footer class="modal-footer">
+        <a class="btn btn-cancel" href="{{ url_for('display_inventory') }}">Cancel</a>
+        <a class="btn btn-edit" href="{{ url_for('update_product_finder_page') }}">Edit</a>
+      </footer>
+    </div>
+  {% endif %}
+{% endblock %}
