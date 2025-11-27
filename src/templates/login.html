@@ -1,6 +1,12 @@
-{% extends "base.html" %}
-{% block title %}Login{% endblock %}
-{% block content %}
+<link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/global.css') }}"
+    />
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/access.css') }}"
+    />
+
 <section class="login-section">
     <div class="login-container">
     <h2>Login</h2>
@@ -8,7 +14,7 @@
     {% with messages= get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <ul class="flashes">
-        {% for ctegory, message in messages %}
+        {% for category, message in messages %}
           <li class="{{category}}">{{message}}</li>
         {% endfor %}
         </ul>
@@ -30,6 +36,6 @@
      </form>
   </div>
 </section>
-{% endblock %}
+
     
         
