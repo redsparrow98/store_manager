@@ -1,9 +1,11 @@
+from flask_login import LoginManager, login_user, login_required, current_user
 from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
 from notifications import *
 from account_manager import *
-from login import authenticate, User, load_users
-from flask_login import LoginManager, login_user, login_required, current_user
+from login import *
+
+
 app = Flask(__name__)
 app.secret_key = "demo-key1234"
 
