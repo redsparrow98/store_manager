@@ -48,8 +48,8 @@
           />
         </div>
         <span class="user-label">
-          {% if current_user and current_user.get('username') %}
-              {{current_user.username}}
+          {% if current_user.is_authenticated %}
+              {{current_user.id}}
           {% else %}
               Guest
           {% endif %}  
