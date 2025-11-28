@@ -4,6 +4,11 @@ from inventory_manager import *
 from notifications import *
 from account_manager import *
 from login import *
+from pathlib import Path
+
+# this is to avoid the file path issues we had
+BASE_DIR = Path(__file__).parent.parent
+FILE_PATH = BASE_DIR / "dataset" / "products.json"
 
 
 app = Flask(__name__)
@@ -88,7 +93,7 @@ def delete_product_page():
         return render_template("delete_product.html")
     
     else:
-        data = load_json('dataset/products.json')
+        data = load_json(FILE_PATH)
         article_id = request.form['article_id']
         
         if article_id in data:
