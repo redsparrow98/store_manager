@@ -1,0 +1,18 @@
+{
+  "jane_doe": {
+    "password": "janespassword",
+    "access_level": "manager"
+  },
+  "joe_doe": {
+    "password": "joespassword",
+    "access_level": "employee"
+  },
+  "bobby_tables": {
+    "password": "bobbyspassword",
+    "access_level": "employee"
+  },
+  "natalija": {
+    "password": "1234",
+    "access_level": "employee"
+  }
+}

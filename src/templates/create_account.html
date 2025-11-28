@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="product-modal" role="dialog" aria-modal="true">
-    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_dashboard') }}'"></button>
+    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('dashboard') }}'"></button>
     <header class="modal-header">
     <h2>Add User</h2>
     </header>
@@ -54,7 +54,7 @@
             </div>
 
             <footer class="modal-footer">
-                <a class="btn btn-cancel" href="{{ url_for('display_dashboard') }}">Cancel</a>
+                <a class="btn btn-cancel" href="{{ url_for('dashboard') }}">Cancel</a>
                 <button type="submit" class="btn btn-edit">Create Account</button>
                 </footer>
         </form>
