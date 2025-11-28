@@ -1,12 +1,6 @@
-<link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/global.css') }}"
-    />
-    <link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/access.css') }}"
-    />
+{% extends "base.html" %}
 
+{% block content %}
 <section class="login-section">
     <div class="login-container">
     <h2>Login</h2>
@@ -15,7 +9,9 @@
       {% if messages %}
         <ul class="flashes">
         {% for category, message in messages %}
-          <li class="{{category}}">{{message}}</li>
+            {% if category == "danger" %}
+                <li class="{{category}}">{{message}}</li>
+            {% endif %}
         {% endfor %}
         </ul>
       {% endif %}
@@ -36,6 +32,4 @@
      </form>
   </div>
 </section>
-
-    
-        
+{% endblock %}

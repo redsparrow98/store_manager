@@ -48,16 +48,16 @@
           />
         </div>
         <span class="user-label">
-          {% if current_user and current_user.get('username') %}
-              {{current_user.username}}
-          {% else %}
-              Guest
-          {% endif %}  
+            {% if current_user.is_authenticated %}
+                {{ current_user.id }}
+            {% else %}
+                Guest
+            {% endif %}
         </span>
       </div>
       <nav class="sidebar-nav">
         <nav class="navigation">
-          <a href="{{ url_for('display_dashboard') }}">
+          <a href="{{ url_for('dashboard') }}">
             <img
               src="{{ url_for('static', filename='images/home.png') }}"
               alt="Home Icon"

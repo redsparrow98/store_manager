@@ -29,7 +29,6 @@ def login():
         user = authenticate(username, password)
         if user:
             login_user(user)
-            flash(f"Welcome, {username}!", "success")
             return redirect(url_for("dashboard"))
         else:
             flash("Invalid username or password", "danger")
@@ -38,14 +37,14 @@ def login():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return f"Hello, {current_user.id}! Your access level is {current_user.access_level}."
-
-
-@app.route('/dashboard')
-def display_dashboard():
     scan_low_stock()
     notif_count = len(get_notifications())
-    return render_template('dashboard.html',notif_count=notif_count)
+    return render_template(
+        "dashboard.html",
+        notif_count = notif_count,
+        username = current_user.id,
+        access_level = current_user.access_level
+    )
 
 @app.route('/locked-out')
 def display_countdown():
