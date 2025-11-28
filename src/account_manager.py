@@ -10,7 +10,7 @@ TEST_USERS_FILE_PATH = BASE_DIR / "dataset" / "test_users.json"
 
 # Creates a new account if username not already taken
 def create_account(username, access_level, password, repeat_password):
-    users = load_json(USERS_FILE_PATH)
+    users = load_json(TEST_USERS_FILE_PATH)
     
     errors = []
 
@@ -30,10 +30,10 @@ def create_account(username, access_level, password, repeat_password):
     
     else:
         users[username] = {
-            "password": generate_password_hash(password),
-            "access_level": access_level,
+            "password": password,
+            "access_level": access_level
         }
-        write_json(USERS_FILE_PATH, users)
+        write_json(TEST_USERS_FILE_PATH, users)
     
 
         # file for testing only so we can see the actualy password not the hashed one
@@ -100,7 +100,7 @@ def check_credentials(username, password):
 def is_manager(username):
     users = load_json(TEST_USERS_FILE_PATH)
     
-    if username in users and users[username]['access_level'] == "manager":
+    if username in users and users[username]['access_level'] == "Manager":
         return True
     else:
         return False
