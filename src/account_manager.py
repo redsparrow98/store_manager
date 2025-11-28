@@ -64,7 +64,8 @@ def delete_user(deleted_user):
 # Update password
 
 def update_password_page(username, current_password, new_password, repeat_new_password):
-    users = load_json(FILE_PATH)
+    
+    users = load_json(TEST_USERS_FILE_PATH)
 
     errors = []
 
@@ -82,7 +83,7 @@ def update_password_page(username, current_password, new_password, repeat_new_pa
     
     else:    
         users[username]['password'] = new_password
-        write_json(FILE_PATH, users)
+        write_json(TEST_USERS_FILE_PATH, users)
         return True, "Password succedfully changed"
 
 # Checks if username and password are entered correctly
@@ -97,7 +98,7 @@ def check_credentials(username, password):
 
 # Checks if access level is manager or employee
 def is_manager(username):
-    users = load_json(USERS_FILE_PATH)
+    users = load_json(TEST_USERS_FILE_PATH)
     
     if username in users and users[username]['access_level'] == "manager":
         return True

@@ -291,10 +291,9 @@ def account_page():
     """
     The variables username and access_level is here because they need to be defined before
     the if-statement since they are supposed to be displayed all the time in the account info
-
-    I will need the same username used to log in, but for now it is just a dummy value"""
-    users = load_json('dataset/users.json')
-    username = list(users.keys())[0]
+    """
+    users = load_json('dataset/test_users.json')
+    username = current_user.id
     access_level = users[username]["access_level"]
 
     if request.method == "GET":
