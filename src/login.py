@@ -1,7 +1,8 @@
-import json
+from reader import *
 from pathlib import Path
 from werkzeug.security import check_password_hash
 from flask_login import UserMixin
+
 
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "users.json"
@@ -9,29 +10,22 @@ FILE_PATH = BASE_DIR / "dataset" / "users.json"
 """Load users from json file"""
 def load_users():
     try:
-        users_path = Path(__file__).parent/"dataset"/"users.json"
-        with open(users_path, "r") as f:
-            raw_users = json.load(f)
-
-        users = {}
-        for username, data in raw_users.items():
-            users[username] = {
-                "password": data["password"],
-                "access_level": data["access_level"]
-            }
-        return users
+        raw_users = load_json(FILE_PATH)
+        return raw_users
     except FileNotFoundError:
-        print(f"Error: {users_path} not found.")
+        print(f"Error: {FILE_PATH} not found.")
         return{}
     except json.JSONDecodeError:
-        print(f"Error: {users_path} contains invalid JSON.")
+        print(f"Error: {FILE_PATH} contains invalid JSON.")
         return{}
-    
+
+
 """Flask login user class"""
 class User(UserMixin):
     def __init__(self, username, access_level):
         self.id = username
         self.access_level = access_level
+
 
 """User Authentication"""
 def authenticate(username, password):

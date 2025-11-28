@@ -1,14 +1,14 @@
 {
   "jane_doe": {
-    "password": "scrypt:32768:8:1$5Ikh2QuILeeobvUB$fc0ffd96f4253401f248b7a1724b7c1695f0725703012ff1902427e9fa190f45d73970c26ef6535e29fb5bb9d51da179f719cef5e1e6b5b9ceda439f0f4c738f",
+    "password": "scrypt:32768:8:1$dmo8ANZcePWgjYfC$d6be0fa88eb6552955ce154d5231b9d29db43fc4582f1ae69592195f865713ba0b52ec083c146a8b400613e8dcb622c0f0ce3f8770778f12e0b929abd4e8bcb1",
     "access_level": "manager"
   },
   "joe_doe": {
-    "password": "scrypt:32768:8:1$AE188LXGvIGNNU0i$91256477feee54ce1ffdaa80d6ce047ee5282efdd27e34fda24b94edad5cd1f4e88e836614f9f5d2a665c246baccbd1b3c395c017b01097d5e70f34bc3dc043b",
+    "password": "scrypt:32768:8:1$rURb9aYPDq0ZWSBg$09c70fcfcce1afe5f4b83bb39c10cdcd0aff56a9932677d8986165a58f53a913a3f3add6f7186e833441ae80fde0ba984ade29681a339c141faa2957e47ef463",
     "access_level": "employee"
   },
   "bobby_tables": {
-    "password": "scrypt:32768:8:1$eE7jTPg3ocdBsreJ$f91b56b21a0c1c11291cf1052fbf4712f5046367679720cba073b4099ba0f6e7b0253df15c40d7a1bc978facb300cf088e7f74a12f2ac72449fc14d16be331cb",
+    "password": "scrypt:32768:8:1$wHId5FsjIHYbBgJ9$ae91ed90f63165aaa6d2b529efb1022314f4960fbda63341db268910f53b146cd4a655608fb84d6ced6e13f4b0eb580dba88716ce6fefa04fbba6fe96290160b",
     "access_level": "employee"
   }
 }

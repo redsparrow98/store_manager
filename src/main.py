@@ -1,9 +1,16 @@
+from flask_login import LoginManager, login_user, login_required, current_user
 from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
 from notifications import *
 from account_manager import *
-from login import authenticate, User, load_users
-from flask_login import LoginManager, login_user, login_required, current_user
+from login import *
+from pathlib import Path
+
+# this is to avoid the file path issues we had
+BASE_DIR = Path(__file__).parent.parent
+FILE_PATH = BASE_DIR / "dataset" / "products.json"
+
+
 app = Flask(__name__)
 app.secret_key = "demo-key1234"
 
@@ -29,7 +36,6 @@ def login():
         user = authenticate(username, password)
         if user:
             login_user(user)
-            flash(f"Welcome, {username}!", "success")
             return redirect(url_for("dashboard"))
         else:
             flash("Invalid username or password", "danger")
@@ -38,14 +44,14 @@ def login():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    return f"Hello, {current_user.id}! Your access level is {current_user.access_level}."
-
-
-@app.route('/dashboard')
-def display_dashboard():
     scan_low_stock()
     notif_count = len(get_notifications())
-    return render_template('dashboard.html',notif_count=notif_count)
+    return render_template(
+        "dashboard.html",
+        notif_count = notif_count,
+        username = current_user.id,
+        access_level = current_user.access_level
+    )
 
 @app.route('/locked-out')
 def display_countdown():
@@ -87,7 +93,7 @@ def delete_product_page():
         return render_template("delete_product.html")
     
     else:
-        data = load_json('dataset/products.json')
+        data = load_json(FILE_PATH)
         article_id = request.form['article_id']
         
         if article_id in data:

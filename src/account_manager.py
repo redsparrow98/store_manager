@@ -1,19 +1,16 @@
 from reader import *
-import os
 from pathlib import Path
-from flask import Flask, request, render_template, flash, redirect, url_for
+from werkzeug.security import generate_password_hash, check_password_hash
 
-
-app = Flask(__name__)
-app.secret_key = "demo-key1234"
 
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
-FILE_PATH = BASE_DIR / "dataset" / "users.json"
+USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
+TEST_USERS_FILE_PATH = BASE_DIR / "dataset" / "test_users.json"
 
 # Creates a new account if username not already taken
 def create_account(username, access_level, password, repeat_password):
-    users = load_json(FILE_PATH)
+    users = load_json(USERS_FILE_PATH)
     
     errors = []
 
@@ -33,22 +30,33 @@ def create_account(username, access_level, password, repeat_password):
     
     else:
         users[username] = {
-            "password": password,
+            "password": generate_password_hash(password),
             "access_level": access_level,
         }
-        write_json(FILE_PATH, users)
+        write_json(USERS_FILE_PATH, users)
+    
+
+        # file for testing only so we can see the actualy password not the hashed one
+        test_user = load_json(TEST_USERS_FILE_PATH)
+        test_user[username] = {
+            "password": password,
+            "access_level": access_level
+        }
+        write_json(TEST_USERS_FILE_PATH, test_user)
+
         return True, "Account succesfully created."
+
 
 
 # Deletes user if correct access level
 def delete_user(deleted_user):
-    users = load_json(FILE_PATH)
+    users = load_json(USERS_FILE_PATH)
     
     if deleted_user not in users:
         return False
     else:
         users.pop(deleted_user)
-        write_json(FILE_PATH, users)
+        write_json(USERS_FILE_PATH, users)
     
         print(users)
         return True
@@ -79,9 +87,9 @@ def update_password_page(username, current_password, new_password, repeat_new_pa
 
 # Checks if username and password are entered correctly
 def check_credentials(username, password):
-    users = load_json(FILE_PATH)
+    users = load_json(USERS_FILE_PATH)
     
-    if username in users and password == users[username]['password']:
+    if username in users and check_password_hash(users[username]['password'], password):
         return True
     else:
         return False
@@ -89,7 +97,7 @@ def check_credentials(username, password):
 
 # Checks if access level is manager or employee
 def is_manager(username):
-    users = load_json(FILE_PATH)
+    users = load_json(USERS_FILE_PATH)
     
     if username in users and users[username]['access_level'] == "manager":
         return True
