@@ -84,7 +84,7 @@ def update_password_page(username, current_password, new_password, repeat_new_pa
     else:    
         users[username]['password'] = new_password
         write_json(TEST_USERS_FILE_PATH, users)
-        return True, "Password succedfully changed"
+        return True, "Password succesfully changed"
 
 # Checks if username and password are entered correctly
 def check_credentials(username, password):
