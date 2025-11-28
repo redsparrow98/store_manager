@@ -10,7 +10,7 @@ TEST_USERS_FILE_PATH = BASE_DIR / "dataset" / "test_users.json"
 
 # Creates a new account if username not already taken
 def create_account(username, access_level, password, repeat_password):
-    users = load_json(TEST_USERS_FILE_PATH)
+    users = load_json(USERS_FILE_PATH)
     
     errors = []
 
@@ -30,11 +30,10 @@ def create_account(username, access_level, password, repeat_password):
     
     else:
         users[username] = {
-            "password": password,
-            "access_level": access_level
+            "password": generate_password_hash(password),
+            "access_level": access_level,
         }
-        write_json(TEST_USERS_FILE_PATH, users)
-    
+        write_json(USERS_FILE_PATH, users)
 
         # file for testing only so we can see the actualy password not the hashed one
         test_user = load_json(TEST_USERS_FILE_PATH)
@@ -49,18 +48,23 @@ def create_account(username, access_level, password, repeat_password):
 
 
 # Deletes user if correct access level
+
 def delete_user(deleted_user):
     users = load_json(USERS_FILE_PATH)
+    test_users = load_json(TEST_USERS_FILE_PATH)
     
     if deleted_user not in users:
         return False
     else:
         users.pop(deleted_user)
+        test_users.pop(deleted_user, None)
+
         write_json(USERS_FILE_PATH, users)
-    
+        write_json(TEST_USERS_FILE_PATH, test_users)
+        
         print(users)
         return True
-
+    
 # Update password
 
 def update_password_page(username, current_password, new_password, repeat_new_password):

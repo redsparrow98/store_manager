@@ -222,7 +222,7 @@ def delete_user_page():
         password = request.form['password']
         
         # Checks if credentials are correct
-        if check_credentials(username, password) == False:
+        if authenticate(username, password) == None: # authenticate returns None or the username of the user
             flash (f"Wrong username or password.", "error")
             return redirect(url_for("delete_user_page"))
     
