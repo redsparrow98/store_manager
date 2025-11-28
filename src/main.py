@@ -113,78 +113,51 @@ def show_notifications():
     return render_template("notification.html" , notifications = notifications_list)
 
 
-@app.route('/inventory/update-product-finder', methods = ['GET', 'POST'])
-def update_product_finder_page():
-    if request.method == "GET":
-        return render_template("update_product_finder.html")
-    else:
-        # get user input for article id and check if it exists
-        article_id = request.form.get("article_id")
-        result = update_product_finder(article_id)
-
-        # if it exists render the update product with existing product data
-        if result["success"]:
-            product = result["product"]
-            return render_template(
-                "update_product.html",
-                name = product["article_name"],
-                id = product["article_id"],
-                brand = product["brand"],
-                price = product["price_SEK"],
-                category = product["category"],
-                discount = product["discount_percentage"],
-                stock = product["stock_amount"],
-                info = ""
-            )
-        
-        # otherwise show the error for no product found
-        else:
-            return render_template("update_product_finder.html", info = result["message"])
-
-
-@app.route('/inventory/update-product', methods = ['GET', 'POST'])
+@app.route('/inventory/update-product', methods=['GET', 'POST'])
 def update_product_page():
-    if request.method == "GET":
-        return redirect(url_for("update_product_finder_page"))
-    
-    else:
-        update_data = {
-            "article_id": request.form.get("article_id"),
-            "name": request.form.get("name"),
-            "brand": request.form.get("brand"),
-            "price": request.form.get("price"),
-            "category": request.form.get("category"),
-            "stock": request.form.get("stock")
-        }
+    if request.method == 'POST':
+        article_id = request.form.get('article_id')
+        products = load_json(FILE_PATH)
 
-        result = update_product(update_data)
-        if result["success"]:
-            product = result["product"]
-            return render_template(
-                "update_product.html",
-                name = product["article_name"],
-                id = product["article_id"],
-                brand = product["brand"],
-                price = product["price_SEK"],
-                category = product["category"],
-                discount = product["discount_percentage"],
-                stock = product["stock_amount"],
-                info = result["message"]
-            )
-        
-        else:
-            product = result["product"] or {}
-            return render_template(
-                "update_product.html",
-                name = request.form.get("name", ""),
-                id = request.form.get("article_id", ""),
-                brand = request.form.get("brand", ""),
-                price = request.form.get("price", ""),
-                category = request.form.get("category", ""),
-                discount = request.form.get("discount", ""),
-                stock = request.form.get("stock", ""),
-                info = result["message"]
-            )
+        if article_id in products:
+            products[article_id]['article_name'] = request.form.get('name', '').strip()
+            products[article_id]['brand'] = request.form.get('brand', '').strip()
+            products[article_id]['price_SEK'] = request.form.get('price', '').strip()
+            products[article_id]['category'] = request.form.get('category', '').strip()
+
+            # If statements so it only updates if the input is valid
+            discount_input = request.form.get('discount', '').strip()
+            if discount_input.isdigit():
+                products[article_id]['discount_percentage'] = int(discount_input)
+
+            stock_input = request.form.get('stock', '').strip()
+            if stock_input.isdigit():
+                products[article_id]['stock_amount'] = int(stock_input)
+
+            # Saves the updated product information to the JSON file
+            with open(FILE_PATH, 'w') as f:
+                json.dump(products, f, indent=2)
+
+            flash('Product updated', 'success')
+            return redirect(url_for('display_inventory'))
+
+        flash('Product not found', 'danger')
+        return redirect(url_for('display_inventory'))
+
+    # Gets product details 
+    article_id = request.args.get('article_id')
+    product = ""
+
+    if article_id:
+        try:
+            products = load_json(FILE_PATH)
+            product = products.get(article_id)
+
+        except:
+            product = ""
+
+    return render_template('update_product.html', product=product, id=article_id)
+
 
 
 @app.route('/inventory/apply-discount', methods=['GET', 'POST'])
