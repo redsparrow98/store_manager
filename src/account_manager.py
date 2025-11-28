@@ -10,7 +10,7 @@ TEST_USERS_FILE_PATH = BASE_DIR / "dataset" / "test_users.json"
 
 # Creates a new account if username not already taken
 def create_account(username, access_level, password, repeat_password):
-    users = load_json(USERS_FILE_PATH)
+    users = load_json(TEST_USERS_FILE_PATH)
     
     errors = []
 
@@ -30,10 +30,10 @@ def create_account(username, access_level, password, repeat_password):
     
     else:
         users[username] = {
-            "password": generate_password_hash(password),
-            "access_level": access_level,
+            "password": password,
+            "access_level": access_level
         }
-        write_json(USERS_FILE_PATH, users)
+        write_json(TEST_USERS_FILE_PATH, users)
     
 
         # file for testing only so we can see the actualy password not the hashed one
@@ -61,6 +61,31 @@ def delete_user(deleted_user):
         print(users)
         return True
 
+# Update password
+
+def update_password_page(username, current_password, new_password, repeat_new_password):
+    
+    users = load_json(TEST_USERS_FILE_PATH)
+
+    errors = []
+
+    if current_password != users[username]['password']:
+        errors.append("Wrong password, try again")
+    
+    if current_password == new_password:
+        errors.append("The new and the current password can't be the same.")
+    
+    if repeat_new_password != new_password:
+        errors.append("Passwords don't match")
+    
+    if errors:
+        return False, errors
+    
+    else:    
+        users[username]['password'] = new_password
+        write_json(TEST_USERS_FILE_PATH, users)
+        return True, "Password succesfully changed"
+
 # Checks if username and password are entered correctly
 def check_credentials(username, password):
     users = load_json(USERS_FILE_PATH)
@@ -73,9 +98,9 @@ def check_credentials(username, password):
 
 # Checks if access level is manager or employee
 def is_manager(username):
-    users = load_json(USERS_FILE_PATH)
+    users = load_json(TEST_USERS_FILE_PATH)
     
-    if username in users and users[username]['access_level'] == "manager":
+    if username in users and users[username]['access_level'] == "Manager":
         return True
     else:
         return False

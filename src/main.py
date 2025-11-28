@@ -235,7 +235,7 @@ def delete_user_page():
         
         flash (f"User '{deleted_user}' has been deleted successfully.", "success")            
         return render_template("delete_user.html")
-    
+        
 @app.route('/dashboard/create-account', methods=['GET', 'POST'])
 def create_account_page():
     
@@ -258,6 +258,34 @@ def create_account_page():
             for error in result:
                 flash (error, "error")
             return redirect(url_for("create_account_page"))
+
+@app.route('/dashboard/my-account', methods=['GET', 'POST'])
+def account_page():
+    """
+    The variables username and access_level is here because they need to be defined before
+    the if-statement since they are supposed to be displayed all the time in the account info
+    """
+    users = load_json('dataset/test_users.json')
+    username = current_user.id
+    access_level = users[username]["access_level"]
+
+    if request.method == "GET":
+        return render_template("my_account.html", username=username,
+                               access_level=access_level)    
+    else:
+        current_password = request.form['current_password']
+        new_password = request.form['new_password']
+        repeat_new_password = request.form['repeat_new_password']
+
+        success, result = update_password_page(username, current_password, new_password, repeat_new_password)
+
+        if success:
+            flash (result, "success")
+
+        else:
+            for error in result:
+                flash (error, "error")
+        return redirect(url_for("account_page"))
 
 if __name__=='__main__':
     app.run(debug=True)

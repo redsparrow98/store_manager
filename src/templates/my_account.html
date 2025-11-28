@@ -1,0 +1,83 @@
+{% extends "base.html" %} 
+{% block title %}Create account{% endblock %} 
+{% block content %}
+
+<div class="product-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('dashboard') }}'"></button>
+    <header class="modal-header">
+    <h2>My Account</h2>
+    </header>
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            {% if category == 'success' %}
+                <div class= "success-message">
+                    {{ message }}
+                </div>
+            {% elif category == 'error' %}
+                <div class="error-message">
+                    {{ message }}
+                </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('account_page') }}" method="POST">
+        
+            <!--Displaying the username -->
+            <div style="margin-bottom: 8px;">
+                <label style="margin-right: 10px;"></label>
+                <p>Username:</p>
+                <input class="btn" type="text" value="{{ username }}" readonly>
+            </div>
+            
+            <!--Displaying the access level -->
+            <div style="margin-bottom: 8px;">
+                <label style="margin-right: 10px;"></label>
+                <p>Access Level</p>
+                <input class="btn" type="text" value="{{ access_level }}" readonly>
+            </div>
+
+            <!-- The old password -->
+            <div style="margin-bottom: 8px;">
+                <label style="margin-right: 10px;"></label>
+                <p>Current Password:</p>
+                <input class="btn" type="password" name="current_password" required>
+            </div>
+
+            <!-- The new password -->
+            <div style="margin-bottom: 8px;">
+                <label style="margin-right: 10px;"></label>
+                <p>New Password:</p>
+                <input class="btn" type="password" name="new_password" required>
+            </div>
+
+            <!-- New password again for confirmation -->
+            <div style="margin-bottom: 8px;">
+                <label style="margin-right: 10px;"></label>
+                <p>Repeat New Password:</p>
+                <input class="btn" type="password" name="repeat_new_password" required>
+            </div>
+
+            <!-- Buttons to save the new password and to redirect to create account and delete user -->
+            <footer class="modal-footer">
+                <button type="submit" class="btn btn-edit">Update Password</button>
+                <a class="btn btn-cancel" href="{{ url_for('create_account_page') }}">Create Account</a>
+                <a class="btn btn-cancel" href="{{ url_for('delete_user_page') }}">Delete User</a>
+                <a class="btn btn-cancel" href="{{ url_for('dashboard') }}">Cancel</a>
+                </footer>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}
