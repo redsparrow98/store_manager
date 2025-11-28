@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash
 from flask_login import UserMixin
 
 BASE_DIR = Path(__file__).parent.parent
@@ -16,7 +16,7 @@ def load_users():
         users = {}
         for username, data in raw_users.items():
             users[username] = {
-                "password": generate_password_hash(data["password"]),
+                "password": data["password"],
                 "access_level": data["access_level"]
             }
         return users
