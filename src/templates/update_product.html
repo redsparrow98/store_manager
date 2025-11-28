@@ -1,67 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update</title>
-    
-<style>
-        .round-btn{
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: none;
-            overflow: hidden; 
-            padding: 0;
-            cursor: pointer;
-            background-color: #FFD6FE
-        }
+{% extends "base.html" %}
+{% block title %}Update product{% endblock %}
+{% block content %}
 
-        .round-btn img {
-            width: 70%;
-            height: 70%;
-            object-fit: cover;
-        }
-</style>
-</head>
-<body style="background-color: #FAEBF9">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/access.css') }}" />
 
-<button class="round-btn" style="top: 20px; left: 20px;" onclick="window.location.href='{{ url_for('dashboard') }}'"> 
-    <img src=https://www.iconpacks.net/icons/2/free-home-icon-2502-thumb.png alt="home-button">
-</button>
+<div class="product-modal" role="dialog" aria-modal="true">
+  <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
 
-<h1 style="text-align:center;">Update product</h1>
+  <header class="modal-header"><h2>Update product</h2></header>
 
-<form method="post" action="/inventory/update-product"> <!-- action="/search" connects to html file to update_product function -->
+  <form method="post" action="{{ url_for('update_product_page') }}">
+    <div class="modal-body">
+        <div class="form-grid">
 
-    <!-- Code below shows existing product information connected to product id-->
-    Article name: <input name="name" value="{{name}}"></input> <br><br>
-    Article id: <input name="article_id" value="{{id}}" readonly></input> <br><br>
-    Brand: <input name="brand" value="{{brand}}"></input> <br><br>
-    Price: <input name="price" value="{{price}}"></input> <br><br>
-    Category: <input name="category" value="{{category}}"></input> <br><br>
-    Discount percentage: <input name="discount" value="{{discount}}" readonly></input> <br><br>
-    Stock amount: <input name="stock" value="{{stock}}"></input> <br><br>
+        <div class="form-row">
+            <div class="field-label">Item name</div>
+            <input class="field-box" name="name" required value="{{ product.article_name if product else (name or '') }}">
+        </div>
 
-    <pre>{{info}}</pre><br> <!-- Displays message to user, either if product has been added or error appeared -->
+        <div class="form-row">
+            <div class="field-label">Product ID</div>
+            <input class="field-box" name="article_id" required readonly value="{{ product.article_id if product else (id or '') }}">
+        </div>
 
-    <button style="background-color: #FFD6FE; padding: 5px 15px;" name="btn" value="update" type="Update"> 
-        Update
-    </button>
+        <div class="form-row">
+            <div class="field-label">Brand</div>
+            <input class="field-box" name="brand" required value="{{ product.brand if product else (brand or '') }}">
+        </div>
 
-    <button style="background-color: #FFD6FE; padding: 5px 15px;" type="button" onclick="window.location.href='{{ url_for('update_product_finder_page') }}'">
-        Back to search
-    </button>
+        <div class="form-row">
+            <div class="field-label">Price</div>
+            <input class="field-box" name="price" required value="{{ product.price_SEK if product else (price or '') }}">
+        </div>
 
-    <button style="background-color: #FFD6FE; padding: 5px 15px;" type="button" onclick="window.location.href='{{ url_for('display_inventory') }}'">
-        Back to inventory
-    </button>
+        <div class="form-row">
+            <div class="field-label">Category</div>
+            <input class="field-box" name="category" required value="{{ product.category if product else (category or '') }}">
+        </div>
 
-    <button type="button" style="background-color:#FFD6FE; display:block; position: absolute; top: 20px; right: 20px"
-        onclick="window.location.href='{{ url_for('display_inventory') }}'">
-    &lt; Back
-    </button>
+        <div class="form-row">
+            <div class="field-label">Discount percentage</div>
+            <input class="field-box" name="discount" type="number" required value="{{ product.discount_percentage if product else (discount or '') }}">
+        </div>
 
-</form>
-</body>
-</html>
+        <div class="form-row">
+            <div class="field-label">Stock amount</div>
+            <input class="field-box" name="stock" type="number" required value="{{ product.stock_amount if product else (stock or '') }}">
+        </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a class="btn btn-cancel" href="{{ url_for('display_inventory') }}">Cancel</a>
+        <button type="submit" class="btn btn-edit">Update</button>
+    </div>
+
+  </form>
+</div>
+{% endblock %}
