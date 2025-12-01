@@ -1,38 +1,38 @@
-{% extends "base.html" %} 
-{% block title %}Create account{% endblock %} 
+{% extends "base.html" %}
+{% block title %}Create account{% endblock %}
 {% block content %}
 
 <div class="product-modal" role="dialog" aria-modal="true">
     <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('dashboard') }}'"></button>
     <header class="modal-header">
-    <h2>My Account</h2>
+        <h2>My Account</h2>
     </header>
     <div>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            {% for category, message in messages %}
-            {% if category == 'success' %}
-                <div class= "success-message">
-                    {{ message }}
-                </div>
-            {% elif category == 'error' %}
-                <div class="error-message">
-                    {{ message }}
-                </div>
-            {% endif %}
-            {% endfor %}
+        {% for category, message in messages %}
+        {% if category == 'success' %}
+        <div class="success-message">
+            {{ message }}
+        </div>
+        {% elif category == 'error' %}
+        <div class="error-message">
+            {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
         {% endif %}
         {% endwith %}
 
         <form action="{{ url_for('account_page') }}" method="POST">
-        
+
             <!--Displaying the username -->
             <div style="margin-bottom: 8px;">
                 <label style="margin-right: 10px;"></label>
                 <p>Username:</p>
                 <input class="btn" type="text" value="{{ username }}" readonly>
             </div>
-            
+
             <!--Displaying the access level -->
             <div style="margin-bottom: 8px;">
                 <label style="margin-right: 10px;"></label>
@@ -64,20 +64,17 @@
             <!-- Buttons to save the new password and to redirect to create account and delete user -->
             <footer class="modal-footer">
                 <button type="submit" class="btn btn-edit">Update Password</button>
+                
+                <!-- Only shows create account and delete user to users with access level manager or admin -->
+                {% if access_level in ["Manager", "Admin"] %}
                 <a class="btn btn-cancel" href="{{ url_for('create_account_page') }}">Create Account</a>
                 <a class="btn btn-cancel" href="{{ url_for('delete_user_page') }}">Delete User</a>
+                {% endif %}
+
                 <a class="btn btn-cancel" href="{{ url_for('dashboard') }}">Cancel</a>
-                </footer>
+            </footer>
         </form>
     </div>
 </div>
-
-
-
-
-
-
-
-
 
 {% endblock %}
