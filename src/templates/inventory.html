@@ -19,13 +19,18 @@ content %}
     </a>
 
     <!-- Add product -->
-    <a class="btn plus-btn" href="{{ url_for('add_product_page') }}">
-      <img class="btn-icon-left" src="{{ url_for('static', filename='images/plus.png') }}" alt="add" />
-      Add product
+    <a
+      class="plus-btn"
+      href="{{ url_for('add_product_page') }}"
+      title="Add product"
+    >
+      <img
+        src="{{ url_for('static', filename='images/plus.png') }}"
+        alt="add"
+      />
     </a>
   </div>
 </div>
-
 <!-- Product table -->
 <div class="table-wrap">
   <table class="products-table">
