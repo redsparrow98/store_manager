@@ -118,31 +118,48 @@ def update_product_page():
     if request.method == 'POST':
         article_id = request.form.get('article_id')
         products = load_json(FILE_PATH)
+        product = products[article_id]
+        
+        product_copy = product.copy()
+        product['article_name'] = request.form.get('name', '').strip()
+        product['brand'] = request.form.get('brand', '').strip()
+        product['price_SEK'] = request.form.get('price', '').strip()
+        product['discount_percentage'] = request.form.get('discount', '').strip()
+        product['category'] = request.form.get('category', '').strip()
+        product['stock_amount'] = request.form.get('stock', '').strip()
 
-        if article_id in products:
-            products[article_id]['article_name'] = request.form.get('name', '').strip()
-            products[article_id]['brand'] = request.form.get('brand', '').strip()
-            products[article_id]['price_SEK'] = request.form.get('price', '').strip()
-            products[article_id]['category'] = request.form.get('category', '').strip()
+        # If statements so it only updates if the input is valid
+        if product['article_name'].isdigit() or product['article_name'] == "":
+            flash (f"Name cannot be digit or blank.", "error")
+            return render_template("update_product.html", product=product_copy)
 
-            # If statements so it only updates if the input is valid
-            discount_input = request.form.get('discount', '').strip()
-            if discount_input.isdigit():
-                products[article_id]['discount_percentage'] = int(discount_input)
+        elif product['brand'].isdigit() or product['brand'] == "":
+            flash (f"Brand cannot be digit or blank.", "error")
+            return render_template("update_product.html", product=product_copy)
 
-            stock_input = request.form.get('stock', '').strip()
-            if stock_input.isdigit():
-                products[article_id]['stock_amount'] = int(stock_input)
+        elif is_number(product['price_SEK']) == False or float(product['price_SEK']) < 0:
+            flash (f"Price cannot be negative or blank.", "error")
+            return render_template("update_product.html", product=product_copy)
+        
+        elif is_number(product['discount_percentage']) == False or float(product['discount_percentage']) < 0:
+            flash (f"Discount percentage cannot be negative or blank.", "error")
+            return render_template("update_product.html", product=product_copy)
+            
+        elif product['category'].isdigit() or product['category'] == "":
+            flash (f"Category cannot be digit or blank.", "error")
+            return render_template("update_product.html", product=product_copy)
+        
+        elif not product['stock_amount'].isdigit():
+            flash (f"Stock amount cannot be text, blank or negative.", "error")
+            return render_template("update_product.html", product=product_copy)
+        
+        # Saves the updated product information to the JSON file
+        with open(FILE_PATH, 'w') as f:
+            json.dump(products, f, indent=2)
 
-            # Saves the updated product information to the JSON file
-            with open(FILE_PATH, 'w') as f:
-                json.dump(products, f, indent=2)
-
-            flash('Product updated', 'success')
-            return redirect(url_for('display_inventory'))
-
-        flash('Product not found', 'danger')
-        return redirect(url_for('display_inventory'))
+        flash('Product information successfully updated!', 'success')
+        product = products.get(article_id)
+        return render_template('update_product.html', product=product, id=article_id)
 
     # Gets product details 
     article_id = request.args.get('article_id')
