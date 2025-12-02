@@ -82,6 +82,13 @@ body {
   margin-top: 10px;
 }
 
+.user-lvl {
+    font-size: 16px;
+    color: grey;
+    text-align: center;
+    margin-top: 8px;
+}
+
 .navigation {
   margin-top: 40px;
 }

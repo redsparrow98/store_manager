@@ -75,7 +75,7 @@ def dashboard():
         "dashboard.html",
         notif_count = notif_count,
         username = current_user.id,
-        access_level = current_user.access_level
+        access_level = current_user.access_level.lower()
     )
 
 @app.route('/locked-out')
