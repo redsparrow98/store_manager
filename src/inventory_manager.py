@@ -125,8 +125,9 @@ def delete_product(article_id):
         article_id (String): Article ID key for the DB
     """
     products = load_json(FILE_PATH)
-    products.pop(article_id)
+    delete = products.pop(article_id)
     write_json(FILE_PATH, products)
+    return delete
 
 
 #ACCESSING A PRODUCT FEATURE AND HELPER FUNCTIONS

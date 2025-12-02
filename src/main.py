@@ -112,24 +112,16 @@ def add_product_page():
         return render_template("add_product.html")
 
 
-@app.route('/inventory/delete-product', methods=['GET','POST'])
+@app.route('/inventory/delete-product', methods=['GET'])
 def delete_product_page():
     if request.method == "GET":
-        return render_template("delete_product.html")
     
-    else:
-        data = load_json(FILE_PATH)
-        article_id = request.form['article_id']
-        
-        if article_id in data:
-            flash (f"{data[article_id]['article_name']} with article id {article_id} has been deleted successfully", "success")
-            delete_product(article_id)
-            return render_template("delete_product.html")
-        
-        else:
-            flash (f"Product with article id {article_id} not found", "error")
-            return redirect(url_for("delete_product_page"))
-
+        article_id = request.args.get('article_id')
+         
+        deleted_product = delete_product(article_id)
+        flash (f"{deleted_product['article_name']} with article id {article_id} has been deleted", "success")
+        return redirect(url_for("display_inventory"))
+    
 
 @app.route("/notifications")
 def show_notifications():
