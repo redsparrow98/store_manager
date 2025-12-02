@@ -158,7 +158,7 @@ def update_product_page():
         product['brand'] = request.form.get('brand', '').strip()
         product['price_SEK'] = request.form.get('price', '').strip()
         product['discount_percentage'] = request.form.get('discount', '').strip()
-        product['category'] = request.form.get('category', '').strip()
+        product['category'] = request.form.get('category', '').strip().capitalize()
         product['stock_amount'] = request.form.get('stock', '').strip()
 
         # If statements so it only updates if the input is valid
@@ -175,7 +175,7 @@ def update_product_page():
             flash (f"Price cannot be negative or blank.", "error")
             return render_template("update_product.html", product=product_copy)
         
-        elif is_number(product['discount_percentage']) == False or float(product['discount_percentage']) < 0:
+        elif is_number(product['discount_percentage']) == False or int(product['discount_percentage']) < 0:
             flash (f"Discount percentage cannot be negative or blank.", "error")
             return render_template("update_product.html", product=product_copy)
             
@@ -219,8 +219,8 @@ def apply_discount_page():
 
     else:
         try:
-            discount_percentage = float(request.form["discount_percentage"])
-            category = request.form.get("category")  
+            discount_percentage = int(request.form["discount_percentage"])
+            category = request.form.get("category") 
 
             apply_discount_to_products(discount_percentage, category)
 
@@ -305,7 +305,10 @@ def delete_user_page():
     
         # If credentials are correct, asks user to input username for which user they want to delete
         deleted_user = request.form['deleted_user']
-        
+        if deleted_user == username:
+            flash (f"Cannot delete your own user.", "error")
+            return redirect(url_for("delete_user_page"))
+            
         if delete_user(deleted_user) == False:
             flash (f"User with username '{deleted_user}' not found.", "error")
             return redirect(url_for("delete_user_page"))
