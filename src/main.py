@@ -1,3 +1,4 @@
+from math import prod
 from flask_login import LoginManager, login_user, login_required, current_user
 from flask import Flask, render_template, redirect, url_for, request, flash
 from inventory_manager import *
@@ -183,32 +184,58 @@ def apply_discount_page():
 
         return redirect(url_for("apply_discount_page"))
 
-
 @app.route("/inventory/access-product-information", methods=["GET", "POST"])
 def access_product():
-    search_input = request.values.get("search_term", "")
-    stripped_search = search_input.strip()
+    search_term = request.args.get('search_term', '').strip()
+    if not search_term:
+        return redirect(url_for('display_inventory'))
 
-    result_data = access_product_landing_page(stripped_search)
-    if "brand_search" in result_data:
+    try:
+        products = load_json(FILE_PATH)
+
+    except Exception:
+        flash('Error loading products.', 'error')
+        return redirect(url_for('display_inventory'))
+
+    def build_display(product, article_id):
+        return [
+            ('Product ID', product.get('article_id', article_id)),
+            ('Item name', product.get('article_name', '')),
+            ('Brand', product.get('brand', '')),
+            ('Price', f"{product.get('price_SEK', product.get('price', ''))} kr" if product.get('price_SEK', product.get('price', '')) not in (None, '') else ''),
+            ('Discount percentage', f"{product.get('discount_percentage', '')}%" if product.get('discount_percentage', '') not in (None, '') else ''),
+            ('Amount', f"{product.get('stock_amount', product.get('stock', ''))} pcs" if product.get('stock_amount', product.get('stock', '')) not in (None, '') else ''),
+            ('Category', product.get('category', '')),
+        ]
+
+    # Matches product ID
+    if search_term in products:
+        item = products[search_term]
+        product_display = build_display(item, search_term)
         return render_template(
-            result_data["template"],
-            products = result_data["products"],
-            product = result_data["product"],
-            display = result_data["display"],
-            brand_results = result_data["brand_results"],
-            brand_search = result_data["brand_search"],
-            error = result_data["error"]
-            )
-    else:
-        return render_template(
-            result_data["template"],
-            products = result_data["products"],
-            product = result_data["product"],
-            display = result_data["display"],
-            brand_results = result_data["brand_results"],
-            error = result_data["error"]
-            )
+            'access_product_info.html',
+            product=item,
+            product_display=product_display,
+            display=product_display,
+            searched_id=search_term,
+            id=search_term,
+            search_term=search_term
+        )
+
+    # Matches brand
+    search_lower = search_term.lower()
+    brand_results = []
+    for article_id, product in products.items():
+        brand = (product.get('brand') or '').lower()
+        if search_lower in brand:
+            display = build_display(product, article_id)
+            brand_results.append((str(article_id), product, display))
+
+    if brand_results:
+        return render_template('access_product_info.html', brand_results=brand_results, brand_searched=search_term, search_term=search_term)
+
+    flash(f'No products found for: {search_term}', 'error')
+    return redirect(url_for('display_inventory'))
         
 
 @app.route('/dashboard/delete-user', methods=['GET','POST'])

@@ -7,10 +7,16 @@
   href="{{ url_for('static', filename='css/access.css') }}"
 />
 
-  <!-- Matches all products of a brand -->
+<!-- Matches all products of a brand -->
+  <div class="brand-results">
   {% if brand_results %}
-    <p><a href="{{ url_for('access_product') }}">Back to search</a></p>
-    <h2>Brand: {{ brand_searched }}</h2>
+    <div class="product-modal" role="dialog" aria-modal="true">
+      <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
+
+      <header class="modal-header">
+        <h2>Brand: {{ search_term }}</h2>
+      </header>
+    
 
     {% for product_id, product_info, product_display in brand_results %}
       <div class="brand-result">
@@ -23,6 +29,8 @@
       </div>
     {% endfor %}
   {% endif %}
+  </div>
+  
 
   <!-- Matches specific product -->
   {% if product %}
