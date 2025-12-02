@@ -75,7 +75,7 @@ def dashboard():
         "dashboard.html",
         notif_count = notif_count,
         username = current_user.id,
-        access_level = current_user.access_level
+        access_level = current_user.access_level.lower()
     )
 
 @app.route('/locked-out')
@@ -85,8 +85,16 @@ def display_countdown():
 
 @app.route('/inventory')
 def display_inventory():
+    users = load_json(TEST_USERS_FILE_PATH)
+    username = current_user.id
+    access_level = users[username]["access_level"]
+
     all_products = list_all_products()
-    return render_template('inventory.html', all_products=all_products)
+    return render_template('inventory.html',
+                        all_products=all_products,
+                        username=username,
+                        access_level=access_level
+                        )
 
 
 @app.route('/inventory/add-product', methods=['GET', 'POST'])
@@ -342,8 +350,10 @@ def account_page():
     access_level = users[username]["access_level"]
 
     if request.method == "GET":
-        return render_template("my_account.html", username=username,
-                               access_level=access_level)    
+        return render_template("my_account.html", 
+                            username=username,
+                            access_level=access_level
+                            )    
     else:
         current_password = request.form['current_password']
         new_password = request.form['new_password']

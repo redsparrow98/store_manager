@@ -53,8 +53,15 @@
             {% else %}
                 Guest
             {% endif %}
+        
+        <!-- access lvl tag -->
         </span>
-      </div>
+        {% if access_level %}
+        <span class="user-lvl">
+            {{ access_level }}
+        </span>
+        {% endif %}
+      </span>
       <nav class="sidebar-nav">
         <nav class="navigation">
           <a href="{{ url_for('dashboard') }}">
