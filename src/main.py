@@ -30,16 +30,31 @@ def load_user(user_id):
 
 @app.route("/", methods=["GET", "POST"])
 def login():
+    if "failed_attempts" not in session:
+        session['failed_attempts'] = 0
+    
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
         user = authenticate(username, password)
+       
         if user:
+            session['failed_attempts'] = 0
             login_user(user)
             session["access_level"] = user.access_level
             return redirect(url_for("dashboard"))
-        else:
-            flash("Invalid username or password", "danger")
+        
+        session['failed_attempts'] += 1
+
+        if session['failed_attempts'] == 3:
+            session['failed_attempts'] = 0
+            return redirect(url_for('display_countdown'))
+        
+        flash(
+            f"Invalid username or password. "
+            f"{3 - session['failed_attempts']} attempt(s) left", "danger")
+
+
     return render_template("login.html")
 
 # Gives the access level to the templates
@@ -63,7 +78,7 @@ def dashboard():
 
 @app.route('/locked-out')
 def display_countdown():
-    return render_template('locked.html', coundown = 180)
+    return render_template('locked.html')
 
 
 @app.route('/inventory')
