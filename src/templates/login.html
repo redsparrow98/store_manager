@@ -1,6 +1,12 @@
-{% extends "base.html" %}
+<link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/global.css') }}"
+    />
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/access.css') }}"
+    />
 
-{% block content %}
 <section class="login-section">
     <div class="login-container">
     <h2>Login</h2>
@@ -18,18 +24,17 @@
     {% endwith %}
 
     <form method="POST" class="login-form">
-        <div class="form-group">
+        <div class="btn" style="background-color: #CBCEF7">
           <label for="username">Username</label>
           <input type="text" id="username" name="username" required>
         </div>
 
-        <div class="form-group">
+        <div class="btn" style="background-color: #CBCEF7">
           <label for="password">Password</label>
           <input type="password" id="password" name="password" required>
         </div>
 
-        <button type="submit" class="btn-primary">Login</button>
+        <button type="submit" class="btn-primary" style="background-color: #4A54E3">Login</button>
      </form>
   </div>
 </section>
-{% endblock %}
