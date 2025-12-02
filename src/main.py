@@ -10,6 +10,7 @@ from pathlib import Path
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
+TEST_USERS_FILE_PATH = BASE_DIR / "dataset" / "test_users.json"
 
 
 app = Flask(__name__)
@@ -333,13 +334,15 @@ def account_page():
     The variables username and access_level is here because they need to be defined before
     the if-statement since they are supposed to be displayed all the time in the account info
     """
-    users = load_json('dataset/test_users.json')
+    users = load_json(TEST_USERS_FILE_PATH)
     username = current_user.id
     access_level = users[username]["access_level"]
 
     if request.method == "GET":
-        return render_template("my_account.html", username=username,
-                               access_level=access_level)    
+        return render_template("my_account.html", 
+                            username=username,
+                            access_level=access_level
+                            )    
     else:
         current_password = request.form['current_password']
         new_password = request.form['new_password']
