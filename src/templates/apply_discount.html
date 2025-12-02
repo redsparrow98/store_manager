@@ -34,19 +34,21 @@ content %}
       <input class="btn" type="text" name="category" /><br /><br />
 
       <!--Submit button  -->
-      <button
-        class="btn btn-edit"
-        type="submit"
-      >
-        Apply Discount
-      </button>
-      <button
+            <button
         class="btn btn-cancel"
         type="button"
         onclick="window.location.href='{{ url_for('display_inventory') }}'"
       >
         Cancel
       </button>
+      
+      <button
+        class="btn btn-edit"
+        type="submit"
+      >
+        Apply Discount
+      </button>
+
     </form>
 </div>
 {% endblock %}
