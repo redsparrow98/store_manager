@@ -85,8 +85,16 @@ def display_countdown():
 
 @app.route('/inventory')
 def display_inventory():
+    users = load_json(TEST_USERS_FILE_PATH)
+    username = current_user.id
+    access_level = users[username]["access_level"]
+
     all_products = list_all_products()
-    return render_template('inventory.html', all_products=all_products)
+    return render_template('inventory.html',
+                        all_products=all_products,
+                        username=username,
+                        access_level=access_level
+                        )
 
 
 @app.route('/inventory/add-product', methods=['GET', 'POST'])

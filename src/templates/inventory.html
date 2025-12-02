@@ -25,16 +25,18 @@ content %}
     </a>
 
     <!-- Add product -->
-    <a
-      class="plus-btn"
-      href="{{ url_for('add_product_page') }}"
-      title="Add product"
-    >
-      <img
-        src="{{ url_for('static', filename='images/plus.png') }}"
-        alt="add"
-      />
-    </a>
+    {% if access_level in ["Manager", "Admin"] %}
+        <a
+        class="plus-btn"
+        href="{{ url_for('add_product_page') }}"
+        title="Add product"
+        >
+        <img
+            src="{{ url_for('static', filename='images/plus.png') }}"
+            alt="add"
+        />
+        </a>
+    {% endif %}
   </div>
 </div>
 <!-- Product table -->
@@ -75,25 +77,27 @@ content %}
             />
           </a>
           <!-- Edit -->
-          <a
+        <a
             class="icon-btn"
             href="{{ url_for('update_product_page') }}?article_id={{ p.article_id }}"
-          >
+        >
             <img
-              src="{{ url_for('static', filename='images/edit.png') }}"
-              alt="edit"
+            src="{{ url_for('static', filename='images/edit.png') }}"
+            alt="edit"
             />
-          </a>
+        </a>
           <!-- Delete -->
-          <a
-            class="icon-btn"
-            href="{{ url_for('delete_product_page') }}?article_id={{ p.article_id }}"
-          >
-            <img
-              src="{{ url_for('static', filename='images/delete.png') }}"
-              alt="delete"
-            />
-          </a>
+           {% if access_level in ["Manager", "Admin"] %}
+            <a
+                class="icon-btn"
+                href="{{ url_for('delete_product_page') }}?article_id={{ p.article_id }}"
+            >
+                <img
+                src="{{ url_for('static', filename='images/delete.png') }}"
+                alt="delete"
+                />
+            </a>
+          {% endif %}
         </td>
       </tr>
       {% endfor %}
