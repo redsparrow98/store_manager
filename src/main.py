@@ -130,6 +130,7 @@ def update_product_page():
 
         # If statements so it only updates if the input is valid
         if product['article_name'].isdigit() or product['article_name'] == "":
+            #Shows error message and redirects to same page with original product info in case of wrong input type
             flash (f"Name cannot be digit or blank.", "error")
             return render_template("update_product.html", product=product_copy)
 
