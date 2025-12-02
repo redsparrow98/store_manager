@@ -7,7 +7,7 @@ content %}
     <!-- Search form -->
     <form class="search-button-form" action="{{ url_for('access_product') }}" method="get" role="search">
       <span class="search-icon">
-        <img src="{{ url_for('static', filename='images/search.png') }}" alt="">
+        <img src="{{ url_for('static', filename='images/search.svg') }}" alt="">
       </span>
       <input
         type="search"
@@ -31,7 +31,7 @@ content %}
       title="Add product"
     >
       <img
-        src="{{ url_for('static', filename='images/plus.png') }}"
+        src="{{ url_for('static', filename='images/plus.svg') }}"
         alt="add"
       />
     </a>
@@ -70,7 +70,7 @@ content %}
             href="{{ url_for('access_product') }}?search_term={{ p.article_id }}"
           >
             <img
-              src="{{ url_for('static', filename='images/eye.png') }}"
+              src="{{ url_for('static', filename='images/eye.svg') }}"
               alt="view"
             />
           </a>
@@ -80,7 +80,7 @@ content %}
             href="{{ url_for('update_product_page') }}?article_id={{ p.article_id }}"
           >
             <img
-              src="{{ url_for('static', filename='images/edit.png') }}"
+              src="{{ url_for('static', filename='images/edit.svg') }}"
               alt="edit"
             />
           </a>
@@ -90,7 +90,7 @@ content %}
             href="{{ url_for('delete_product_page') }}?article_id={{ p.article_id }}"
           >
             <img
-              src="{{ url_for('static', filename='images/delete.png') }}"
+              src="{{ url_for('static', filename='images/delete.svg') }}"
               alt="delete"
             />
           </a>

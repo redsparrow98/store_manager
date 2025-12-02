@@ -10,7 +10,7 @@ body {
 /*adjust main content to not hide behind the navbar*/
 .main-content {
   margin-top: 7vh;
-  margin-left: 20vw;
+  margin-left: 18vw;
   padding: 20px;
 }
 /* Top navigation bar */
@@ -36,6 +36,7 @@ body {
 }
 .top-navbar .logo img {
   height: 80%;
+  margin-top: 1.5vh;
 }
 
 .notification-btn img {
@@ -472,7 +473,7 @@ body {
 
 /* Table container */
 .table-wrap {
-  margin: 0 20px 20px;
+  margin: 0 8px 24px;
   background: #ffffff;
   border-radius: 14px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
@@ -503,43 +504,48 @@ body {
   vertical-align: middle;
 }
 .col-name {
-  width: 28%;
+  width: 30%;
 }
 .col-id {
-  width: 12%;
+  width: 10%;
 }
 .col-cat {
-  width: 16%;
+  width: 15%;
 }
 .col-price {
-  width: 14%;
+  width: 15%;
 }
 .col-discount {
-  width: 10%;
+  width: 8%;
 }
 .col-amount {
-  width: 10%;
+  width: 8%;
 }
 .col-actions {
-  width: 25%;
+  width: 14%;
 }
 
 /*Icons in the table*/
 .icon-btn {
+  background: transparent;   
+  border: none;              
+  box-shadow: none;          
+  padding: 6px;             
+  width: 20px;
+  height: 20px;
+  margin: 4px;
+  border-radius: 8px;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  margin-right: 8px;
-  border-radius: 5px;
-  background: #e4e9ff; /* soft blue for view/edit */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  justify-content: flex-end;      
+  box-sizing: border-box;
 }
 
-.icon-btn img {
-  width: 25px;
-  height: 25px;
+/* SVG  */
+.icon-btn svg {
+  display: block;
+  object-fit: contain;
+  background: transparent;
 }
 
 /* Responsive */
@@ -597,5 +603,3 @@ body {
     min-width: 760px;
   } /* allow horizontal scroll rather than breaking layout */
 }
-
-
