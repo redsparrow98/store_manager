@@ -233,4 +233,10 @@ def access_product_landing_page(search_term):
             "error": f"No match found for '{search_term}'",
         }
 
-
+# Error handling reused to validate user input in update functions
+def is_number(text: str):
+    try:
+        float(text)
+        return True
+    except:
+        return False
