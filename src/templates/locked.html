@@ -4,37 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Locked-out</title>
-    <link rel="stylesheet" href="global.css">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/global.css') }}"
+    />
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/access.css') }}"
+    />
 
 </head>
-<body class = "body">
-    <h1 style = "text-align: center">You have been locked out</h1>
-    <h3 style = "text-align: center">When the timer is completed you will be redirected back to the login page</h3>
+<body>
+    <div class="product-modal" role="dialog" aria-modal="true" style="position: static; margin-bottom: auto; margin: auto">
+        <header class="modal-header" style="text-align:center">
+        <h1>You have been locked out</h1>
+        </header>
 
-    <h2 id="countdown" style="text-align:center"></h2>
+        <h1 id="countdown" style="text-align:center"></h1>
 
-<script>
-    let timeLeft = {{ countdown }}; 
-    const countdownEl = document.getElementById("countdown")
+        <header class="modal-header" style="text-align:center">
+        <h2>When the timer is completed you will be redirected to the login page</h2>
+        </header>
 
-    function updateTimer() {
-        const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-        const secs = String(timeLeft % 60).padStart(2, '0');
-        countdownEl.textContent = `${mins}:${secs}`
-    }
 
-    updateTimer();
-
-    const timer = setInterval(() => {
-        timeLeft--;
-        if (timeLeft < 0) {
-            clearInterval(timer);
-        } else {
+        <script>
+            let timeLeft = 180; 
+        
+            const countdownEl = document.getElementById("countdown");
+        
+            function updateTimer() {
+                const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+                const secs = String(timeLeft % 60).padStart(2, '0');
+                countdownEl.textContent = `${mins}:${secs}`;
+            }
+        
             updateTimer();
-        }
-    }, 1000);
-
-</script>
-
+        
+            const timer = setInterval(() => {
+                timeLeft--;
+            
+                if (timeLeft < 0) {
+                    clearInterval(timer);
+                    window.location.href = "/";
+                } else {
+                    updateTimer();
+                }
+            }, 1000);
+        
+        </script>
+    </div>
 </body>
 </html>

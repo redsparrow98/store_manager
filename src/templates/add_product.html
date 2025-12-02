@@ -1,110 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add product</title>
+{% extends "base.html" %}
+{% block title %}Add product{% endblock %}
+{% block content %}
 
-<style>
-        .round-btn{
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: none;
-            overflow: hidden; 
-            padding: 0;
-            cursor: pointer;
-            background-color: #FFD6FE
-        }
+<link rel="stylesheet" href="{{ url_for('static', filename='css/access.css') }}" />
 
-        .round-btn img {
-            width: 70%;
-            height: 70%;
-            object-fit: cover;
-        }
-</style>
-</head>
-<body style="background-color: #FAEBF9">
+<div class="product-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
 
-<button class="round-btn" style="top: 20px; left: 20px;" onclick="window.location.href='{{ url_for('dashboard') }}'"> 
-    <img src=https://www.iconpacks.net/icons/2/free-home-icon-2502-thumb.png alt="home-button">
-</button>
+    <header class="modal-header"><h2>Add product</h2></header>
 
-    <h1>Add new product</h1>
+    <form method="post" action="{{ url_for('add_product_page') }}">
+        <div class="modal-body">
+            <div class="form-grid">
 
-    <!-- flash message for successfully added item -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="{{ category }}">
-                    {{ category }} - {{ message }}
+                <div class="form-row">
+                    <div class="field-label">Product name</div>
+                    <input class="field-box" type="text" name="name" required>
                 </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
 
+                <div class="form-row">
+                    <div class="field-label">Brand</div>
+                    <input class="field-box" name="brand" required>
+                </div>
 
-    <!-- FORM FOR GETTING NEW PRODUCT INFORMATION -->
-    <form method="POST" action="{{ url_for('add_product_page') }}">
+                <div class="form-row">
+                    <div class="field-label">Price (SEK)</div>
+                    <input class="field-box" name="price" type="number" step="0.01" min="0" required>
+                </div>
 
-        <!-- input for all the required fields-->
-        <div style="margin-bottom: 15px;">
-            <label><strong>Product name:</strong></label><br>
-            <input type="text" name="name" required style="padding: 8px; width: 300px">
+                <!-- Select category drop down menu -->
+                <div class="form-row">
+                    <div class="field-label">Category</div>
+                    <select class="field-box" name="category" required>
+                        <option value="">Select category</option>
+                        <option value="phones">Phones</option>
+                        <option value="tablets">Tablets</option>
+                        <option value="headphones">Headphones</option>
+                        <option value="speakers">Speakers</option>
+                        <option value="computers">Computers</option>
+                        <option value="smart watches">Smart watches</option>
+                        <option value="accessories">Accessories</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="field-label">Discount percentage</div>
+                    <input class="field-box" name="discount" type="number" step="0.01" min="0" max="100" required value="0">
+                </div>
+
+                <div class="form-row">
+                    <div class="field-label">Stock amount</div>
+                    <input class="field-box" name="stock" type="number" min="0" required>
+                </div>
+
+            </div>
         </div>
 
-        <div style="margin-bottom: 15px;">
-            <label><strong>Brand:</strong></label><br>
-            <input type="text" name="brand" required style="padding: 8px; width: 300px">
+        <div class="modal-footer">
+            <a class="btn btn-cancel" href="{{ url_for('display_inventory') }}">Cancel</a>
+            <button type="submit" class="btn btn-edit">Add</button>
         </div>
 
-        <div style="margin-bottom: 15px;">
-            <label><strong>Price (SEK):</strong></label><br>
-            <input type="number" name="price" step="0.01" min="0" required style="padding: 8px; width: 300px">
-        </div>
-
-        <!-- select category drop down -->
-        <div style="margin-bottom: 15px;">
-            <label><strong>Category:</strong></label><br>
-            <select name="category" required style="padding: 8px; width: 320px">
-                <option value="">Select category</option>
-                <option value="phones">Phones</option>
-                <option value="tablets">Tablets</option>
-                <option value="headphones">Headphones</option>
-                <option value="speakers">Speakers</option>
-                <option value="computers">Computers</option>
-                <option value="smart watches">Smart watches</option>
-                <option value="accessories">Accessories</option>
-            </select>
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <label><strong>Discount amount (%):</strong></label><br>
-            <input type="number" name="discount" step="0.01" min="0" max="100" value="0" style="padding: 8px; width: 300px">
-        </div>
-
-        <div style="margin-bottom: 15px;">
-            <label><strong>Stock amount:</strong></label><br>
-            <input type="number" name="stock" min="0" required style="padding: 8px; width: 300px">
-        </div>
-
-        <!-- Button to confirm add product -->
-        <button type="submit" style="background-color: #FFD6FE; padding: 10px 20px; cursor: pointer; margin-right: 10px;">
-            Add
-        </button>
-
-        <button type="button" style="background-color: #FFD6FE; padding: 10px 20px; cursor: pointer;"
-        onclick="window.location.href='{{ url_for('display_inventory') }}'">
-            Cancel
-        </button>
-        
-        <button style="background-color:#FFD6FE; display:block; position: absolute; top: 20px; right: 20px"
-        onclick="window.location.href='{{ url_for('display_inventory') }}'">
-    &lt; Back
-    </button>
     </form>
-
-
-</body>
-
-</html>
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from flask_login import LoginManager, login_user, login_required, current_user
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 from inventory_manager import *
 from notifications import *
 from account_manager import *
@@ -30,16 +30,39 @@ def load_user(user_id):
 
 @app.route("/", methods=["GET", "POST"])
 def login():
+    if "failed_attempts" not in session:
+        session['failed_attempts'] = 0
+    
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
         user = authenticate(username, password)
+       
         if user:
+            session['failed_attempts'] = 0
             login_user(user)
+            session["access_level"] = user.access_level
             return redirect(url_for("dashboard"))
-        else:
-            flash("Invalid username or password", "danger")
+        
+        session['failed_attempts'] += 1
+
+        if session['failed_attempts'] == 3:
+            session['failed_attempts'] = 0
+            return redirect(url_for('display_countdown'))
+        
+        flash(
+            f"Invalid username or password. "
+            f"{3 - session['failed_attempts']} attempt(s) left", "danger")
+
+
     return render_template("login.html")
+
+# Gives the access level to the templates
+@app.context_processor
+def inject_access_level():
+    access_level = session.get("access_level")
+
+    return {"access_level": access_level}
 
 @app.route("/dashboard")
 @login_required
@@ -55,7 +78,7 @@ def dashboard():
 
 @app.route('/locked-out')
 def display_countdown():
-    return render_template('locked.html', coundown = 180)
+    return render_template('locked.html')
 
 
 @app.route('/inventory')
