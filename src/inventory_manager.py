@@ -8,7 +8,7 @@ FILE_PATH = BASE_DIR / "dataset" / "products.json"
 
 
 #APPLY DISCOUNT FUNCTION
-def apply_discount_to_products(discount_percentage, category = None):
+def apply_discount_to_products(discount_percentage, category):
     """Applies a discount to all products from our dataset with an option to choose a category to apply the discount to
 
     Args:
@@ -20,7 +20,7 @@ def apply_discount_to_products(discount_percentage, category = None):
         FileNotFoundError: Raises a file not found error if the DB file is not existent.
     """
 
-    if not (0 <= int(discount_percentage) <= 100):
+    if not (0 <= discount_percentage <= 100):
         raise ValueError("Discount must be between 0 and 100")
     if not os.path.exists(FILE_PATH):
         raise FileNotFoundError(f"File not found: {FILE_PATH}")
@@ -30,12 +30,12 @@ def apply_discount_to_products(discount_percentage, category = None):
     #counter to check how many products were updated(implement a message in flask?)
     updated_count = 0
     for product in dataset.values():
-        if category is None or product.get("category") == category.capitalize():
+        if product.get("category") == category.capitalize() or not category.strip():
             original_price = product.get("price_SEK" , 0)
             if original_price > 0:
                 discounted_price = round (original_price * (1 - discount_percentage / 100) , 2)
                 product["discounted_price_SEK"] = discounted_price
-                product["discount_percentage"] = int(discount_percentage)
+                product["discount_percentage"] = discount_percentage
                 updated_count += 1
 
     write_json(FILE_PATH, dataset)
@@ -87,7 +87,7 @@ def add_product(name,brand,price,category,discount,stock):
         errors.append("Price cant be negative")
     if not category.strip():
         errors.append("Category is required")
-    if not (0<= int(discount) <=100):
+    if not (0<= float(discount) <=100):
         errors.append("Discount amount is not valid (0-100%)")
     if int(stock) < 0:
         errors.append("Stock cant be negative")
@@ -108,7 +108,7 @@ def add_product(name,brand,price,category,discount,stock):
             "brand": brand,
             "price_SEK": float(price),
             "category": category,
-            "discount_percentage": int(discount),
+            "discount_percentage": float(discount),
             "stock_amount": int(stock)
         }
 
@@ -125,8 +125,9 @@ def delete_product(article_id):
         article_id (String): Article ID key for the DB
     """
     products = load_json(FILE_PATH)
-    products.pop(article_id)
+    delete = products.pop(article_id)
     write_json(FILE_PATH, products)
+    return delete
 
 
 #ACCESSING A PRODUCT FEATURE AND HELPER FUNCTIONS

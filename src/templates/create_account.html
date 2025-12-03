@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="product-modal" role="dialog" aria-modal="true">
-    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('dashboard') }}'"></button>
+    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
     <header class="modal-header">
     <h2>Add User</h2>
     </header>
@@ -25,39 +25,40 @@
         {% endwith %}
     
         <form action="{{ url_for('create_account_page') }}" method="POST">
-            <div style="margin-bottom: 8px;">
-                <label style="margin-right: 10px;"></label>
-                <p>Username:</p>
-                <input class="btn" type="text" name="username" required>
+          <div class="modal-body">
+            <div class="form-grid">
+             
+            <div class="form-row">
+                <div class="field-label">Username</div>
+                <input class="field-box" type="text" name="username" required>
             </div>
             
-            <div style="margin-bottom: 8px;">
-            <label style="margin-right: 10px;"></label>
-            <p>Password:</p>
-            <input class="btn" type="password" name="password" required>
+            <div class="form-row">
+                <div class="field-label">Password</div>
+                <input class="field-box" type="password" name="password" required>
             </div>
 
-            <div style="margin-bottom: 8px;">
-            <label style="margin-right: 10px;"></label>
-            <p>Repeat Password:</p>
-            <input class="btn" type="password" name="repeat_password" required>
-            </div>
-
-            <div style="margin-bottom: 8px;">
-            <label style="margin-right: 10px;"></label>
-            <p>Access Level:</p>
-            <select class="btn" name="access_level" required>
+            <div class="form-row">
+                <div class="field-label">Access Level</div>
+                <select class="btn" name="access_level" required>
                 <option value="">Select Access Level</option>
                 <option value="Employee">Employee</option>
                 <option value="Manager">Manager</option>
                 <option value="Admin">Admin</option>
-            </select>
-            </div>
+                </select>
+            </div>            
 
-            <footer class="modal-footer">
+            <div class="form-row">
+                <div class="field-label">Repeat Password</div>
+                <input class="field-box" type="password" name="repeat_password" required>
+            </div>
+            </div>
+          </div>
+
+            <div class="modal-footer">
                 <a class="btn btn-cancel" href="{{ url_for('dashboard') }}">Cancel</a>
                 <button type="submit" class="btn btn-edit">Create Account</button>
-                </footer>
+            </div>
         </form>
     </div>
 </div>
