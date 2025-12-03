@@ -1,6 +1,5 @@
 from reader import *
 from pathlib import Path
-from werkzeug.security import check_password_hash
 from flask_login import UserMixin
 
 
@@ -31,6 +30,6 @@ class User(UserMixin):
 def authenticate(username, password):
     users = load_users()
     user_data = users.get(username)
-    if user_data and check_password_hash(user_data["password"], password):
+    if user_data and user_data["password"] == password:
         return User(username=username, access_level=user_data["access_level"])
     return None
