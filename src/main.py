@@ -1,5 +1,5 @@
 from math import prod
-from flask_login import LoginManager, login_user, login_required, current_user
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask import Flask, render_template, redirect, url_for, request, flash, session
 from inventory_manager import *
 from notifications import *
@@ -58,6 +58,18 @@ def login():
 
 
     return render_template("login.html")
+
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    return render_template('dashboard.html', name = current_user.name)
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()  
+    session.clear()        
+    return redirect(url_for("login"))
 
 # Gives the access level to the templates
 @app.context_processor
