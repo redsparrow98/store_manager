@@ -269,6 +269,9 @@ body {
   padding: 8px 20px;
   cursor: pointer;
   border-radius: 6px;
+  border: none;
+  color: #3c2a5d;
+  font-weight: 700;
 }
 
 .date-icon {
