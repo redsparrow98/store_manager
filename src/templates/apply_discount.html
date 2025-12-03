@@ -2,53 +2,60 @@
 content %}
 
 <div class="product-modal" role="dialog" aria-modal="true">
-  <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
+  <button
+    class="modal-close"
+    aria-label="Close"
+    onclick="location.href='{{ url_for('display_inventory') }}'"
+  >
+    ×
+  </button>
   <header class="modal-header">
     <h2>Apply Discount</h2>
-    </header>
+  </header>
 
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %}
-    <ul>
-      {% for category, message in messages %}
-      <li class="{{ category }}">{{ message }}</li>
+  {% with messages = get_flashed_messages(with_categories=true) %} {% if
+  messages %}
+  <ul>
+    {% for category, message in messages %}
+    <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %} {% endwith %}
+
+  <form method="POST">
+    <label for="discount_percentage">Discount Percentage:</label>
+    <!-- Number input with step allows precise decimal discounts -->
+    <input
+      class="discount-btn"
+      type="number"
+      step="1"
+      name="discount_percentage"
+      min="0"
+      max="100"
+      required
+      placeholder="Enter discount (0-100)"
+    /><br /><br />
+
+    <!-- Optional field lets user apply discount globally or to a specific category -->
+    <label for="category">Category (optional):</label>
+    <select class="discount-btn" name="category">
+      <option value="">All Categories</option>
+      {% for category in categories %}
+      <option value="{{category}}">{{category}}</option>
       {% endfor %}
-    </ul>
-    {% endif %} {% endwith %}
+    </select>
+    <br /><br />
 
-    <form method="POST">
-      <label for="discount_percentage">Discount Percentage:</label>
-      <!-- Number input with step allows precise decimal discounts -->
-      <input
-        class="btn"
-        type="number"
-        step="1"
-        name="discount_percentage"
-        min="0"
-        max="100"
-        required
-      /><br /><br />
+    <!--Submit button  -->
+    <button
+      class="btn btn-cancel"
+      type="button"
+      onclick="window.location.href='{{ url_for('display_inventory') }}'"
+    >
+      Cancel
+    </button>
 
-      <label for="category">Category (optional):</label>
-      <!-- Optional field lets user apply discount globally or to a specific category -->
-      <input class="btn" type="text" name="category" /><br /><br />
-
-      <!--Submit button  -->
-            <button
-        class="btn btn-cancel"
-        type="button"
-        onclick="window.location.href='{{ url_for('display_inventory') }}'"
-      >
-        Cancel
-      </button>
-      
-      <button
-        class="btn btn-edit"
-        type="submit"
-      >
-        Apply Discount
-      </button>
-
-    </form>
+    <button class="btn btn-edit" type="submit">Apply Discount</button>
+  </form>
 </div>
 {% endblock %}
