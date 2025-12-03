@@ -65,11 +65,30 @@ def login():
 def dashboard():
     scan_low_stock()
     notif_count = len(get_notifications())
+    today = datetime.today().strftime("%B %d, %Y") # Date formatting
+
+    #to load datasets for dashboard values
+    products = load_json(FILE_PATH)
+    users = load_json(TEST_USERS_FILE_PATH)
+
+    #getting all the values needed for dashboard
+    total_products = len(products)
+    low_stock = 0
+    for product in products.values():
+        if int(product.get("stock_amount", 0)) <= 5:
+            low_stock += 1
+    total_users = len(users)
+    #need to add it for returns here eventually
+
     return render_template(
         "dashboard.html",
         notif_count = notif_count,
         username = current_user.id,
-        access_level = current_user.access_level.lower()
+        access_level = current_user.access_level.lower(),
+        today = today,
+        total_products = total_products,
+        low_stock = low_stock,
+        total_users = total_users
     )
 @app.route("/logout")
 @login_required
