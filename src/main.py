@@ -222,18 +222,27 @@ def update_product_page():
 
 @app.route('/inventory/apply-discount', methods=['GET', 'POST'])
 def apply_discount_page():
+    #loading categories from JSON
+    try: 
+        dataset = load_json(FILE_PATH)
+        categories = sorted({product.get("category") for product in dataset.values() if product.get("category")})
+    except FileNotFoundError:
+        categories = [] #if file is missing, to not throw an error
+
     if request.method == "GET":
         
-        return render_template("apply_discount.html")
+        return render_template("apply_discount.html", categories=categories)
 
     else:
+        discount_input = request.form.get("discount_percentage", "").strip()
+        category = request.form.get("category", "").strip() or None
         try:
-            discount_percentage = int(request.form["discount_percentage"])
-            category = request.form.get("category") 
-
-            apply_discount_to_products(discount_percentage, category)
-
-            flash(f"Applied {discount_percentage}% discount successfully!", "success")
+            if not discount_input:
+                raise ValueError("You must enter a discount percentage")
+            discount_percentage = float(discount_input) #needed to allow decimals
+            message = apply_discount_to_products(discount_percentage, category)
+            flash(message, "success")
+     
         except ValueError as ve:
             flash(str(ve), "error")
         except FileNotFoundError as fe:

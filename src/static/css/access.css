@@ -1,5 +1,6 @@
 /* Modal */
-.product-modal{ /* Add shadow? */
+.product-modal {
+  /* Add shadow? */
   position: absolute;
   top: 20%;
   left: 25%;
@@ -10,9 +11,9 @@
 }
 
 /* Close button (cross) */
-.product-modal .modal-close{
+.product-modal .modal-close {
   position: absolute;
-  top: 3%; 
+  top: 3%;
   right: 3%;
   background: transparent;
   border: none;
@@ -22,31 +23,31 @@
 }
 
 /* Header */
-.product-modal .modal-header h2{
+.product-modal .modal-header h2 {
   font-size: 22px;
   font-weight: 700;
   color: #0b213f;
 }
 
-.product-modal .form-grid{
+.product-modal .form-grid {
   display: grid;
   grid-template-columns: auto auto;
   gap: 5% 5%;
 }
 
-.product-modal .form-row{ 
-  display: flex; 
-  flex-direction: column; 
+.product-modal .form-row {
+  display: flex;
+  flex-direction: column;
 }
 
-.product-modal .field-label{
+.product-modal .field-label {
   font-size: 12px;
   color: #667380;
   font-weight: 600;
 }
 
 /* Value formatting */
-.product-modal .field-box{
+.product-modal .field-box {
   background: #fbfbfd;
   border: #e6e9ee;
   border-style: solid;
@@ -57,7 +58,7 @@
 }
 
 /* Footer buttons */
-.product-modal .modal-footer{
+.product-modal .modal-footer {
   display: flex;
   justify-content: center;
   gap: 2%;
@@ -66,25 +67,37 @@
 }
 
 /* Button styles */
-.btn { 
-  border-radius: 10px; 
-  font-weight: 700; 
-  border: #e0e6eb; 
+.btn {
+  border-radius: 10px;
+  font-weight: 700;
+  border: #e0e6eb;
   border-style: solid;
 }
 
-.btn-cancel{ 
-  background: #ffffff; 
-  color: #22333b; 
+.btn-cancel {
+  background: #ffffff;
+  color: #22333b;
   padding: 1% 2%;
 }
 
-.btn-edit{ 
-  background: #3B4668;
+.btn-edit {
+  background: #3b4668;
   color: #ffffff;
   padding: 1% 2%;
 }
 
+.discount-btn {
+  border-radius: 10px;
+  font-weight: 700;
+  border: #e0e6eb;
+  border-style: solid;
+  padding: 10px 16px;
+  width: auto;
+  min-width: 200px;
+  box-sizing: border-box;
+  margin-left: 1vw;
+  color: #3b4668;
+}
 /* Brand results */
 .brand-results {
   margin-top: 18px;
@@ -131,7 +144,7 @@
   font-weight: 600;
 }
 
-.error-message{
+.error-message {
   background: rgba(220, 53, 69, 0.2);
   color: #721c24;
   padding: 12px;
@@ -139,10 +152,10 @@
   border: 1px solid rgba(180, 25, 35, 0.8);
 }
 
-.success-message{
-  background: rgba(185, 225, 195, 0.2); 
+.success-message {
+  background: rgba(185, 225, 195, 0.2);
   color: #155724;
-  padding: 12px; 
-  border-radius: 5px; 
+  padding: 12px;
+  border-radius: 5px;
   border: 1px solid rgba(61, 124, 76, 1);
 }

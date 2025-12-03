@@ -19,7 +19,13 @@ def apply_discount_to_products(discount_percentage, category):
         ValueError: Raises a value error if discount parameter is outside of expected range 0-100.
         FileNotFoundError: Raises a file not found error if the DB file is not existent.
     """
+    if discount_percentage is None or discount_percentage == "":
+        raise ValueError("You must enter a discount percentage.")
 
+    try:
+        discount_percentage = float(discount_percentage)
+    except (TypeError, ValueError):
+        raise ValueError("Discount must be a number between 0 and 100.")
     if not (0 <= discount_percentage <= 100):
         raise ValueError("Discount must be between 0 and 100")
     if not os.path.exists(FILE_PATH):
@@ -87,7 +93,7 @@ def add_product(name,brand,price,category,discount,stock):
         errors.append("Price cant be negative")
     if not category.strip():
         errors.append("Category is required")
-    if not (0<= float(discount) <=100):
+    if not (0 <= float(discount) <= 100):
         errors.append("Discount amount is not valid (0-100%)")
     if int(stock) < 0:
         errors.append("Stock cant be negative")

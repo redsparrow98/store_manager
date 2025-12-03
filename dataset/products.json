@@ -66,7 +66,8 @@
     "price_SEK": 1200.0,
     "category": "Headphones",
     "discount_percentage": 0,
-    "stock_amount": 20
+    "stock_amount": 20,
+    "discounted_price_SEK": 1200.0
   },
   "0008": {
     "article_name": "Airpods Max",
@@ -75,7 +76,8 @@
     "price_SEK": 8990.0,
     "category": "Headphones",
     "discount_percentage": 0,
-    "stock_amount": 3
+    "stock_amount": 3,
+    "discounted_price_SEK": 8990.0
   },
   "0009": {
     "article_name": "Pixel Buds pro 2",
@@ -84,7 +86,8 @@
     "price_SEK": 2590.0,
     "category": "Headphones",
     "discount_percentage": 0,
-    "stock_amount": 16
+    "stock_amount": 16,
+    "discounted_price_SEK": 2590.0
   },
   "0010": {
     "article_name": "Sonos Era 100 Speaker",
@@ -93,7 +96,8 @@
     "price_SEK": 2790.0,
     "category": "Speakers",
     "discount_percentage": 0,
-    "stock_amount": 9
+    "stock_amount": 9,
+    "discounted_price_SEK": 2790.0
   },
   "0011": {
     "article_name": "Samsung 11.1.4ch HW-Q995F Soundbar",
@@ -102,7 +106,8 @@
     "price_SEK": 9990.0,
     "category": "Speakers",
     "discount_percentage": 0,
-    "stock_amount": 32
+    "stock_amount": 32,
+    "discounted_price_SEK": 9990.0
   },
   "0012": {
     "article_name": "JBL Partybox",
@@ -111,7 +116,8 @@
     "price_SEK": 2990.0,
     "category": "Speakers",
     "discount_percentage": 0,
-    "stock_amount": 8
+    "stock_amount": 8,
+    "discounted_price_SEK": 2990.0
   },
   "0013": {
     "article_name": "MacBook Pro 14\"",
@@ -120,7 +126,8 @@
     "price_SEK": 15145.0,
     "category": "Computers",
     "discount_percentage": 0,
-    "stock_amount": 2
+    "stock_amount": 2,
+    "discounted_price_SEK": 15145.0
   },
   "0014": {
     "article_name": "Dell 16 Premium Laptop",
@@ -129,7 +136,8 @@
     "price_SEK": 20799.0,
     "category": "Computers",
     "discount_percentage": 0,
-    "stock_amount": 6
+    "stock_amount": 6,
+    "discounted_price_SEK": 20799.0
   },
   "0015": {
     "article_name": "Lenovo Chromebook Plus 14",
@@ -138,7 +146,8 @@
     "price_SEK": 7100.0,
     "category": "Computers",
     "discount_percentage": 0,
-    "stock_amount": 4
+    "stock_amount": 4,
+    "discounted_price_SEK": 7100.0
   },
   "0016": {
     "article_name": "Apple Watch Series 9",
@@ -147,7 +156,8 @@
     "price_SEK": 2899.0,
     "category": "Smart Watches",
     "discount_percentage": 0,
-    "stock_amount": 20
+    "stock_amount": 20,
+    "discounted_price_SEK": 2899.0
   },
   "0017": {
     "article_name": "Samsung Galaxy Watch 6",
@@ -156,7 +166,8 @@
     "price_SEK": 1999.0,
     "category": "Smart Watches",
     "discount_percentage": 0,
-    "stock_amount": 0
+    "stock_amount": 0,
+    "discounted_price_SEK": 1999.0
   },
   "0018": {
     "article_name": "Amazfit GTR 4",
@@ -165,7 +176,8 @@
     "price_SEK": 1299.0,
     "category": "Smart Watches",
     "discount_percentage": 0,
-    "stock_amount": 16
+    "stock_amount": 16,
+    "discounted_price_SEK": 1299.0
   },
   "0019": {
     "article_name": "JETech Wallet Case for Iphone",
@@ -174,7 +186,8 @@
     "price_SEK": 119.0,
     "category": "Accessories",
     "discount_percentage": 0,
-    "stock_amount": 13
+    "stock_amount": 13,
+    "discounted_price_SEK": 119.0
   },
   "0020": {
     "article_name": "Anker Nano Power Bank",
@@ -183,7 +196,8 @@
     "price_SEK": 599.0,
     "category": "Accessories",
     "discount_percentage": 0,
-    "stock_amount": 7
+    "stock_amount": 7,
+    "discounted_price_SEK": 599.0
   },
   "0021": {
     "article_name": "15W charging cable USB-C",
@@ -192,6 +206,7 @@
     "price_SEK": 99.0,
     "category": "Accessories",
     "discount_percentage": 0,
-    "stock_amount": 14
+    "stock_amount": 14,
+    "discounted_price_SEK": 99.0
   }
 }
