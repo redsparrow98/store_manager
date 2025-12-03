@@ -29,12 +29,14 @@ body {
   justify-content: flex-end;
   align-items: center;
 }
+
 .header-icon {
   display: flex;
   gap: 3vw;
   align-items: center;
   margin-right: 5vw;
 }
+
 .top-navbar .logo img {
   height: 80%;
   margin-top: 1.5vh;
@@ -48,7 +50,7 @@ body {
 
 /* Sidebar styles */
 .sidebar {
-  width: 15vw;
+  width: 13vw;
   background-color: #262a35;
   color: white;
   display: flex;
