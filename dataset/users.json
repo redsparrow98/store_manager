@@ -1,14 +1,14 @@
 {
   "jane_doe": {
-    "password": "scrypt:32768:8:1$dmo8ANZcePWgjYfC$d6be0fa88eb6552955ce154d5231b9d29db43fc4582f1ae69592195f865713ba0b52ec083c146a8b400613e8dcb622c0f0ce3f8770778f12e0b929abd4e8bcb1",
+    "password": "Janespassword",
     "access_level": "Manager"
   },
   "joe_doe": {
-    "password": "scrypt:32768:8:1$rURb9aYPDq0ZWSBg$09c70fcfcce1afe5f4b83bb39c10cdcd0aff56a9932677d8986165a58f53a913a3f3add6f7186e833441ae80fde0ba984ade29681a339c141faa2957e47ef463",
+    "password": "Joespassword",
     "access_level": "Employee"
   },
   "bobby_tables": {
-    "password": "scrypt:32768:8:1$wHId5FsjIHYbBgJ9$ae91ed90f63165aaa6d2b529efb1022314f4960fbda63341db268910f53b146cd4a655608fb84d6ced6e13f4b0eb580dba88716ce6fefa04fbba6fe96290160b",
+    "password": "Bobbyspassword",
     "access_level": "Employee"
   }
 }

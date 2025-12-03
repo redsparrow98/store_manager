@@ -1,40 +1,44 @@
 <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/global.css') }}"
-    />
-    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/global.css') }}"
+/>
+<link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/access.css') }}"
-    />
+/>
 
 <section class="login-section">
     <div class="login-container">
-    <h2>Login</h2>
+        <h2>Login</h2>
 
-    {% with messages= get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul class="flashes">
-        {% for category, message in messages %}
-            {% if category == "danger" %}
-                <li class="{{category}}">{{message}}</li>
+        <!-- display only danger flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        {% if category == "danger" %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
             {% endif %}
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+        {% endwith %}
 
-    <form method="POST" class="login-form">
-        <div class="btn" style="background-color: #CBCEF7">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" required>
-        </div>
+        <form method="POST" class="login-form">
+            <div class="btn" style="background-color: #CBCEF7">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
 
-        <div class="btn" style="background-color: #CBCEF7">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required>
-        </div>
+            <div class="btn" style="background-color: #CBCEF7">
+                <label for="password">Password</label>
+                <!-- password stays hidden automatically -->
+                <input type="password" id="password" name="password" required>
+            </div>
 
-        <button type="submit" class="btn-primary" style="background-color: #4A54E3">Login</button>
-     </form>
-  </div>
+            <button type="submit" class="btn-primary" style="background-color: #4A54E3">
+                Login
+            </button>
+        </form>
+    </div>
 </section>
