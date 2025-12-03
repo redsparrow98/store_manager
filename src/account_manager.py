@@ -30,21 +30,12 @@ def create_account(username, access_level, password, repeat_password):
     
     else:
         users[username] = {
-            "password": generate_password_hash(password),
+            "password": password,
             "access_level": access_level,
         }
         write_json(USERS_FILE_PATH, users)
 
-        # file for testing only so we can see the actualy password not the hashed one
-        test_user = load_json(TEST_USERS_FILE_PATH)
-        test_user[username] = {
-            "password": password,
-            "access_level": access_level
-        }
-        write_json(TEST_USERS_FILE_PATH, test_user)
-
         return True, "Account succesfully created."
-
 
 
 # Deletes user if correct access level
@@ -69,7 +60,7 @@ def delete_user(deleted_user):
 
 def update_password_page(username, current_password, new_password, repeat_new_password):
     
-    users = load_json(TEST_USERS_FILE_PATH)
+    users = load_json(USERS_FILE_PATH)
 
     errors = []
 
@@ -87,7 +78,7 @@ def update_password_page(username, current_password, new_password, repeat_new_pa
     
     else:    
         users[username]['password'] = new_password
-        write_json(TEST_USERS_FILE_PATH, users)
+        write_json(USERS_FILE_PATH, users)
         return True, "Password succesfully changed"
 
 # Checks if username and password are entered correctly

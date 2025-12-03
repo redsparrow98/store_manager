@@ -46,18 +46,18 @@
                 <option value="Manager">Manager</option>
                 <option value="Admin">Admin</option>
                 </select>
-            </div>
-            
+            </div>            
 
             <div class="form-row">
                 <div class="field-label">Repeat Password</div>
                 <input class="field-box" type="password" name="repeat_password" required>
             </div>
-
+            </div>
+          </div>
 
             <div class="modal-footer">
-                <button type="submit" class="btn btn-edit">Create Account</button>
                 <a class="btn btn-cancel" href="{{ url_for('dashboard') }}">Cancel</a>
+                <button type="submit" class="btn btn-edit">Create Account</button>
             </div>
         </form>
     </div>
