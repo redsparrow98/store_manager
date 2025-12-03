@@ -8,7 +8,7 @@ FILE_PATH = BASE_DIR / "dataset" / "products.json"
 
 
 #APPLY DISCOUNT FUNCTION
-def apply_discount_to_products(discount_percentage, category):
+def apply_discount_to_products(discount_percentage, category=None):
     """Applies a discount to all products from our dataset with an option to choose a category to apply the discount to
 
     Args:
@@ -36,7 +36,7 @@ def apply_discount_to_products(discount_percentage, category):
     #counter to check how many products were updated(implement a message in flask?)
     updated_count = 0
     for product in dataset.values():
-        if product.get("category") == category.capitalize() or not category.strip():
+        if category is None or product.get("category") == category.capitalize():
             original_price = product.get("price_SEK" , 0)
             if original_price > 0:
                 discounted_price = round (original_price * (1 - discount_percentage / 100) , 2)
@@ -45,7 +45,7 @@ def apply_discount_to_products(discount_percentage, category):
                 updated_count += 1
 
     write_json(FILE_PATH, dataset)
-    print(f"Applied {discount_percentage}% discount to all products.")  
+    return f"Applied {discount_percentage}% discount."
 
 #LISTING ALL PRODUCTS FEATURE
 def list_all_products():
