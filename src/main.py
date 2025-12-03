@@ -59,11 +59,18 @@ def login():
 
     return render_template("login.html")
 
-@app.route('/dashboard')
+
+@app.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template('dashboard.html', name = current_user.name)
-
+    scan_low_stock()
+    notif_count = len(get_notifications())
+    return render_template(
+        "dashboard.html",
+        notif_count = notif_count,
+        username = current_user.id,
+        access_level = current_user.access_level.lower()
+    )
 @app.route("/logout")
 @login_required
 def logout():
@@ -77,18 +84,6 @@ def inject_access_level():
     access_level = session.get("access_level")
 
     return {"access_level": access_level}
-
-@app.route("/dashboard")
-@login_required
-def dashboard():
-    scan_low_stock()
-    notif_count = len(get_notifications())
-    return render_template(
-        "dashboard.html",
-        notif_count = notif_count,
-        username = current_user.id,
-        access_level = current_user.access_level.lower()
-    )
 
 @app.route('/locked-out')
 def display_countdown():
