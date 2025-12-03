@@ -7,12 +7,13 @@ body {
   display: flex;
   min-height: 100vh;
 }
-/*adjust main content to not hide behind the navbar*/
+
 .main-content {
-  margin-top: 7vh;
-  margin-left: 18vw;
-  padding: 20px;
+  margin-top: 4.5vh;    
+  margin-left: 14vw;
+  padding: 20px 24px;
 }
+
 /* Top navigation bar */
 .top-navbar {
   height: 7vh;
@@ -388,11 +389,18 @@ body {
 
 .inventory-header {
   display: flex;
+  align-items: center;        
   justify-content: space-between;
-  align-items: center;
+  gap: 18px;
+  margin-bottom: 12px;
+  padding-left: 25px;          /* small offset so title lines up with table */
+  padding-bottom: 2px;
 }
-.inventory-header h1 {
-  margin-left: 20px;
+
+.inventory-header .title {
+  margin: 0;                 
+  line-height: 1;  
+  display: flex;
 }
 
 .inventory-actions {
@@ -480,71 +488,58 @@ body {
 
 /* Table container */
 .table-wrap {
-  margin: 0 8px 24px;
+  margin: 24px 20px;
+  padding: 8px 12px;
   background: #ffffff;
   border-radius: 14px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);      
+  box-sizing: border-box;
 }
 
 /* Table */
 .products-table {
   width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
+  border-collapse: collapse;   
+  table-layout: auto;
 }
 
+/* Header cells */
 .products-table thead th {
-  background: white;
-  color: #3d3d3d;
-  font-weight: 700;
   text-align: left;
-  padding: 14px 16px;
-  border-bottom: 2px solid #ebe4ec;
+  background: transparent;
+  white-space: nowrap; 
+  border-bottom: none;
+  padding: 12px 16px;
 }
 
-/* Body rows */
+/* Lines between table rows */
+.products-table tbody tr {
+  border-bottom: 1px solid #e6e6e6;
+  background-clip: padding-box; 
+}
+
+/* Table body */
 .products-table tbody td {
-  padding: 14px 16px;
-  border-bottom: 1px solid gray; /*table separator lines*/
-  color: #2b2b2b;
-  vertical-align: middle;
-}
-.col-name {
-  width: 30%;
-}
-.col-id {
-  width: 10%;
-}
-.col-cat {
-  width: 15%;
-}
-.col-price {
-  width: 15%;
-}
-.col-discount {
-  width: 8%;
-}
-.col-amount {
-  width: 8%;
-}
-.col-actions {
-  width: 14%;
+  padding: 12px 16px;
 }
 
-/*Icons in the table*/
+.col-actions {
+  display: flex;
+  gap: 5px;
+  width: 14%;
+  box-sizing: border-box;
+}
+
+/* Icons in the table */
 .icon-btn {
   background: transparent;   
   border: none;              
   box-shadow: none;          
-  padding: 6px;             
-  width: 20px;
-  height: 20px;
-  margin: 4px;
-  border-radius: 8px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-end;      
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  margin: 0;
+  border-radius: 8px;    
   box-sizing: border-box;
 }
 
@@ -555,42 +550,25 @@ body {
   background: transparent;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .overview-cards,
-  .placeholders {
-    flex-direction: column;
-  }
-
-  .main-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-}
-
 /*for inventory*/
 @media (max-width: 900px) {
   .col-name {
-    width: 30%;
+    width: 28%;
   }
   .col-id {
-    width: 14%;
+    width: 10%;
   }
   .col-cat {
-    width: 18%;
+    width: 14%;
   }
   .col-price {
-    width: 16%;
+    width: 14%;
   }
   .col-discount {
-    width: 12%;
+    width: 18%;
   }
   .col-amount {
     width: 10%;
-  }
-  .col-actions {
-    width: 18%;
   }
 
   .topbar {
