@@ -2,10 +2,7 @@
 {% block title %}Inventory{% endblock %}
 {% block content %}
 
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/access.css') }}"
-/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/access.css') }}" />
 
 <!-- Matches all products of a brand -->
   <div class="brand-results">
@@ -17,7 +14,6 @@
         <h2>Brand: {{ search_term }}</h2>
       </header>
     
-
     {% for product_id, product_info, product_display in brand_results %}
       <div class="brand-result">
         <h3>{{ product_info.article_name or product_id }} ({{ product_id }})</h3>
@@ -31,7 +27,6 @@
   {% endif %}
   </div>
   
-
   <!-- Matches specific product -->
   {% if product %}
     <div class="product-modal" role="dialog" aria-modal="true">

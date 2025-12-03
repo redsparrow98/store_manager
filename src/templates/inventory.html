@@ -1,5 +1,7 @@
-{% extends "base.html" %} {% block title %}Inventory{% endblock %} {% block
-content %}
+{% extends "base.html" %}
+{% block title %}Inventory{% endblock %}
+{% block content %}
+
 <div class="inventory-header">
   <h1 class="title">All Products</h1>
 
@@ -10,19 +12,17 @@ content %}
       {% endfor %}
     {% endif %} {% endwith %}
 
-<div class="inventory-actions">
-    <!-- Search form -->
-    <form class="search-button-form" action="{{ url_for('access_product') }}" method="get" role="search">
-      <span class="search-icon">
+  <div class="inventory-actions">
+    <form class="search-button-form btn btn--search" action="{{ url_for('display_inventory') }}" method="get" role="search" aria-label="Search products">
+      <span class="search-icon" aria-hidden="true">
         <img src="{{ url_for('static', filename='images/search.svg') }}" alt="">
       </span>
       <input
         type="search"
         name="search_term"
         class="search-input-in-btn"
-        placeholder="Search product ID or brand"
+        placeholder="Search by product ID or brand"
         value="{{ request.args.get('search_term','') }}"
-        required
       />
     </form>
 
@@ -44,71 +44,52 @@ content %}
     </a>
   </div>
 </div>
-<!-- Product table -->
+
 <div class="table-wrap">
   <table class="products-table">
     <thead>
       <tr>
-        <th>Item name</th>
-        <th>Product ID</th>
-        <th>Category</th>
-        <th>Price</th>
-        <th>Discount percentage</th>
-        <th>Amount</th>
-        <th>Action</th>
+        <th class="col-name">Item name</th>
+        <th class="col-id">Product ID</th>
+        <th class="col-cat">Category</th>
+        <th class="col-price">Price</th>
+        <th class="col-discount">Discount percentage</th>
+        <th class="col-amount">Amount</th>
+        <th class="col-actions">Action</th>
       </tr>
     </thead>
     <tbody>
-      {% for p in all_products %}
-      <tr>
-        <td>{{ p.article_name }}</td>
-        <td>
-          {{ "%04d"|format(p.article_id|int) if p.article_id is string or
-          p.article_id is number else p.article_id }}
-        </td>
-        <td>{{ p.category }}</td>
-        <td>{{ p.price_SEK }} kr</td>
-        <td>{{ p.discount_percentage }}%</td>
-        <td>{{ p.stock_amount }} pcs</td>
-        <td class="col-actions">
-          <!-- View -->
-          <a
-            class="icon-btn"
-            href="{{ url_for('access_product') }}?search_term={{ p.article_id }}"
-          >
-            <img
-              src="{{ url_for('static', filename='images/eye.svg') }}"
-              alt="view"
-            />
-          </a>
-          <!-- Edit -->
-        <a
-            class="icon-btn"
-            href="{{ url_for('update_product_page') }}?article_id={{ p.article_id }}"
-        >
-            <img
-              src="{{ url_for('static', filename='images/edit.svg') }}"
-              alt="edit"
-            src="{{ url_for('static', filename='images/edit.svg') }}"
-            alt="edit"
-            />
-        </a>
-          <!-- Delete -->
-           {% if access_level in ["Manager"] %}
-            <a
-                class="icon-btn"
-                href="{{ url_for('delete_product_page') }}?article_id={{ p.article_id }}"
-            >
-                <img
-                src="{{ url_for('static', filename='images/delete.svg') }}"
-                alt="delete"
-                />
-            </a>
-          {% endif %}
-        </td>
-      </tr>
-      {% endfor %}
+      {% if products %}
+        {% for article_id, item in products.items() %}
+          <tr>
+            <td class="col-name">{{ item.get('article_name','') }}</td>
+            <td class="col-id">{{ article_id }}</td>
+            <td class="col-cat">{{ item.get('category','') }}</td>
+            <td class="col-price">{{ item.get('price_SEK', item.get('price','')) }} kr</td>
+            <td class="col-discount">{{ item.get('discount_percentage','0') }}%</td>
+            <td class="col-amount">{{ item.get('stock_amount', item.get('stock','')) }} pcs</td>
+            <td class="col-actions">
+              <div class="col-actions">
+                <a class="icon-btn" href="{{ url_for('access_product') }}?search_term={{ article_id }}" title="View">
+                  <img src="{{ url_for('static', filename='images/eye.svg') }}" alt="View">
+                </a>
+                <a class="icon-btn" href="{{ url_for('update_product_page') }}?article_id={{ article_id }}" title="Edit">
+                  <img src="{{ url_for('static', filename='images/edit.svg') }}" alt="Edit">
+                </a>
+                <a class="icon-btn" href="{{ url_for('delete_product_page') }}?article_id={{ article_id }}" title="Delete">
+                  <img src="{{ url_for('static', filename='images/delete.svg') }}" alt="Delete">
+                </a>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td colspan="7">No products found for "{{ search_term }}".</td>
+        </tr>
+      {% endif %}
     </tbody>
   </table>
 </div>
+
 {% endblock %}
