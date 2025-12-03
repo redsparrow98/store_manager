@@ -83,18 +83,34 @@ def display_countdown():
     return render_template('locked.html')
 
 
-@app.route('/inventory')
+@app.route("/inventory", methods=["GET"])
 def display_inventory():
-    users = load_json(TEST_USERS_FILE_PATH)
-    username = current_user.id
-    access_level = users[username]["access_level"]
+    search_term = request.args.get("search_term", "").strip()
 
-    all_products = list_all_products()
-    return render_template('inventory.html',
-                        all_products=all_products,
-                        username=username,
-                        access_level=access_level
-                        )
+    try:
+        products = load_json(FILE_PATH)  # expected dict keyed by exact article_id like "0001"
+    except Exception:
+        flash("Error loading products.", "error")
+        products = {}
+
+    # No search term, show all products
+    if not search_term:
+        return render_template("inventory.html", products=products, search_term="")
+
+    # Matches product ID
+    if search_term in products:
+        filtered = {search_term: products[search_term]}
+        return render_template("inventory.html", products=filtered, search_term=search_term)
+
+    # Matches brand
+    search_term_lower = search_term.lower()
+    filtered = {}
+    for article_id, item in products.items():
+        brand = (item.get("brand") or "").lower()
+        if search_term_lower in brand:
+            filtered[article_id] = item
+
+    return render_template("inventory.html", products=filtered, search_term=search_term)
 
 
 @app.route('/inventory/add-product', methods=['GET', 'POST'])
