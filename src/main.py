@@ -88,7 +88,8 @@ def display_inventory():
     search_term = request.args.get("search_term", "").strip()
 
     try:
-        products = load_json(FILE_PATH)  # expected dict keyed by exact article_id like "0001"
+        products = load_json(FILE_PATH)  
+        
     except Exception:
         flash("Error loading products.", "error")
         products = {}
