@@ -1,14 +1,17 @@
 {
   "jane_doe": {
     "password": "Janespassword",
-    "access_level": "Manager"
+    "access_level": "Manager",
+    "name": "Jane Doe"
   },
   "joe_doe": {
     "password": "Joespassword",
-    "access_level": "Employee"
+    "access_level": "Employee",
+    "name": "Joe Doe"
   },
   "bobby_tables": {
     "password": "Bobbyspassword",
-    "access_level": "Employee"
+    "access_level": "Employee",
+    "name": "Bobby Tables"
   }
 }

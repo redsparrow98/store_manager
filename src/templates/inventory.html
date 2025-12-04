@@ -32,6 +32,7 @@
     </a>
 
     <!-- Add product -->
+    {% if access_level in ["Manager"] %}
     <a
       class="plus-btn"
       href="{{ url_for('add_product_page') }}"
@@ -42,6 +43,7 @@
         alt="add"
       />
     </a>
+    {% endif %}
   </div>
 </div>
 
@@ -53,7 +55,7 @@
         <th class="col-id">Product ID</th>
         <th class="col-cat">Category</th>
         <th class="col-price">Price</th>
-        <th class="col-discount">Discount percentage</th>
+        <th class="col-discount">Discount</th>
         <th class="col-amount">Amount</th>
         <th class="col-actions">Action</th>
       </tr>
@@ -76,9 +78,11 @@
                 <a class="icon-btn" href="{{ url_for('update_product_page') }}?article_id={{ article_id }}" title="Edit">
                   <img src="{{ url_for('static', filename='images/edit.svg') }}" alt="Edit">
                 </a>
+                {% if access_level in ["Manager"] %}
                 <a class="icon-btn" href="{{ url_for('delete_product_page') }}?article_id={{ article_id }}" title="Delete">
                   <img src="{{ url_for('static', filename='images/delete.svg') }}" alt="Delete">
                 </a>
+                {% endif %}
               </div>
             </td>
           </tr>
