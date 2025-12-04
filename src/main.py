@@ -10,7 +10,7 @@ from pathlib import Path
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
-TEST_USERS_FILE_PATH = BASE_DIR / "dataset" / "test_users.json"
+USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
 
 
 app = Flask(__name__)
@@ -69,7 +69,7 @@ def dashboard():
 
     #to load datasets for dashboard values
     products = load_json(FILE_PATH)
-    users = load_json(TEST_USERS_FILE_PATH)
+    users = load_json(USERS_FILE_PATH)
 
     #getting all the values needed for dashboard
     total_products = len(products)
@@ -80,16 +80,20 @@ def dashboard():
     total_users = len(users)
     #need to add it for returns here eventually
 
+    username = current_user.id
+    
+
     return render_template(
         "dashboard.html",
         notif_count = notif_count,
-        username = current_user.id,
-        access_level = current_user.access_level.lower(),
+        name = users[username]["name"],
+        access_level = users[username]['access_level'],
         today = today,
         total_products = total_products,
         low_stock = low_stock,
         total_users = total_users
     )
+
 @app.route("/logout")
 @login_required
 def logout():
@@ -137,7 +141,11 @@ def display_inventory():
         if search_term_lower in brand:
             filtered[article_id] = item
 
-    return render_template("inventory.html", products=filtered, search_term=search_term)
+    users = load_json(USERS_FILE_PATH)
+    username = current_user.id
+    access_level = users[username]["access_level"]
+
+    return render_template("inventory.html", products=filtered, search_term=search_term, access_level=access_level)
 
 
 @app.route('/inventory/add-product', methods=['GET', 'POST'])
@@ -389,7 +397,7 @@ def account_page():
     The variables username and access_level is here because they need to be defined before
     the if-statement since they are supposed to be displayed all the time in the account info
     """
-    users = load_json(TEST_USERS_FILE_PATH)
+    users = load_json(USERS_FILE_PATH)
     username = current_user.id
     access_level = users[username]["access_level"]
 
