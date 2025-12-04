@@ -27,20 +27,29 @@
     </form>
 
     <!-- Add discount -->
-    <a class="btn btn-discount" href="{{ url_for('apply_discount_page') }}">
-      Apply discount
+    <a
+      class="btn btn-discount"
+      href="{{ url_for('apply_discount_page') }}"
+    >
+      <img
+        src="{{ url_for('static', filename='images/discount.svg') }}"
+        alt="discount"
+        class="btn-icon"
+      />
+      <span class="btn-label">Add discount</span>
     </a>
 
     <!-- Add product -->
     <a
-      class="plus-btn"
+      class="btn btn-plus"
       href="{{ url_for('add_product_page') }}"
-      title="Add product"
     >
       <img
         src="{{ url_for('static', filename='images/plus.svg') }}"
         alt="add"
+        class="btn-icon"
       />
+      <span class="btn-label">Add product</span>
     </a>
   </div>
 </div>

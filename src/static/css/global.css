@@ -399,7 +399,7 @@ body {
   justify-content: space-between;
   gap: 18px;
   margin-bottom: 12px;
-  padding-left: 25px; /* small offset so title lines up with table */
+  padding-left: 25px; 
   padding-bottom: 2px;
 }
 
@@ -421,7 +421,6 @@ body {
   border-radius: 10px;
   padding: 8px 14px;
   font-size: 14px;
-  font-weight: 600;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -450,7 +449,8 @@ body {
 .btn-discount {
   background-color: #efefef;
   align-self: left;
-  width: 100px;
+  font-weight: 400;
+  width: 115px;
 }
 
 /* Search button */
