@@ -99,3 +99,4 @@ def is_manager(username):
         return True
     else:
         return False
+

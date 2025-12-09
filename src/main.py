@@ -11,6 +11,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
+RETURNS_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
 
 
 app = Flask(__name__)
@@ -420,6 +421,96 @@ def account_page():
             for error in result:
                 flash (error, "error")
         return redirect(url_for("account_page"))
+    
+@app.route('/dashboard/users', methods=['GET'])
+def users_page():
+    users = load_json(USERS_FILE_PATH)
+
+    return render_template("users.html", users=users)
+
+@app.route('/dashboard/users/edit-user', methods=['GET', 'POST'])
+def edit_user():
+    users = load_json(USERS_FILE_PATH)
+
+    if request.method == "POST":
+        original_username = request.form['original_username']
+        new_username = request.form['username']
+        user = users[original_username]
+
+        if not user:
+            flash("User not found", "error")
+            return redirect(url_for("users_page"))
+
+        new_user_info = {
+            "password": request.form['password'],
+            "name": request.form['name'],
+            "access_level": request.form['access_level'],   
+        }
+
+        if original_username != new_username:
+            if new_username in users:
+                flash("Username already exists", "error")
+
+
+            else:
+                users.pop(original_username)
+                users[new_username] = new_user_info
+
+        else:
+            users[original_username] = new_user_info
+               
+
+        with open(USERS_FILE_PATH, 'w') as f:
+            json.dump(users, f, indent=2)
+
+        return redirect(url_for("users_page"))
+
+    #GET request
+    username = request.args.get('username')
+    user = users.get(username)
+
+
+    return render_template("edit_user.html", username=username, user=user)
+
+@app.route('/dashboard/returns', methods=['GET'])
+@login_required
+def returns_page():
+    try:
+        returns = load_json(RETURNS_FILE_PATH)
+    except Exception:
+        flash("Error loading returns.", "error")
+        returns = {}
+
+    # Adds dictionary items to a list 
+    returns_list = []
+    if type(returns) == dict:
+        for key, value in returns.items():
+            returns_list.append((key, value))
+
+    return render_template("returns.html", returns=returns_list)
+
+@app.route('/dashboard/add-return', methods=['GET', 'POST'])
+def add_return_page():
+    if request.method == "GET":
+        return render_template("add_return.html")
+    else:
+        article_id = request.form["article_id"]
+        stock = request.form["stock"]
+        customer = request.form["customer"]
+        
+        # Values that don't need to be added when creating new return
+        date = datetime.today().strftime("%d/%m/%y")
+        status = "Open"
+        
+        success, result = add_return(article_id, int(stock), customer, date, status)
+
+        if success:
+            flash(result, "success")
+        else:
+            for error in result:
+                flash(error, "error")
+        
+        return render_template("add_return.html")
 
 if __name__=='__main__':
     app.run(debug=True)
