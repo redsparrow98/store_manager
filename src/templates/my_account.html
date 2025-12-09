@@ -66,6 +66,7 @@
                 {% if access_level in ["Manager", "Admin"] %}
                 <a class="btn btn-cancel" href="{{ url_for('create_account_page') }}">Create Account</a>
                 <a class="btn btn-cancel" href="{{ url_for('delete_user_page') }}">Delete User</a>
+                <a class="btn btn-cancel" href="{{ url_for('users_page') }}">Users</a>
                 {% endif %}
 
                 <a class="btn btn-cancel" href="{{ url_for('dashboard') }}">Cancel</a>

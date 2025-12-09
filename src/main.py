@@ -420,6 +420,39 @@ def account_page():
             for error in result:
                 flash (error, "error")
         return redirect(url_for("account_page"))
+    
+@app.route('/dashboard/users', methods=['GET'])
+def users_page():
+    users = load_json(USERS_FILE_PATH)
+
+    return render_template("users.html", users=users)
+
+@app.route('/dashboard/users/edit-user', methods=['GET', 'POST'])
+def edit_user():
+    users = load_json(USERS_FILE_PATH)
+
+    if request.method == "POST":
+        username = request.form['username']
+        user = users.get(username)
+
+        if not user:
+            flash("User not found", "error")
+            return redirect(url_for("users_page"))
+
+        user['password'] = request.form['password']
+        user['name'] = request.form['name']
+        user['access_level'] = request.form['access_level']
+
+        with open(USERS_FILE_PATH, 'w') as f:
+            json.dump(users, f, indent=2)
+
+        return redirect(url_for("users_page"))
+
+    username = request.args.get('username')
+    user = users.get(username)
+
+
+    return render_template("edit_user.html", username=username, user=user)
 
 if __name__=='__main__':
     app.run(debug=True)
