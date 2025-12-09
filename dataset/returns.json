@@ -1,35 +1,35 @@
 {
   "1001": {
     "article_id": "0001",
-    "employee_id": "bobby_tables",
+    "customer": "Jennys Company",
     "date": "05/11/2025",
     "status": "Processed",
     "stock_amount": 2
   },
   "1002": {
     "article_id": "0002",
-    "employee_id": "jane_doe",
+    "customer": "Get It Done With Doe",
     "date": "22/11/2025",
     "status": "Processed",
     "stock_amount": 1
   },
   "1003": {
     "article_id": "0003",
-    "employee_id": "jane_doe",
+    "customer": "Bonnies Table Shop",
     "date": "18/11/2025",
     "status": "Open",
     "stock_amount": 4
   },
   "1004": {
     "article_id": "0004",
-    "employee_id": "bobby_tables",
+    "customer": "Me, Myself and Bobby",
     "date": "23/11/2025",
     "status": "Open",
     "stock_amount": 3
   },
   "1005": {
     "article_id": "0005",
-    "employee_id": "john_doe",
+    "customer": "Me and Micheal",
     "date": "25/11/2025",
     "status": "Processed",
     "stock_amount": 4

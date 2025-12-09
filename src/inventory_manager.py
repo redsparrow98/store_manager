@@ -249,7 +249,7 @@ def is_number(text: str):
         return False
 
 # REGISTER NEW RETURN
-def add_return(article_id, stock, employee_id, date, status):
+def add_return(article_id, stock, customer, date, status):
     returns = load_json(RET_FILE_PATH)
 
     errors = []
@@ -258,6 +258,8 @@ def add_return(article_id, stock, employee_id, date, status):
         errors.append("Article id is required")
     if stock < 0:
         errors.append("Stock cannot be negative")
+    if not customer.strip():
+        errors.append("Customer is required")
     
     if errors:
         return False, errors
@@ -269,7 +271,7 @@ def add_return(article_id, stock, employee_id, date, status):
         
         new_return = {
             "article_id": article_id,
-            "employee_id": employee_id,
+            "customer": customer,
             "date": date,
             "status": status,
             "stock_amount": stock

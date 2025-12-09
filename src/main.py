@@ -478,13 +478,13 @@ def add_return_page():
     else:
         article_id = request.form["article_id"]
         stock = request.form["stock"]
+        customer = request.form["customer"]
         
         # Values that don't need to be added when creating new return
-        employee_id = current_user.id #TODO: Should be customer (company) name??
         date = datetime.today().strftime("%d/%m/%y")
         status = "Open"
         
-        success, result = add_return(article_id, int(stock), employee_id, date, status)
+        success, result = add_return(article_id, int(stock), customer, date, status)
 
         if success:
             flash(result, "success")
