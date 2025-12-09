@@ -184,10 +184,10 @@ def delete_product_page():
     
 
 @app.route("/notifications")
-def show_notifications():
-    scan_low_stock()
-    notifications_list = get_notifications()
-    return render_template("notification.html" , notifications = notifications_list)
+def notifications_page():
+    scan_low_stock() 
+    notifications = get_notifications()
+    return render_template("notification.html", notifications=notifications)
 
 
 @app.route('/inventory/update-product', methods=['GET', 'POST'])
