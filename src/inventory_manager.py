@@ -249,32 +249,35 @@ def is_number(text: str):
         return False
 
 # REGISTER NEW RETURN
-def add_return(article_id, employee_id, date, status, stock):
+def add_return(article_id, stock, employee_id, date, status):
     products = load_json(FILE_PATH)
     returns = load_json(RET_FILE_PATH)
-    
-    # Error handling here 
+
     errors = []
     
     if not article_id.strip():
         errors.append("Article id is required")
-    if int(stock) < 0:
+    if stock < 0:
         errors.append("Stock cannot be negative")
-        
+    
+    if errors:
+        return False, errors
     else:
         current_ids = returns.keys()
         next_id_int = int(max(current_ids)) + 1 if current_ids else 1
-        next_id = str(next_id_int).zfill(3)
-
+        next_id = str(next_id_int).zfill(4)
+        
         new_return = {
             "article_id": article_id,
             "employee_id": employee_id,
             "date": date,
             "status": status,
-            "stock_amount": int(stock)
+            "stock_amount": stock
         }
-
+        
         returns[next_id] = new_return
         
         write_json(RET_FILE_PATH, returns)
-        return True, f"Return for product {article_id} successfully created!"
+        return True, f"Return for product {article_id} successfully created."
+
+
