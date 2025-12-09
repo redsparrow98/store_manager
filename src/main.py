@@ -11,6 +11,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
+RETURNS_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
 
 
 app = Flask(__name__)
@@ -470,6 +471,23 @@ def edit_user():
 
 
     return render_template("edit_user.html", username=username, user=user)
+
+@app.route('/dashboard/returns', methods=['GET'])
+@login_required
+def returns_page():
+    try:
+        returns = load_json(RETURNS_FILE_PATH)
+    except Exception:
+        flash("Error loading returns.", "error")
+        returns = {}
+
+    # Adds dictionary items to a list 
+    returns_list = []
+    if type(returns) == dict:
+        for key, value in returns.items():
+            returns_list.append((key, value))
+
+    return render_template("returns.html", returns=returns_list)
 
 @app.route('/dashboard/add-return', methods=['GET', 'POST'])
 def add_return_page():
