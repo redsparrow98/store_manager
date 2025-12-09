@@ -6,12 +6,12 @@
   },
   "joe_doe": {
     "password": "Joespassword",
-    "access_level": "Employee",
-    "name": "Joe Doe"
+    "name": "Joe Doe",
+    "access_level": "Employee"
   },
   "bobby_tables": {
     "password": "Bobbyspassword",
-    "access_level": "Employee",
-    "name": "Bobby Tables"
+    "name": "Bobby Tables",
+    "access_level": "Manager"
   }
 }

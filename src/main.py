@@ -432,22 +432,39 @@ def edit_user():
     users = load_json(USERS_FILE_PATH)
 
     if request.method == "POST":
-        username = request.form['username']
-        user = users.get(username)
+        original_username = request.form['original_username']
+        new_username = request.form['username']
+        user = users[original_username]
 
         if not user:
             flash("User not found", "error")
             return redirect(url_for("users_page"))
 
-        user['password'] = request.form['password']
-        user['name'] = request.form['name']
-        user['access_level'] = request.form['access_level']
+        new_user_info = {
+            "password": request.form['password'],
+            "name": request.form['name'],
+            "access_level": request.form['access_level'],   
+        }
+
+        if original_username != new_username:
+            if new_username in users:
+                flash("Username already exists", "error")
+
+
+            else:
+                users.pop(original_username)
+                users[new_username] = new_user_info
+
+        else:
+            users[original_username] = new_user_info
+               
 
         with open(USERS_FILE_PATH, 'w') as f:
             json.dump(users, f, indent=2)
 
         return redirect(url_for("users_page"))
 
+    #GET request
     username = request.args.get('username')
     user = users.get(username)
 
