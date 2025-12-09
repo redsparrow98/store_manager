@@ -420,6 +420,56 @@ def account_page():
             for error in result:
                 flash (error, "error")
         return redirect(url_for("account_page"))
+    
+@app.route('/dashboard/users', methods=['GET'])
+def users_page():
+    users = load_json(USERS_FILE_PATH)
+
+    return render_template("users.html", users=users)
+
+@app.route('/dashboard/users/edit-user', methods=['GET', 'POST'])
+def edit_user():
+    users = load_json(USERS_FILE_PATH)
+
+    if request.method == "POST":
+        original_username = request.form['original_username']
+        new_username = request.form['username']
+        user = users[original_username]
+
+        if not user:
+            flash("User not found", "error")
+            return redirect(url_for("users_page"))
+
+        new_user_info = {
+            "password": request.form['password'],
+            "name": request.form['name'],
+            "access_level": request.form['access_level'],   
+        }
+
+        if original_username != new_username:
+            if new_username in users:
+                flash("Username already exists", "error")
+
+
+            else:
+                users.pop(original_username)
+                users[new_username] = new_user_info
+
+        else:
+            users[original_username] = new_user_info
+               
+
+        with open(USERS_FILE_PATH, 'w') as f:
+            json.dump(users, f, indent=2)
+
+        return redirect(url_for("users_page"))
+
+    #GET request
+    username = request.args.get('username')
+    user = users.get(username)
+
+
+    return render_template("edit_user.html", username=username, user=user)
 
 if __name__=='__main__':
     app.run(debug=True)
