@@ -457,7 +457,7 @@ def edit_user():
 
         else:
             users[original_username] = new_user_info
-               
+
 
         with open(USERS_FILE_PATH, 'w') as f:
             json.dump(users, f, indent=2)
