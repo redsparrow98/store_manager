@@ -186,7 +186,7 @@ def delete_product_page():
 def notifications_page():
     scan_low_stock() 
     notifications = get_notifications()
-    return render_template("notifications.html", notifications=notifications)
+    return render_template("notification.html", notifications=notifications)
 
 
 @app.route('/inventory/update-product', methods=['GET', 'POST'])

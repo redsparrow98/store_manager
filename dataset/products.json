@@ -6,7 +6,7 @@
     "price_SEK": 14995.0,
     "category": "Phones",
     "discount_percentage": 0,
-    "stock_amount": "24",
+    "stock_amount": 1,
     "discounted_price_SEK": 14995.0
   },
   "0002": {
@@ -26,7 +26,7 @@
     "price_SEK": "3790.0",
     "category": "Phones",
     "discount_percentage": "0",
-    "stock_amount": "5",
+    "stock_amount": 5,
     "discounted_price_SEK": 3790.0
   },
   "0004": {
