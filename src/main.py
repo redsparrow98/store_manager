@@ -421,5 +421,28 @@ def account_page():
                 flash (error, "error")
         return redirect(url_for("account_page"))
 
+@app.route('/dashboard/return-product', methods=['GET', 'POST'])
+def return_product_page():
+    if request.method == "GET":
+        return render_template("return_product.html")
+    else:
+        article_id = request.form["article_id"]
+        stock = request.form.get("stock", 0)
+        
+        # Values that don't need to be added when creating new return
+        employee_id = current_user.id
+        date = datetime.today().strftime("%B %d, %Y")
+        status = "Open"
+        
+        success, result = add_return(article_id, stock, employee_id, date, status)
+
+        if success:
+            flash(result, "success")
+        else:
+            for error in result:
+                flash(error, "error")
+        
+        return render_template("return_product.html")
+
 if __name__=='__main__':
     app.run(debug=True)

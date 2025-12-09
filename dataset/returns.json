@@ -1,0 +1,37 @@
+{
+    "R001": {
+    "article_id": "0001",
+    "employee_id": "bobby_tables",
+    "date": "05/11/2025",
+    "status": "Processed",
+    "stock_amount": "2"
+    },
+    "R002": {
+    "article_id": "0002",
+    "employee_id": "jane_doe",
+    "date": "22/11/2025",
+    "status": "Processed",
+    "stock_amount": "1"
+    },
+    "R003": {
+    "article_id": "0003",
+    "employee_id": "jane_doe",
+    "date": "18/11/2025",
+    "status": "Open",
+    "stock_amount": "4" 
+    },
+    "R004": {
+    "article_id": "0004",
+    "employee_id": "bobby_tables",
+    "date": "23/11/2025",
+    "status": "Open",
+    "stock_amount": "3"
+    },
+    "R005": {
+    "article_id": "0005",
+    "employee_id": "john_doe",
+    "date": "25/11/2025",
+    "status": "Processed",
+    "stock_amount": "4"
+    }
+}

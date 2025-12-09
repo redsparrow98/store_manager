@@ -5,6 +5,7 @@ from pathlib import Path
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
+RET_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
 
 
 #APPLY DISCOUNT FUNCTION
@@ -135,7 +136,6 @@ def delete_product(article_id):
     write_json(FILE_PATH, products)
     return delete
 
-
 #ACCESSING A PRODUCT FEATURE AND HELPER FUNCTIONS
 def format_product_data(product_info):
     labels = {
@@ -247,3 +247,34 @@ def is_number(text: str):
         return True
     except:
         return False
+
+# REGISTER NEW RETURN
+def add_return(article_id, employee_id, date, status, stock):
+    products = load_json(FILE_PATH)
+    returns = load_json(RET_FILE_PATH)
+    
+    # Error handling here 
+    errors = []
+    
+    if not article_id.strip():
+        errors.append("Article id is required")
+    if int(stock) < 0:
+        errors.append("Stock cannot be negative")
+        
+    else:
+        current_ids = returns.keys()
+        next_id_int = int(max(current_ids)) + 1 if current_ids else 1
+        next_id = str(next_id_int).zfill(3)
+
+        new_return = {
+            "article_id": article_id,
+            "employee_id": employee_id,
+            "date": date,
+            "status": status,
+            "stock_amount": int(stock)
+        }
+
+        returns[next_id] = new_return
+        
+        write_json(RET_FILE_PATH, returns)
+        return True, f"Return for product {article_id} successfully created!"
