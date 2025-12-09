@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Users{% endblock %}
+{% block content %}
+
+<div class="product-modal" role="dialog" aria-modal="true">
+    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('dashboard') }}'"></button>
+    <header class="modal-header">
+        <h1>Edit uer {{ username }}</h1>
+    </header>
+
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        {% if category == 'success' %}
+        <div class="success-message">
+            {{ message }}
+        </div>
+        {% elif category == 'error' %}
+        <div class="error-message">
+            {{ message }}
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+            <form method="POST" action="{{ url_for('edit_user') }}">
+                <input type="hidden" name="original_username" value="{{ username }}">
+
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <div class="field-label">Username</div>
+                            <input class="btn" type="text" name="username" value="{{ username }}" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field-label">Name</div>
+                            <input class="btn" type="text" name="name" value="{{ user['name'] }}" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field-label">Password</div>
+                            <input class="btn" type="password" name="password" value="{{ user['password'] }}" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field-label">Access level</div>
+                            <select class="field-box" name="access_level">
+                                <option value="Employee" {% if user['access_level'] == 'Employee' %}selected{% endif %}>Employee</option>
+                                <option value="Employee" {% if user['access_level'] == 'Manager' %}selected{% endif %}>Manager</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="modal-footer">
+                    <a class="btn btn-cancel" href="{{ url_for('users_page') }}">Cancel</a>
+                    <button type="submit" class="btn btn-edit">Save Changes</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
