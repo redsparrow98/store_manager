@@ -33,26 +33,5 @@
     "date": "25/11/2025",
     "status": "Processed",
     "stock_amount": 4
-  },
-  "1006": {
-    "article_id": "0006",
-    "employee_id": "bobby_tables",
-    "date": "09/12/25",
-    "status": "Open",
-    "stock_amount": 6
-  },
-  "1007": {
-    "article_id": "0006",
-    "employee_id": "bobby_tables",
-    "date": "09/12/25",
-    "status": "Open",
-    "stock_amount": 6
-  },
-  "1008": {
-    "article_id": "0009",
-    "employee_id": "bobby_tables",
-    "date": "09/12/25",
-    "status": "Open",
-    "stock_amount": 0
   }
 }

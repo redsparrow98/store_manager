@@ -250,7 +250,6 @@ def is_number(text: str):
 
 # REGISTER NEW RETURN
 def add_return(article_id, stock, employee_id, date, status):
-    products = load_json(FILE_PATH)
     returns = load_json(RET_FILE_PATH)
 
     errors = []
@@ -263,6 +262,7 @@ def add_return(article_id, stock, employee_id, date, status):
     if errors:
         return False, errors
     else:
+        # Figure out how to make return id with letters in the beginning
         current_ids = returns.keys()
         next_id_int = int(max(current_ids)) + 1 if current_ids else 1
         next_id = str(next_id_int).zfill(4)

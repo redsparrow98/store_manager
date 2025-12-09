@@ -471,16 +471,16 @@ def edit_user():
 
     return render_template("edit_user.html", username=username, user=user)
 
-@app.route('/dashboard/return-product', methods=['GET', 'POST'])
-def return_product_page():
+@app.route('/dashboard/add-return', methods=['GET', 'POST'])
+def add_return_page():
     if request.method == "GET":
-        return render_template("return_product.html")
+        return render_template("add_return.html")
     else:
         article_id = request.form["article_id"]
         stock = request.form["stock"]
         
         # Values that don't need to be added when creating new return
-        employee_id = current_user.id
+        employee_id = current_user.id #TODO: Should be customer (company) name??
         date = datetime.today().strftime("%d/%m/%y")
         status = "Open"
         
@@ -492,7 +492,7 @@ def return_product_page():
             for error in result:
                 flash(error, "error")
         
-        return render_template("return_product.html")
+        return render_template("add_return.html")
 
 if __name__=='__main__':
     app.run(debug=True)
