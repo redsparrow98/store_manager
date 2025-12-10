@@ -1,5 +1,5 @@
 from reader import *
-import os
+import os, random
 from pathlib import Path
 
 # this is to avoid the file path issues we had
@@ -182,64 +182,6 @@ def find_brand_matches(products_data, search_term):
 
     return matches
 
-def access_product_landing_page(search_term):
-    products_data = load_json(FILE_PATH)
-
-    # create a product list
-    product_list = []
-    for product_id, product_info in products_data.items():
-        product_name = product_info["article_name"]
-        product_list.append((product_id, product_name))
-
-
-    if not search_term:
-        return {
-            "template": "access_product_info.html",
-            "products": product_list,
-            "product": None,
-            "display": None,
-            "brand_results": None,
-            "error": None,
-        }
-
-    # Matches product ID 
-    if search_term in products_data:
-        matching_product = products_data[search_term]
-        formatted_display = format_product_data(matching_product)
-
-        return {
-            "template": "access_product_info.html",
-            "products": product_list,
-            "product": matching_product,
-            "display": formatted_display,
-            "brand_results": None,
-            "error": None,
-        }
-
-    # Matches brand
-    brand_matches = find_brand_matches(products_data, search_term)
-    if brand_matches:
-        return {
-            "template": "access_product_info.html",
-            "products": product_list,
-            "product": None,
-            "display": None,
-            "brand_results": brand_matches,
-            "brand_searched": search_term,
-            "error": None,
-        }
-
-    # No match
-    else:
-        return {
-            "template": "access_product_info.html",
-            "products": product_list,
-            "product": None,
-            "display": None,
-            "brand_results": None,
-            "error": f"No match found for '{search_term}'",
-        }
-
 # Error handling reused to validate user input in update functions
 def is_number(text: str):
     try:
@@ -333,10 +275,16 @@ def add_return(article_id, stock, customer, date, status):
     if errors:
         return False, errors
     else:
-        # Figure out how to make return id with letters in the beginning
+        random_id = "R" + f"{random.randint(0, 999):03d}"
+        
         current_ids = returns.keys()
-        next_id_int = int(max(current_ids)) + 1 if current_ids else 1
-        next_id = str(next_id_int).zfill(4)
+        if len(current_ids) == 1000:
+            return False, f"Max amount of returns reached, cannot create a new."
+            
+        while random_id in current_ids:
+            random_id = "R" + f"{random.randint(0, 999):03d}"
+        
+        next_id = random_id
         
         new_return = {
             "article_id": article_id,
@@ -350,3 +298,36 @@ def add_return(article_id, stock, customer, date, status):
         
         write_json(RET_FILE_PATH, returns)
         return True, f"Return for product {article_id} successfully created."
+    
+# DELETE RETURN
+def delete_return(return_id):
+    returns = load_json(RET_FILE_PATH)
+    deleted_return = returns.pop(return_id)
+    write_json(RET_FILE_PATH, returns)
+    return deleted_return
+
+# ADD RETURN BACK TO STOCK
+def add_return_to_stock(return_id):
+    returns = load_json(RET_FILE_PATH)
+    products = load_json(FILE_PATH)
+    
+    return_info = returns.get(return_id)
+    if not return_info:
+        return False, "Return ID not found."
+    
+    article_id = return_info.get("article_id")
+    stock_to_add = return_info.get("stock_amount")
+    
+    product_info = products.get(article_id)
+    if not product_info:
+        return False, "Associated product not found."
+    
+    current_stock = product_info.get("stock_amount")
+    product_info["stock_amount"] = current_stock + stock_to_add
+    write_json(FILE_PATH, products)
+    
+    returns.pop(return_id)
+    write_json(RET_FILE_PATH, returns)
+    
+    return True, f"Added {stock_to_add} units back to stock for product ID {article_id}."
+

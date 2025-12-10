@@ -1,3 +1,46 @@
+:root {
+  --modal-bg: #ffffff;
+  --modal-close: #222222;
+  --modal-header: #0b213f;
+  --modal-field-label: #667380;
+  --modal-field-box: #fbfbfd;
+  --modal-field-border: #e6e9ee;
+
+  --brand-border: #e9eef3;
+  --brand-text: #334155;
+
+  --btn-border: #e0e6eb;
+  --btn-cancel-bg: #ffffff;
+  --btn-cancel-text: #22333b;
+  --btn-edit-bg: #3b4668;
+  --btn-edit-text: #ffffff;
+  --btn-discount-text: #3b4668;
+  --btn-delete-bg: #E03137;
+  --btn-delete-text: #ffffff;
+
+}
+
+[data-theme="christmas"] {
+  --modal-bg: #ffffff;
+  --modal-close: #222222;
+  --modal-header: #0b213f;
+  --modal-field-label: #667380;
+  --modal-field-box: #fbfbfd;
+  --modal-field-border: #e6e9ee;
+
+  --brand-border: #e9eef3;
+  --brand-text: #334155;
+
+  --btn-border: #e0e6eb;
+  --btn-cancel-bg: #ffffff;
+  --btn-cancel-text: #22333b;
+  --btn-edit-bg: #3b4668;
+  --btn-edit-text: #ffffff;
+  --btn-discount-text: #3b4668;
+  --btn-delete-bg: #E03137;
+  --btn-delete-text: #ffffff;
+}
+
 /* Modal */
 .product-modal {
   /* Add shadow? */
@@ -5,7 +48,7 @@
   top: 20%;
   left: 25%;
   width: 60vw;
-  background: #ffffff;
+  background: var(--modal-bg);
   border-radius: 15px;
   padding: 40px;
 }
@@ -19,14 +62,14 @@
   border: none;
   font-size: 22px;
   cursor: pointer;
-  color: #222222;
+  color: var(--modal-close);
 }
 
 /* Header */
 .product-modal .modal-header h2 {
   font-size: 22px;
   font-weight: 700;
-  color: #0b213f;
+  color: var(--modal-header);
 }
 
 .product-modal .form-grid {
@@ -42,19 +85,19 @@
 
 .product-modal .field-label {
   font-size: 12px;
-  color: #667380;
+  color: var(--modal-field-label);
   font-weight: 600;
 }
 
 /* Value formatting */
 .product-modal .field-box {
-  background: #fbfbfd;
-  border: #e6e9ee;
+  background: var(--modal-field-box);
+  border: var(--modal-field-border);
   border-style: solid;
   border-radius: 8px;
   padding: 3%;
   font-weight: 700;
-  color: #0b213f;
+  color: var(--modal-header);
 }
 
 /* Footer buttons */
@@ -70,34 +113,47 @@
 .btn {
   border-radius: 10px;
   font-weight: 700;
-  border: #e0e6eb;
+  border: var(--btn-border);
   border-style: solid;
 }
 
 .btn-cancel {
-  background: #ffffff;
-  color: #22333b;
+  background: var(--btn-bg);
+  color: var(--btn-cancel);
   padding: 1% 2%;
 }
 
 .btn-edit {
-  background: #3b4668;
-  color: #ffffff;
+  background: var(--btn-edit-bg);
+  color: var(--btn-edit-text);
   padding: 1% 2%;
 }
 
 .discount-btn {
   border-radius: 10px;
   font-weight: 700;
-  border: #e0e6eb;
+  border: var(--modal-field-border);
   border-style: solid;
   padding: 10px 16px;
   width: auto;
   min-width: 200px;
   box-sizing: border-box;
   margin-left: 1vw;
-  color: #3b4668;
+  color: var(--btn-discount-text);
 }
+
+.btn-delete {
+  background: var(--btn-delete-bg);
+  color: var(--btn-delete-text);
+  padding: 1% 2%;
+}
+
+.btn-add {
+  background: var(--btn-edit-bg);
+  color: var(--btn-edit-text);
+  padding: 1% 2%;
+}
+
 /* Brand results */
 .brand-results {
   margin-top: 18px;
@@ -107,8 +163,8 @@
 }
 
 .brand-results .brand-result {
-  background: #ffffff;
-  border: 1px solid #e9eef3;
+  background: var(--modal-bg);
+  border: 1px solid var(--brand-border);
   border-radius: 10px;
   padding: 14px;
   width: 100%;
@@ -124,7 +180,7 @@
 .brand-results .brand-result h3 {
   margin: 0 0 6px 0;
   font-size: 16px;
-  color: #0b213f;
+  color: var(--modal-header);
   font-weight: 700;
 }
 
@@ -136,11 +192,11 @@
   gap: 2%;
   font-size: 14px;
   font-weight: 400;
-  color: #334155;
+  color: var(--brand-text);
 }
 
 .brand-results .brand-result li strong {
-  color: #334155;
+  color: var(--brand-text);
   font-weight: 600;
 }
 

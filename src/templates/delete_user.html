@@ -2,11 +2,15 @@
 {% block title %}Delete User{% endblock %}
 {% block content %}
 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/access.css') }}" />
+
 <div class="product-modal" role="dialog" aria-modal="true">
     <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('dashboard') }}'">×</button>
     <header class="modal-header">
-    <h2>Delete User</h2>
+        <h2>Delete User</h2>
     </header>
+
+    <!-- messages field -->
     <div>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -25,25 +29,32 @@
         {% endif %}
         {% endwith %}
 
+        <!-- form fields -->
         <form action="{{ url_for('delete_user_page') }}" method="POST">
-            <div style="margin-bottom: 20px">
-                <label style="margin-right: 10px"> Your username: </label>
-                <input class="btn" type="text" name="username" required>
-            </div>
-            <div style="margin-bottom: 20px">
-                <label style="margin-right: 10px"> Your password: </label>
-                <input class="btn" type="text" name="password" required>
-            </div>
-            <div style="margin-bottom: 20px">
-                <label style="margin-right: 10px"> Username for user you want to delete: </label>
-                <input style="margin-top: 10px" class="btn" type="text" name="deleted_user" required>
+            <div class="modal-body">
+                <div class="form-grid">
+
+                    <div class="form-row">
+                        <div class="field-label">Your username</div>
+                        <input class="field-box" type="text" name="username" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="field-label">Username to delete:</div>
+                        <input class="field-box" class="btn" type="text" name="deleted_user" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="field-label">Your password</div>
+                        <input class="field-box" type="text" name="password" required>
+                    </div>
+                </div>
             </div>
 
+            <!-- Buttons at the bottom -->
             <footer class="modal-footer">
-                <a class="btn btn-cancel" href="{{ url_for('dashboard') }}">Cancel</a>
+                <a class="btn btn-cancel" href="{{ url_for('account_page') }}">Cancel</a>
                 <button type="submit" class="btn btn-edit">Submit</button>
-                <!-- <a class="btn btn-edit">Submit</a>
-                </footer> -->
 
         </form>
     </div>

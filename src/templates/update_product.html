@@ -5,70 +5,75 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/access.css') }}" />
 
 <div class="product-modal" role="dialog" aria-modal="true">
-  <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
-  <header class="modal-header"><h2>Update product</h2></header>
-    
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            {% if category == 'success' %}
-                <div class="success-message">{{ message }}</div>
-            {% elif category == 'error' %}
-                <div class="error-message">{{ message }}</div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    {% endwith %}
-    <br>
+    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
+    <header class="modal-header">
+        <h2>Update product</h2>
+    </header>
 
-  <form method="post" action="{{ url_for('update_product_page') }}">
-    <div class="modal-body">
-        <div class="form-grid">
+    <!-- messages field -->
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'success' %}
+                    <div class="success-message">{{ message }}</div>
+                {% elif category == 'error' %}
+                    <div class="error-message">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
 
-        <div class="form-row">
-            <div class="field-label">Item name</div>
-            <input class="field-box" name="name" required value="{{ product.article_name if product else (name or '') }}">
-        </div>
+        <!-- form field for all required fields to add new product -->
+        <form method="post" action="{{ url_for('update_product_page') }}">
+            <div class="modal-body">
+                <div class="form-grid">
 
-        <div class="form-row">
-            <div class="field-label">Product ID</div>
-            <input class="field-box" name="article_id" required readonly value="{{ product.article_id if product else (id or '') }}">
-        </div>
+                <div class="form-row">
+                    <div class="field-label">Item name</div>
+                    <input class="field-box" name="name" required value="{{ product.article_name if product else (name or '') }}">
+                </div>
 
-        <div class="form-row">
-            <div class="field-label">Brand</div>
-            <input class="field-box" name="brand" required value="{{ product.brand if product else (brand or '') }}">
-        </div>
+                <div class="form-row">
+                    <div class="field-label">Product ID</div>
+                    <input class="field-box" name="article_id" required readonly value="{{ product.article_id if product else (id or '') }}">
+                </div>
 
-        <div class="form-row">
-            <div class="field-label">Price</div>
-            <input class="field-box" name="price" required value="{{ product.price_SEK if product else (price or '') }}">
-        </div>
+                <div class="form-row">
+                    <div class="field-label">Brand</div>
+                    <input class="field-box" name="brand" required value="{{ product.brand if product else (brand or '') }}">
+                </div>
 
-        <div class="form-row">
-            <div class="field-label">Category</div>
-            <input class="field-box" name="category" required value="{{ product.category if product else (category or '') }}">
-        </div>
+                <div class="form-row">
+                    <div class="field-label">Price</div>
+                    <input class="field-box" name="price" required value="{{ product.price_SEK if product else (price or '') }}">
+                </div>
 
-        <div class="form-row">
-            <div class="field-label">Discount percentage</div>
-            <input class="field-box" name="discount" type="number" required value="{{ product.discount_percentage if product else (discount or '') }}">
-        </div>
+                <div class="form-row">
+                    <div class="field-label">Category</div>
+                    <input class="field-box" name="category" required value="{{ product.category if product else (category or '') }}">
+                </div>
 
-        <div class="form-row">
-            <div class="field-label">Stock amount</div>
-            <input class="field-box" name="stock" type="number" required value="{{ product.stock_amount if product else (stock or '') }}">
-        </div>
+                <div class="form-row">
+                    <div class="field-label">Discount percentage</div>
+                    <input class="field-box" name="discount" type="number" required value="{{ product.discount_percentage if product else (discount or '') }}">
+                </div>
 
-        </div>
+                <div class="form-row">
+                    <div class="field-label">Stock amount</div>
+                    <input class="field-box" name="stock" type="number" required value="{{ product.stock_amount if product else (stock or '') }}">
+                </div>
+
+                </div>
+            </div>
+
+            <!-- Buttons at the bottom -->
+            <div class="modal-footer">
+                <a class="btn btn-cancel" href="{{ url_for('display_inventory') }}">Cancel</a>
+                <button type="submit" class="btn btn-edit">Update</button>
+            </div>
+
+        </form>
     </div>
-
-    <div class="modal-footer">
-        <a class="btn btn-cancel" href="{{ url_for('display_inventory') }}">Cancel</a>
-        <button type="submit" class="btn btn-edit">Update</button>
-    </div>
-
-  </form>
-</div>
 </div>
 {% endblock %}

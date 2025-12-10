@@ -551,6 +551,52 @@ def returns_page():
 
     return render_template("returns.html", returns=returns_list)
 
+@app.route('/dashboard/returns/info', methods=['GET'])
+def access_return_info():
+    return_id = request.args.get('return_id', '').strip()
+    returns = load_json(RETURNS_FILE_PATH)
+
+    def build_return_display(item, return_id):
+        return [
+            ('Return ID', return_id),
+            ('Article ID', item.get('article_id', '')),
+            ('Amount', f"{item.get('stock_amount', '')} pcs"),
+            ('Customer', item.get('customer', '')),
+            ('Returned on', item.get('date', '')),
+            ('Status', item.get('status', '')),
+        ]
+    
+    # Matches return ID
+    if return_id in returns:
+        item = returns[return_id]
+        return_display = build_return_display(item, return_id)
+        return render_template("access_return_info.html", 
+                                return_display=return_display, 
+                                return_id=return_id)
+        
+    flash(f'No products found for: {return_id}', 'error')
+    return render_template("access_return_info.html")
+
+@app.route('/dashboard/returns/delete_return', methods=['GET'])
+def delete_return_page():
+    if request.method == "GET":
+        return_id = request.args.get('return_id')
+        deleted_return = delete_return(return_id)
+        flash (f"Return with return id {return_id} has been deleted", "success")
+        return redirect(url_for("returns_page"))
+    
+@app.route('/dashboard/returns/add_return_to_stock', methods=['GET'])
+def add_return_to_stock_page():
+    return_id = request.args.get('return_id')
+    
+    if return_id:
+        flash(f"Return with return id {return_id} has been added back to stock", "success")
+        add_return_to_stock(return_id)
+    else:
+        flash("Invalid return ID", "error")
+
+    return redirect(url_for("returns_page"))
+
 @app.route('/dashboard/add-return', methods=['GET', 'POST'])
 def add_return_page():
     if request.method == "GET":

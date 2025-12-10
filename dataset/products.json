@@ -1,5 +1,5 @@
 {
-    "0001": {
+  "0001": {
     "article_name": "Iphone 17 PRO",
     "article_id": "0001",
     "brand": "Apple",
@@ -210,12 +210,13 @@
     "discounted_price_SEK": 99.0
   },
   "0022": {
-    "article_name": "Iphone 17 PRO",
+    "article_name": "Logitech MX Master 3S Mouse",
     "article_id": "0022",
-    "brand": "Apple",
-    "price_SEK": 17990.0,
-    "category": "Phones",
-    "discount_percentage": 0.0,
-    "stock_amount": 23
+    "brand": "Logitech",
+    "price_SEK": 999.0,
+    "category": "Accessories",
+    "discount_percentage": 0,
+    "stock_amount": 10,
+    "discounted_price_SEK": 999.0
   }
 }

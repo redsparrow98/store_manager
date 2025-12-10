@@ -6,7 +6,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
-TEST_USERS_FILE_PATH = BASE_DIR / "dataset" / "test_users.json"
 
 # Creates a new account if username not already taken
 def create_account(username, access_level, password, repeat_password):
@@ -42,16 +41,13 @@ def create_account(username, access_level, password, repeat_password):
 
 def delete_user(deleted_user):
     users = load_json(USERS_FILE_PATH)
-    test_users = load_json(TEST_USERS_FILE_PATH)
     
     if deleted_user not in users:
         return False
     else:
         users.pop(deleted_user)
-        test_users.pop(deleted_user, None)
 
         write_json(USERS_FILE_PATH, users)
-        write_json(TEST_USERS_FILE_PATH, test_users)
         
         print(users)
         return True
@@ -93,7 +89,7 @@ def check_credentials(username, password):
 
 # Checks if access level is manager or employee
 def is_manager(username):
-    users = load_json(TEST_USERS_FILE_PATH)
+    users = load_json(USERS_FILE_PATH)
     
     if username in users and users[username]['access_level'] == "Manager":
         return True
