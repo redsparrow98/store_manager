@@ -16,27 +16,32 @@
 
   --btn-primary-bg: #007bff;
   --btn-primary-hover: #0056b3;
+  --btn-date: #d9d9d9;
+  --btn-inventory-bg: #efefef;
+  --btn-logout-bg: #B53B31;
 
   --highlight-blue: #0080fc;
 }
 
 [data-theme="christmas"] {
-  --bg-main: #efefef;
-  --bg-card: #ffffff;
-  --bg-sidebar: #262a35;
-  --bg-sidebar-hover: #3b4668;
+  --bg-main: #1C3626;
+  --bg-card: #386641;
+  --bg-sidebar: #02230B;
+  --bg-sidebar-hover: #708567;
   --bg-login: #e4e9ff;
 
-  --text-main: #1a1a1a;
-  --text-primary: #ffffff;
-  --text-muted: #666;
-  --text-accent: #3c2a5d;
+  --text-main: #F5DEAE;
+  --text-primary: #F5DEAE;
+  --text-muted: #708567;
+  --text-accent: #F5DEAE;
 
-  --border-primary: #d9d9d9;
-  --border-table: #e6e6e6;
+  --border-primary: #F5DEAE;
+  --border-table: #F5DEAE;
 
   --btn-primary-bg: #007bff;
   --btn-primary-hover: #0056b3;
+  --btn-date: #386641;
+  --btn-inventory-bg: #708567;
 
   --highlight-blue: #0080fc;
 }
@@ -60,7 +65,7 @@ body {
 .top-navbar {
   height: 7vh;
   width: 100%;
-  background-color: var(--bg-card);
+  background-color: var(--bg-main);
   padding: 0 30px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -167,7 +172,7 @@ body {
 }
 
 .logout-btn {
-  background: var(--bg-sidebar-hover);
+  background: var(--btn-logout-bg);
   border-radius: 12px;
   color: var(--text-primary);
   padding: 10px;
@@ -289,6 +294,7 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  color: var(--text-main)
 }
 
 .main-header h1 {
@@ -306,7 +312,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: var(--border-primary);
+  background-color: var(--btn-date);
   padding: 8px 20px;
   cursor: pointer;
   border-radius: 6px;
@@ -326,11 +332,11 @@ body {
   background: var(--bg-card);
   padding: 20px;
   border-radius: 20px;
-  color: var(--text-primary)
+  color: var(--text-main)
 }
 
 .overview h2 {
-  color: var(--bg-sidebar-hover);
+  color: var(--text-main);
 }
 
 
@@ -369,6 +375,7 @@ body {
 /* Accounts section */
 .accounts {
   margin-top: 40px;
+  color: var(--text-main);
 }
 
 .accounts-box {
@@ -422,7 +429,7 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background-color: var(--bg-main);
+  background-color: var(--btn-inventory-bg);
   border: none;
   cursor: pointer;
   display: inline-flex;
@@ -444,6 +451,7 @@ body {
   margin-bottom: 12px;
   padding-left: 25px; 
   padding-bottom: 2px;
+  color: var(--text-main);
 }
 
 .inventory-header .title {
@@ -490,7 +498,7 @@ body {
 }
 
 .btn-discount {
-  background-color: var(--bg-main);
+  background-color: var(--btn-inventory-bg);
   align-self: left;
   font-weight: 400;
   width: 115px;
@@ -498,7 +506,7 @@ body {
 
 /* Search button */
 .search-button-form {
-  background-color: var(--bg-main);
+  background-color: var(--btn-inventory-bg);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
   display: inline-flex;
   align-items: center;
@@ -526,9 +534,9 @@ body {
 .search-button-form .search-input-in-btn {
   border: none;
   outline: none;
-  background: transparent;
+  background: var(--btn-inventory-bg);
   font-size: 15px;
-  color: #222222;
+  color: var(--text-primary);
   flex: 5%;
   min-width: 0;
   padding: 6px 0;
@@ -605,6 +613,7 @@ body {
   padding: 5% 10%;
   border-radius: 7px;
   border: None;
+  cursor: pointer;
 }
 
 /*for inventory*/
