@@ -20,6 +20,27 @@
 
 }
 
+[data-theme="christmas"] {
+  --modal-bg: #ffffff;
+  --modal-close: #222222;
+  --modal-header: #0b213f;
+  --modal-field-label: #667380;
+  --modal-field-box: #fbfbfd;
+  --modal-field-border: #e6e9ee;
+
+  --brand-border: #e9eef3;
+  --brand-text: #334155;
+
+  --btn-border: #e0e6eb;
+  --btn-cancel-bg: #ffffff;
+  --btn-cancel-text: #22333b;
+  --btn-edit-bg: #3b4668;
+  --btn-edit-text: #ffffff;
+  --btn-discount-text: #3b4668;
+  --btn-delete-bg: #E03137;
+  --btn-delete-text: #ffffff;
+}
+
 /* Modal */
 .product-modal {
   /* Add shadow? */
