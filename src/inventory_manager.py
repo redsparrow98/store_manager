@@ -257,8 +257,7 @@ def list_orders():
     
     return all_orders
 
-
-
+# Viewing order and updating order status
 def access_order(status, order_number):
     orders = load_json(ORDER_FILE_PATH)
     products = load_json(FILE_PATH)
@@ -277,8 +276,46 @@ def access_order(status, order_number):
         
         return "Delivery status successfully changed"
     
-    
+def add_order(fields, username, date):
+    orders = load_json(ORDER_FILE_PATH)
+    products = load_json(FILE_PATH)
 
+    errors = []
+
+    for order in fields:
+        if not order.get("article_id").strip():
+            errors.append("Article id is required")
+        if int(order.get("qty")) <= 0:
+            errors.append("The ordered ammount can't be negative or zero")
+        if order.get("article_id") not in products:
+            errors.append(f"Article id: {order.get('article_id')} not found")
+        
+        if errors:
+            return False, errors
+        
+        else:
+            current_order_numbers = orders.keys()
+            for order_number in current_order_numbers:
+                number = order_number[1:]
+            
+            calculate_next = int(number) + 1
+            next_order_number = "O" + str(calculate_next).zfill(4)
+            product = products[order.get("article_id")]["article_name"]
+
+            new_order = {
+                "order_number": next_order_number,
+                "ordered_by": username,
+                "article_id": order.get("article_id"),
+                "product_name": product,
+                "quantity": int(order.get("qty")),
+                "order_date": date,
+                "order_status": "Ordered"
+                }
+            
+            orders[next_order_number] = new_order
+            write_json(ORDER_FILE_PATH, orders)
+
+    return True, "Order(s) successfully created"
 
 # REGISTER NEW RETURN
 def add_return(article_id, stock, customer, date, status):

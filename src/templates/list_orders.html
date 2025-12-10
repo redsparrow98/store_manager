@@ -7,7 +7,7 @@
     <div class="inventory-actions">
     
     {% if access_level in ["Manager"] %}
-    <a class="btn btn-plus" href="#">
+    <a class="btn btn-plus" href="{{ url_for('add_order_page') }}">
       <img src="{{ url_for('static', filename='images/plus.svg') }}" alt="add" class="btn-icon" />
       <span class="btn-label">Add Order</span>
     </a>

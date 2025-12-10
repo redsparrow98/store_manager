@@ -7,7 +7,6 @@
     <header class="modal-header">
     <h2>Add User</h2>
     </header>
-    <div>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
@@ -60,6 +59,5 @@
                 <button type="submit" class="btn btn-edit">Create Account</button>
             </div>
         </form>
-    </div>
 </div>
 {% endblock %}

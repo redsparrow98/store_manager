@@ -1,6 +1,6 @@
 {
-  "1001": {
-    "order_number": "1001",
+  "O0001": {
+    "order_number": "O0001",
     "ordered_by": "bobby_tables",
     "article_id": "0001",
     "product_name": "test",
@@ -8,8 +8,8 @@
     "order_date": "01/01/2025",
     "order_status": "Delivered"
   },
-  "1002": {
-    "order_number": "1002",
+  "O0002": {
+    "order_number": "O0002",
     "ordered_by": "jane_doe",
     "article_id": "0002",
     "product_name": "test2",
