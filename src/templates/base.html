@@ -22,19 +22,25 @@
     <header class="top-navbar">
         <div class = "header-icon">
             <div class="notification">
-                <a href="{{ url_for('notifications_page') }}" class="notification-btn">
-                <img
-                    src="{{ url_for('static', filename='images/notification.svg') }}"
-                    alt="Notifications"
-                />
+                <a href="{{ url_for('notifications_page') }}" class="notification-btn" title="Notifications">
+                  <img
+                      src="{{ url_for('static', filename='images/notification.svg') }}"
+                      alt="Notifications"
+                      class="nav-icon default-icon notification-img"
+                  />
+                  <!-- Christmas notification icon (shown only in christmas theme) -->
+                  <span class="nav-icon christmas-notification-icon" aria-hidden="true"></span>
                 </a>
             </div>
             <div class="logo">
                 <img
                     src="{{ url_for('static', filename='images/logo.svg') }}"
                     alt="Logo"
+                    class="nav-icon default-icon logo-img"
                 />
-        </div>
+                <!-- Christmas logo icon -->
+                <span class="nav-icon christmas-logo-icon" aria-hidden="true"></span>
+            </div>
     </header>
 
     <!-- Sidebar navigation  -->
@@ -44,64 +50,76 @@
           <img
             src="{{ url_for('static', filename='images/usericon.svg') }}"
             alt="User Icon"
-            class="user-icon"
+            class="nav-icon default-icon user-icon-img"
           />
+          <!-- Christmas user icon -->
+          <span class="nav-icon christmas-user-icon" aria-hidden="true"></span>
         </div>
+
         <span class="user-label">
-            {% if current_user.is_authenticated %}
-                {{ current_user.id }}
-            {% else %}
-                Guest
-            {% endif %}
-        
-        <!-- access lvl tag -->
+          {% if current_user.is_authenticated %}
+            {{ current_user.id }}
+          {% else %}
+            Guest
+          {% endif %}
         </span>
+
         {% if access_level %}
-        <span class="user-lvl">
+          <span class="user-lvl">
             {{ access_level }}
-        </span>
+          </span>
         {% endif %}
-      </span>
+      </div>
       <nav class="sidebar-nav">
         <nav class="navigation">
           <a href="{{ url_for('dashboard') }}">
             <img
               src="{{ url_for('static', filename='images/home.svg') }}"
               alt="Home Icon"
-              class="nav-icon"
+              class="nav-icon default-icon"
             />
+            <!-- Christmas home icon -->
+            <span class="nav-icon christmas-home-icon" aria-hidden="true"></span>
             Home
           </a>
           <a href="{{ url_for('display_inventory') }}">
             <img
               src="{{ url_for('static', filename='images/shoppingbag.svg') }}"
               alt="Inventory Icon"
-              class="nav-icon"
+              class="nav-icon default-icon"
             />
+            <!-- Christmas inventory icon -->
+            <span class="nav-icon christmas-inventory-icon" aria-hidden="true"></span>
             Inventory
           </a>
           <a href="{{ url_for('list_orders_page') }}">
             <img
               src="{{ url_for('static', filename='images/orders.svg') }}"
               alt="Orders Icon"
-              class="nav-icon"
+              class="nav-icon default-icon"
             />
+            <!-- Christmas orders icon -->
+            <span class="nav-icon christmas-orders-icon" aria-hidden="true"></span>
             Orders
           </a>
           <a href="{{ url_for('returns_page') }}">
             <img
               src="{{ url_for('static', filename='images/notepad.svg') }}"
               alt="Returns Icon"
-              class="nav-icon"
+              class="nav-icon default-icon"
             />
+            <!-- Christmas returns icon -->
+            <span class="nav-icon christmas-returns-icon" aria-hidden="true"></span>
             Returns
           </a>
           <a href="{{ url_for('account_page') }}">
             <img
               src="{{ url_for('static', filename='images/account.svg') }}"
               alt="Account Icon"
-              class="nav-icon"
+              class="nav-icon default-icon"
             />
+            <!-- Christmas account icon -->
+            <span class="nav-icon christmas-account-icon" aria-hidden="true"></span>
             Account
           </a>
         </nav>

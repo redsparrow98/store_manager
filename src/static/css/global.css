@@ -124,6 +124,7 @@ body {
   width: 6vw;
   height: 7vh;
   display: block;
+  object-fit: contain;
 }
 
 .user-label {
@@ -653,4 +654,119 @@ body {
   .products-table {
     min-width: 760px;
   } /* allow horizontal scroll rather than breaking layout */
+}
+
+/* Christmas icon (only show when Christmas mode is activated) */
+[data-theme="christmas"] .nav-icon.default-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .notification-img.default-icon {
+  display: none;
+}
+
+.nav-icon.christmas-home-icon,
+.nav-icon.christmas-inventory-icon,
+.nav-icon.christmas-orders-icon,
+.nav-icon.christmas-returns-icon,
+.nav-icon.christmas-account-icon {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+}
+
+.nav-icon.christmas-user-icon {
+  display: none;
+  width: 7vw;
+  height: 14.85vh;
+  background-position: center;
+  background-repeat: no-repeat;     
+  background-size: cover;           
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.logo .christmas-logo-icon {
+  display: none;
+  width: 5vh;
+  height: 5vh;
+  background-size: contain;
+  background-position: center;
+}
+
+.christmas-notification-icon {
+    display: none;
+    margin-top: 0.6vh;
+}
+
+.date-btn .christmas-calendar-icon {
+  display: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+}
+
+/* Christmas icons (only show when Christmas mode is activated) */
+[data-theme="christmas"] .sidebar-nav img.nav-icon.default-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .top-navbar .logo img.nav-icon.default-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .christmas-user-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/usericon.svg');
+}
+
+[data-theme="christmas"] .nav-icon.christmas-home-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/christmas_home.svg');
+}
+
+[data-theme="christmas"] .nav-icon.christmas-inventory-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/gift.svg');
+}
+
+[data-theme="christmas"] .nav-icon.christmas-orders-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/snowflake.svg');
+}
+
+[data-theme="christmas"] .nav-icon.christmas-returns-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/star.svg');
+}
+
+[data-theme="christmas"] .nav-icon.christmas-account-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/account.svg');
+}
+
+[data-theme="christmas"] .christmas-logo-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/logo.svg');
+  width: 8vw;
+  height: 5vh;
+  background-size: contain;
+}
+
+[data-theme="christmas"] .christmas-notification-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/notification.svg');
+  width: 3.1vw;
+  height: 5.9vh;
+  background-size: contain;
+}
+
+[data-theme="christmas"] .date-btn img.date-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .date-btn .christmas-calendar-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/calendar.svg');
 }
