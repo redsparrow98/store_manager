@@ -770,3 +770,19 @@ body {
   display: inline-block;
   background-image: url('../christmas_images/calendar.svg');
 }
+
+/* Garland */
+[data-theme="christmas"] .top-navbar {
+  overflow: visible; 
+}
+
+[data-theme="christmas"] .top-navbar::after {
+  content: "";
+  position: absolute;
+  top: 6vh;
+  left: 16vw;               
+  right: 0;
+  height: 6vh;
+  background: url('../christmas_images/garland.svg');
+  background-size: contain;
+}
