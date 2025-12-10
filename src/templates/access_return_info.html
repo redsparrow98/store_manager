@@ -32,7 +32,7 @@
           {% for label, value in return_display %}
             <div class="form-row">
               <div class="field-label">{{ label }}</div>
-              <div class="field-box">{{ value }}</div>
+              <div class="field-box" >{{ value }}</div>
             </div>
           {% endfor %}
         </div>
@@ -45,7 +45,7 @@
             onclick="return confirm('Are you sure you want to delete return {{ return_id }}?');">
         Delete
         </a>
-        <a class="btn btn-add" href="{{ url_for('add_return_to_stock', return_id=return_id) }}">Add back to stock</a>
+        <a class="btn btn-add" href="{{ url_for('add_return_to_stock_page', return_id=return_id) }}">Add back to stock</a>
       </footer>
     </div>
 {% endblock %}
