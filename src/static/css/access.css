@@ -21,11 +21,11 @@
 }
 
 [data-theme="christmas"] {
-  --modal-bg: #ffffff;
+  --modal-bg: #386641;
   --modal-close: #222222;
-  --modal-header: #0b213f;
-  --modal-field-label: #667380;
-  --modal-field-box: #fbfbfd;
+  --modal-header: #F5DEAE;
+  --modal-field-label: #9eb694;
+  --modal-field-box: #1C3626;
   --modal-field-border: #e6e9ee;
 
   --brand-border: #e9eef3;
@@ -34,8 +34,8 @@
   --btn-border: #e0e6eb;
   --btn-cancel-bg: #ffffff;
   --btn-cancel-text: #22333b;
-  --btn-edit-bg: #3b4668;
-  --btn-edit-text: #ffffff;
+  --btn-edit-bg: #1C3626;
+  --btn-edit-text: #F5DEAE;
   --btn-discount-text: #3b4668;
   --btn-delete-bg: #E03137;
   --btn-delete-text: #ffffff;
@@ -93,6 +93,7 @@
 .product-modal .field-box {
   background: var(--modal-field-box);
   border: var(--modal-field-border);
+  color: var(--modal-header);
   border-style: solid;
   border-radius: 8px;
   padding: 3%;
