@@ -11,6 +11,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
+ORDER_FILE_PATH = BASE_DIR / "dataset" / "orders.json"
 
 
 app = Flask(__name__)
@@ -470,6 +471,37 @@ def edit_user():
 
 
     return render_template("edit_user.html", username=username, user=user)
+
+@app.route('/dashboard/orders', methods=['GET'])
+def list_orders_page():
+    orders = load_json(ORDER_FILE_PATH)
+    return render_template('list_orders.html', orders=orders)
+
+@app.route('/dashboard/access-order', methods=['GET', 'POST'])
+def access_order_page():
+    orders = load_json(ORDER_FILE_PATH)
+    
+    order_number = request.args.get('order_number')
+    order = orders.get(order_number)
+
+    if request.method == 'GET':
+        return render_template('access_order.html', order=order)
+    
+    else:
+        status = request.form.get("status")
+        result = access_order(status, order_number)
+
+        if result:
+            flash(result, "success")
+
+        return redirect(url_for('access_order_page', order_number=order_number))
+
+
+        
+
+
+
+
 
 if __name__=='__main__':
     app.run(debug=True)

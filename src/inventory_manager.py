@@ -5,6 +5,7 @@ from pathlib import Path
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
+ORDER_FILE_PATH = BASE_DIR / "dataset" / "orders.json"
 
 
 #APPLY DISCOUNT FUNCTION
@@ -247,3 +248,39 @@ def is_number(text: str):
         return True
     except:
         return False
+
+def list_orders():
+    orders = load_json(ORDER_FILE_PATH)
+
+    all_orders = []
+
+    for order in orders:
+        all_orders.append(orders[order])
+    
+    return all_orders
+
+
+
+def access_order(status, order_number):
+    orders = load_json(ORDER_FILE_PATH)
+    products = load_json(FILE_PATH)
+
+    order = orders[order_number]
+    article_id = order["article_id"]
+    if order["order_status"] != "Delivered" and status != order["order_status"]:
+        order["order_status"] = status
+        write_json(ORDER_FILE_PATH, orders)
+        
+        current_stock = int(products[article_id]["stock_amount"])
+        ordered_qty = int(order["quantity"])
+        products[article_id]["stock_amount"] = current_stock + ordered_qty
+
+        write_json(FILE_PATH, products)
+        
+        return "Delivery status successfully changed"
+    
+    
+
+
+
+

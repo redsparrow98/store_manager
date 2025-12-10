@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Orders{% endblock %}
+{% block content %}
+
+<div class="inventory-header"><h1 class="title">All Orders</h1>
+    
+    <div class="inventory-actions">
+    
+    {% if access_level in ["Manager"] %}
+    <a
+      class="btn btn-plus"
+      href="#"
+      >
+      <img
+        src="{{ url_for('static', filename='images/plus.svg') }}"
+        alt="add"
+        class="btn-icon"
+      />
+      <span class="btn-label">Add Order</span>
+    </a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="table-wrap">
+    <table class="products-table">
+      <thead>
+        <tr>
+          <th class="col-id">Order #</th>
+          <th class="col-name">Ordered By</th>
+          <th class="col-price">Ordered On</th>
+          <th class="col-discount">Total Ammount Ordered</th>
+          <th class="col-cat">Status</th>
+          {% if access_level in ["Manager"] %}
+          <th class="col-actions">Access Order</th>
+          {% endif %}
+        </tr>
+      </thead>
+      
+      <tbody>
+        {% if orders %}
+          {% for key, order in orders.items() %}
+          <tr>
+            <td class="col-id">#{{ order.get('order_number') }}</td>
+            <td class="col-name">{{ order.get('ordered_by') }}</td>
+            <td class="col-price">{{ order.get('order_date') }}</td>
+            <td class="col-discount">{{ order.get('quantity') }} pcs </td> 
+            <td class="col-cat"> {{ order.get('order_status') }}</td>
+            {% if access_level in ["Manager"] %}
+            <td class="col-actions">
+            <div class="col-actions">
+                <a class="icon-btn" href="{{ url_for('access_order_page') }}?order_number={{ key }}" title="Access">
+                  <img src="{{ url_for('static', filename='images/eye.svg') }}" alt="Access">
+                </a>
+            {% endif %}
+            </div>
+            </td>
+          </tr>
+        {% endfor %}
+        {% endif %}
+        </tbody>
+        </table>
+</div>
+{% endblock %}
