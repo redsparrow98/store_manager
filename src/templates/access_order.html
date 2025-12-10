@@ -7,7 +7,7 @@
 <div class="product-modal" role="dialog" aria-modal="true">
 	<button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('dashboard') }}'">×</button>
 	<header class="modal-header"><h2>Access Order</h2></header>
-
+	<!-- Messages -->
 	{% with messages = get_flashed_messages(with_categories=true) %}
 	{% if messages %}
 		{% for category, message in messages %}
@@ -42,7 +42,7 @@
             <div class="field-label">Ordered Ammount</div>
             <input class="field-box" name="ordered_ammount"value="{{ order['quantity'] }}" readonly>
         </div>
-
+				<!-- Drop down menu for setting order status to delivered -->
 				{% if order['order_status'] != "Delivered" %}
         <div class="form-row">
             <div class="field-label">Status</div>
@@ -59,7 +59,7 @@
 				{% endif %}
         </div>
     </div>
-
+		<!-- Buttons at the bottom -->
     <div class="modal-footer">
         <a class="btn btn-cancel" href="{{ url_for('list_orders_page') }}">Cancel</a>
         {% if order['order_status'] != "Delivered" %}

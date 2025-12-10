@@ -9,6 +9,7 @@
 
   <header class="modal-header"><h2>Add Order</h2></header>
 
+  <!--Messages-->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     {% for category, message in messages %}
@@ -30,6 +31,7 @@
       <div class="modal-body">
         <div class="form-grid">
         
+        <!-- Dynamically adds new field and keeps the previous when add field is pressed-->
         {% for order in fields %}
         <div class="form-row">
             <div class="field-label">Article id</div>
@@ -44,11 +46,13 @@
         </div>
         
         <br>
+        <!-- Adds new field -->
         <button type="submit" name="action" value="add_field" class="btn btn-plus">
           <img src="{{ url_for('static', filename='images/plus.svg') }}" alt="add" class="btn-icon" />
           <span class="btn-label">Add Field</span>
         </button>
-   
+          
+        <!-- Buttons at the bottom -->
           <div class="modal-footer">
             <a class="btn btn-cancel" href="{{ url_for('list_orders_page') }}">Cancel</a>
             <button type="submit" name="action" value="submit" class="btn btn-edit">Add Order</button>

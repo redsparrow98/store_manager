@@ -5,7 +5,7 @@
 <div class="inventory-header"><h1 class="title">All Orders</h1>
     
     <div class="inventory-actions">
-    
+    <!--Add order-->
     {% if access_level in ["Manager"] %}
     <a class="btn btn-plus" href="{{ url_for('add_order_page') }}">
       <img src="{{ url_for('static', filename='images/plus.svg') }}" alt="add" class="btn-icon" />
@@ -41,6 +41,7 @@
             <td class="col-status"> {{ order.get('order_status') }}</td>
             {% if access_level in ["Manager"] %}
             <td class="col-actions">
+            <!--Viewing orders with status delivered and changing status if not delivered -->
             <div class="col-actions">
                 <a class="icon-btn" href="{{ url_for('access_order_page') }}?order_number={{ key }}" title="Access">
                   <img src="{{ url_for('static', filename='images/eye.svg') }}" alt="Access">

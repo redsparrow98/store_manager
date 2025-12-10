@@ -217,7 +217,8 @@ def access_order(status, order_number):
         write_json(FILE_PATH, products)
         
         return "Delivery status successfully changed"
-    
+
+# Adding Orders  
 def add_order(fields, username, date):
     orders = load_json(ORDER_FILE_PATH)
     products = load_json(FILE_PATH)
