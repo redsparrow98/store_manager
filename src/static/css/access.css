@@ -98,6 +98,19 @@
   margin-left: 1vw;
   color: #3b4668;
 }
+
+.btn-delete {
+  background: #E03137;
+  color: #ffffff;
+  padding: 1% 2%;
+}
+
+.btn-add {
+  background: #3b4668;
+  color: #ffffff;
+  padding: 1% 2%;
+}
+
 /* Brand results */
 .brand-results {
   margin-top: 18px;
