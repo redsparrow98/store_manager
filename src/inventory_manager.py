@@ -206,7 +206,6 @@ def add_return(article_id, stock, customer, date, status):
     if errors:
         return False, errors
     else:
-        # Figure out how to make return id with letters in the beginning
         current_ids = returns.keys()
         next_id_int = int(max(current_ids)) + 1 if current_ids else 1
         next_id = str(next_id_int).zfill(4)
@@ -241,20 +240,18 @@ def add_return_to_stock(return_id):
         return False, "Return ID not found."
     
     article_id = return_info.get("article_id")
-    stock_to_add = return_info.get("stock_amount", 0)
+    stock_to_add = return_info.get("stock_amount")
     
     product_info = products.get(article_id)
     if not product_info:
         return False, "Associated product not found."
     
-    current_stock = product_info.get("stock_amount", 0)
+    current_stock = product_info.get("stock_amount")
     product_info["stock_amount"] = current_stock + stock_to_add
-    
     write_json(FILE_PATH, products)
     
     returns.pop(return_id)
     write_json(RET_FILE_PATH, returns)
     
     return True, f"Added {stock_to_add} units back to stock for product ID {article_id}."
-
 

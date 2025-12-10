@@ -508,7 +508,9 @@ def access_return_info():
     if return_id in returns:
         item = returns[return_id]
         return_display = build_return_display(item, return_id)
-        return render_template("access_return_info.html", return_display=return_display)
+        return render_template("access_return_info.html", 
+                                return_display=return_display, 
+                                return_id=return_id)
         
     flash(f'No products found for: {return_id}', 'error')
     return render_template("access_return_info.html")
@@ -516,17 +518,18 @@ def access_return_info():
 @app.route('/dashboard/returns/delete_return', methods=['GET'])
 def delete_return_page():
     if request.method == "GET":
-         return_id = request.args.get('return_id')
-         deleted_return = delete_return(return_id)
-         flash (f"Return with return id {return_id} has been deleted", "success")
-         return redirect(url_for("returns_page"))
+        return_id = request.args.get('return_id')
+        deleted_return = delete_return(return_id)
+        flash (f"Return with return id {return_id} has been deleted", "success")
+        return redirect(url_for("returns_page"))
     
 @app.route('/dashboard/returns/add_return_to_stock', methods=['GET'])
-def add_return_to_stock():
+def add_return_to_stock_page():
     return_id = request.args.get('return_id')
+    
     if return_id:
         flash(f"Return with return id {return_id} has been added back to stock", "success")
-
+        add_return_to_stock(return_id)
     else:
         flash("Invalid return ID", "error")
 
