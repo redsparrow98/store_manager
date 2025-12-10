@@ -48,7 +48,7 @@
             <td class="col-status">{{ return.get('status','') }}</td>
             <td class="col-actions">
               <div class="col-actions">
-                <a class="icon-btn" href="{{ url_for('add_return_page') }}?return_id={{ return_id }}" title="View">
+                <a class="icon-btn" href="{{ url_for('access_return_info') }}?return_id={{ return_id }}" title="View">
                   <img src="{{ url_for('static', filename='images/eye.svg') }}" alt="View">
                 </a>
               </div>
