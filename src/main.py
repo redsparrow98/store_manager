@@ -12,6 +12,7 @@ BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
 RETURNS_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
+ORDER_FILE_PATH = BASE_DIR / "dataset" / "orders.json"
 
 
 app = Flask(__name__)
@@ -472,6 +473,67 @@ def edit_user():
 
     return render_template("edit_user.html", username=username, user=user)
 
+
+@app.route('/dashboard/orders', methods=['GET'])
+def list_orders_page():
+    orders = load_json(ORDER_FILE_PATH)
+    return render_template('list_orders.html', orders=orders)
+
+@app.route('/dashboard/access-order', methods=['GET', 'POST'])
+def access_order_page():
+    orders = load_json(ORDER_FILE_PATH)
+    
+    order_number = request.args['order_number']
+    order = orders.get(order_number)
+
+    if request.method == 'GET':
+        return render_template('access_order.html', order=order)
+    
+    else:
+        status = request.form["status"]
+        result = access_order(status, order_number)
+
+        if result:
+            flash(result, "success")
+
+        return redirect(url_for('access_order_page', order_number=order_number))
+    
+@app.route('/dashboard/add-order', methods=['GET', 'POST'])
+def add_order_page():
+    
+    if request.method == 'GET':
+       fields = [{"article_id": "", "qty": ""}]
+       return render_template('add_order.html', fields=fields)
+    
+    else:
+        
+        fields = []
+        action = request.form["action"]
+        article_ids = request.form.getlist("article_id")
+        quantitys = request.form.getlist("quantity")
+
+        for id, qty in zip(article_ids, quantitys):
+            fields.append({"article_id": id, "qty": qty})
+         
+        if action == "add_field":
+            fields.append({"article_id": "", "qty": ""})
+            return render_template('add_order.html', fields=fields)
+
+        else:
+            username = current_user.id
+            date = datetime.today().strftime("%d/%m/%Y")
+
+            success, result = add_order(fields, username, date)
+
+            if success:
+                flash(result, "success")
+        
+            else:
+                for error in result:
+                    flash(error, "error")
+            
+            return redirect(url_for('add_order_page'))
+
 @app.route('/dashboard/returns', methods=['GET'])
 @login_required
 def returns_page():
@@ -557,6 +619,5 @@ def add_return_page():
                 flash(error, "error")
         
         return render_template("add_return.html")
-
 if __name__=='__main__':
     app.run(debug=True)

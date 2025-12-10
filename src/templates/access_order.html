@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Access Order{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/access.css') }}" />
+
+<div class="product-modal" role="dialog" aria-modal="true">
+	<button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('dashboard') }}'">×</button>
+	<header class="modal-header"><h2>Access Order</h2></header>
+	<!-- Messages -->
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+		{% for category, message in messages %}
+			{% if category == 'success' %}
+				<div class="success-message">{{ message }}</div>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+	{% endwith %}
+	<br>
+	
+	  <form method="POST" action="{{ url_for('access_order_page', order_number=order['order_number']) }}">
+    <div class="modal-body">
+        <div class="form-grid">
+
+        <div class="form-row">
+            <div class="field-label">Order Number</div>
+            <input class="field-box" name="order_number" value="#{{ order['order_number']  }}" readonly>
+        </div>
+
+        <div class="form-row">
+            <div class="field-label">Product</div>
+            <input class="field-box" name="product" value="{{ order['product_name'] }}" readonly>
+        </div>
+
+        <div class="form-row">
+            <div class="field-label">Ordered On</div>
+            <input class="field-box" name="ordered_on" value="{{ order['order_date'] }}" readonly>
+        </div>
+
+        <div class="form-row">
+            <div class="field-label">Ordered Ammount</div>
+            <input class="field-box" name="ordered_ammount"value="{{ order['quantity'] }}" readonly>
+        </div>
+				<!-- Drop down menu for setting order status to delivered -->
+				{% if order['order_status'] != "Delivered" %}
+        <div class="form-row">
+            <div class="field-label">Status</div>
+              <select class="btn" name="status">
+                <option value="{{ order['order_status'] }}">{{ order['order_status'] }}</option>
+      	        <option value="Delivered">Delivered</option>
+							</select>
+        </div>
+				{% else %}
+        <div class="form-row">
+            <div class="field-label">Status</div>
+            <input class="field-box" name="status" type="text" value="{{ order['order_status'] }}" readonly>
+        </div>
+				{% endif %}
+        </div>
+    </div>
+		<!-- Buttons at the bottom -->
+    <div class="modal-footer">
+        <a class="btn btn-cancel" href="{{ url_for('list_orders_page') }}">Cancel</a>
+        {% if order['order_status'] != "Delivered" %}
+				<button type="submit" class="btn btn-edit">Save Order Status</button>
+				{% endif %}
+    </div>
+  </form>
+</div>
+</div>
+{% endblock %}
+
+
+
+

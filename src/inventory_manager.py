@@ -5,8 +5,8 @@ from pathlib import Path
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
+ORDER_FILE_PATH = BASE_DIR / "dataset" / "orders.json"
 RET_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
-
 
 #APPLY DISCOUNT FUNCTION
 def apply_discount_to_products(discount_percentage, category=None):
@@ -189,6 +189,76 @@ def is_number(text: str):
         return True
     except:
         return False
+def list_orders():
+    orders = load_json(ORDER_FILE_PATH)
+
+    all_orders = []
+
+    for order in orders:
+        all_orders.append(orders[order])
+    
+    return all_orders
+
+# Viewing order and updating order status
+def access_order(status, order_number):
+    orders = load_json(ORDER_FILE_PATH)
+    products = load_json(FILE_PATH)
+
+    order = orders[order_number]
+    article_id = order["article_id"]
+    if order["order_status"] != "Delivered" and status != order["order_status"]:
+        order["order_status"] = status
+        write_json(ORDER_FILE_PATH, orders)
+        
+        current_stock = int(products[article_id]["stock_amount"])
+        ordered_qty = int(order["quantity"])
+        products[article_id]["stock_amount"] = current_stock + ordered_qty
+
+        write_json(FILE_PATH, products)
+        
+        return "Delivery status successfully changed"
+
+# Adding Orders  
+def add_order(fields, username, date):
+    orders = load_json(ORDER_FILE_PATH)
+    products = load_json(FILE_PATH)
+
+    errors = []
+
+    for order in fields:
+        if not order.get("article_id").strip():
+            errors.append("Article id is required")
+        if int(order.get("qty")) <= 0:
+            errors.append("The ordered ammount can't be negative or zero")
+        if order.get("article_id") not in products:
+            errors.append(f"Article id: {order.get('article_id')} not found")
+        
+        if errors:
+            return False, errors
+        
+        else:
+            current_order_numbers = orders.keys()
+            for order_number in current_order_numbers:
+                number = order_number[1:]
+            
+            calculate_next = int(number) + 1
+            next_order_number = "O" + str(calculate_next).zfill(4)
+            product = products[order.get("article_id")]["article_name"]
+
+            new_order = {
+                "order_number": next_order_number,
+                "ordered_by": username,
+                "article_id": order.get("article_id"),
+                "product_name": product,
+                "quantity": int(order.get("qty")),
+                "order_date": date,
+                "order_status": "Ordered"
+                }
+            
+            orders[next_order_number] = new_order
+            write_json(ORDER_FILE_PATH, orders)
+
+    return True, "Order(s) successfully created"
 
 # REGISTER NEW RETURN
 def add_return(article_id, stock, customer, date, status):
