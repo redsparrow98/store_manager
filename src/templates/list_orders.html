@@ -7,15 +7,8 @@
     <div class="inventory-actions">
     
     {% if access_level in ["Manager"] %}
-    <a
-      class="btn btn-plus"
-      href="#"
-      >
-      <img
-        src="{{ url_for('static', filename='images/plus.svg') }}"
-        alt="add"
-        class="btn-icon"
-      />
+    <a class="btn btn-plus" href="#">
+      <img src="{{ url_for('static', filename='images/plus.svg') }}" alt="add" class="btn-icon" />
       <span class="btn-label">Add Order</span>
     </a>
     {% endif %}
@@ -26,11 +19,11 @@
     <table class="products-table">
       <thead>
         <tr>
-          <th class="col-id">Order #</th>
+          <th class="col-order">Order #</th>
           <th class="col-name">Ordered By</th>
-          <th class="col-price">Ordered On</th>
-          <th class="col-discount">Total Ammount Ordered</th>
-          <th class="col-cat">Status</th>
+          <th class="col-date">Ordered On</th>
+          <th class="col-amount">Total Amount Ordered</th>
+          <th class="col-status">Status</th>
           {% if access_level in ["Manager"] %}
           <th class="col-actions">Access Order</th>
           {% endif %}
@@ -41,11 +34,11 @@
         {% if orders %}
           {% for key, order in orders.items() %}
           <tr>
-            <td class="col-id">#{{ order.get('order_number') }}</td>
+            <td class="col-order">#{{ order.get('order_number') }}</td>
             <td class="col-name">{{ order.get('ordered_by') }}</td>
-            <td class="col-price">{{ order.get('order_date') }}</td>
-            <td class="col-discount">{{ order.get('quantity') }} pcs </td> 
-            <td class="col-cat"> {{ order.get('order_status') }}</td>
+            <td class="col-date">{{ order.get('order_date') }}</td>
+            <td class="col-amount">{{ order.get('quantity') }} pcs </td> 
+            <td class="col-status"> {{ order.get('order_status') }}</td>
             {% if access_level in ["Manager"] %}
             <td class="col-actions">
             <div class="col-actions">
