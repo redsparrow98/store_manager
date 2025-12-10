@@ -20,6 +20,27 @@
   --highlight-blue: #0080fc;
 }
 
+[data-theme="christmas"] {
+  --bg-main: #efefef;
+  --bg-card: #ffffff;
+  --bg-sidebar: #262a35;
+  --bg-sidebar-hover: #3b4668;
+  --bg-login: #e4e9ff;
+
+  --text-main: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-muted: #666;
+  --text-accent: #3c2a5d;
+
+  --border-primary: #d9d9d9;
+  --border-table: #e6e6e6;
+
+  --btn-primary-bg: #007bff;
+  --btn-primary-hover: #0056b3;
+
+  --highlight-blue: #0080fc;
+}
+
 body {
   margin: 0;
   padding: 20px;
@@ -576,6 +597,14 @@ body {
   display: block;
   object-fit: contain;
   background: transparent;
+}
+
+.btn-christmas {
+  background: var(--bg-sidebar-hover);
+  color: var(--text-primary);
+  padding: 5% 10%;
+  border-radius: 7px;
+  border: None;
 }
 
 /*for inventory*/
