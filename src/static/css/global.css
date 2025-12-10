@@ -191,18 +191,29 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: var(--bg-main);
+  background-image: url("/static/images/LoginBg.svg");
+  background-size: cover;
 }
 
 .login-container {
   width: 30vw;
-  padding: 2vw;
-  background-color: var(--bg-login);
-  border-radius: 1vw;
+  padding: 3vw;
+  background-color: #efefef;
   box-shadow: 0 0 1vw rgba(0, 0, 0, 0.2);
-  display: flex;
+  border-radius: 20px;
   flex-direction: column;
   align-items: center;
+}
+
+.welcome {
+  font-size: 1.8vw;
+  margin-bottom: 0.5vh;
+  color: #3b4668;
+}
+
+.instruction {
+  font-size: 1vw;
+  color: #989898;
 }
 
 .login-container h2 {
@@ -250,35 +261,31 @@ body {
   display: block;
 }
 
-.login-form label {
-  font-size: 1.2vw;
-  display: block;
-  margin-bottom: 0.5vh;
-  font-weight: 600;
-}
-
 .login-form input {
   padding: 1vh 1vw;
   font-size: 1vw;
   border-radius: 0.5vw;
-  border: 0.1vh solid #ccc;
+  border: none;
   width: 100%;
+  background-color: #efefef;
 }
 
-.login-form button {
+.login-btn {
   margin-top: 2vh;
   padding: 1.5vh;
   font-size: 1.2vw;
-  border: none;
   border-radius: 0.5vw;
-  background-color: var(--btn-primary-bg);
-  color: whitesmoke;
+  background-color: #3b4668;
+  box-shadow: 0 0 1vw rgba(0, 0, 0, 0.2);
+  border: none;
+  color: white;
   cursor: pointer;
+  width: auto;
   transition: background-color 0.3s;
 }
 
-.login-form button:hover {
-  background-color: var(--btn-primary-hover);
+.login-btn:hover {
+  background-color: #52618d;
 }
 
 /* Main content area on dashboard */
@@ -332,13 +339,12 @@ body {
   background: var(--bg-card);
   padding: 20px;
   border-radius: 20px;
-  color: var(--text-main)
+  color: var(--text-primary);
 }
 
 .overview h2 {
   color: var(--text-main);
 }
-
 
 .overview-cards {
   display: flex;
@@ -449,7 +455,7 @@ body {
   justify-content: space-between;
   gap: 18px;
   margin-bottom: 12px;
-  padding-left: 25px; 
+  padding-left: 25px;
   padding-bottom: 2px;
   color: var(--text-main);
 }

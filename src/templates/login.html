@@ -1,44 +1,55 @@
 <link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/global.css') }}"
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/global.css') }}"
 />
 <link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/access.css') }}"
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/access.css') }}"
 />
 
 <section class="login-section">
-    <div class="login-container">
-        <h2>Login</h2>
+  <div class="login-container">
+    <img
+      src="{{ url_for('static', filename='images/logo.svg') }}"
+      alt="Inventory Logo"
+      class="app-logo"
+    />
+    <h2 class="welcome">Welcome 👋</h2>
+    <p class="instruction">Please enter your credentials</p>
 
-        <!-- display only danger flash messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <ul class="flashes">
-                    {% for category, message in messages %}
-                        {% if category == "danger" %}
-                            <li class="{{ category }}">{{ message }}</li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+    <!-- display only danger flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <ul class="flashes">
+      {% for category, message in messages %} {% if category == "danger" %}
+      <li class="{{ category }}">{{ message }}</li>
+      {% endif %} {% endfor %}
+    </ul>
+    {% endif %} {% endwith %}
 
-        <form method="POST" class="login-form">
-            <div class="btn" style="background-color: #CBCEF7">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
+    <form method="POST" class="login-form">
+      <div class="btn">
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="username"
+          required
+        />
+      </div>
 
-            <div class="btn" style="background-color: #CBCEF7">
-                <label for="password">Password</label>
-                <!-- password stays hidden automatically -->
-                <input type="password" id="password" name="password" required>
-            </div>
+      <div class="btn">
+        <!-- password stays hidden automatically -->
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="password"
+          required
+        />
+      </div>
 
-            <button type="submit" class="btn-primary" style="background-color: #4A54E3">
-                Login
-            </button>
-        </form>
-    </div>
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+  </div>
 </section>
