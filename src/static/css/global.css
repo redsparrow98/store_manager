@@ -1,9 +1,30 @@
 /* Global reset and layout */
+:root {
+  --bg-main: #efefef;
+  --bg-card: #ffffff;
+  --bg-sidebar: #262a35;
+  --bg-sidebar-hover: #3b4668;
+  --bg-login: #e4e9ff;
+
+  --text-main: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-muted: #666;
+  --text-accent: #3c2a5d;
+
+  --border-primary: #d9d9d9;
+  --border-table: #e6e6e6;
+
+  --btn-primary-bg: #007bff;
+  --btn-primary-hover: #0056b3;
+
+  --highlight-blue: #0080fc;
+}
+
 body {
   margin: 0;
   padding: 20px;
   font-family: "Roboto", sans-serif;
-  background-color: #efefef;
+  background-color: var(--bg-main);
   display: flex;
   min-height: 100vh;
 }
@@ -18,7 +39,7 @@ body {
 .top-navbar {
   height: 7vh;
   width: 100%;
-  background-color: white;
+  background-color: var(--bg-card);
   padding: 0 30px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -51,8 +72,8 @@ body {
 /* Sidebar styles */
 .sidebar {
   width: 13vw;
-  background-color: #262a35;
-  color: white;
+  background-color: var(--bg-sidebar);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -81,14 +102,14 @@ body {
 
 .user-label {
   font-size: 24px;
-  color: white;
+  color: var(--text-primary);
   text-align: center;
   margin-top: 10px;
 }
 
 .user-lvl {
   font-size: 16px;
-  color: grey;
+  color: var(--text-muted);
   text-align: center;
   margin-top: 8px;
 }
@@ -102,17 +123,17 @@ body {
   display: flex;
   align-items: center;
   gap: 3vh;
-  color: white;
+  color: var(--text-primary);
   text-decoration: none;
   margin: 10px 0;
   padding: 15px;
 }
 
 .sidebar-nav a:hover {
-  background-color: #3b4668;
-  color: white;
+  background-color: var(--bg-sidebar-hover);
+  color: var(--text-primary);
   cursor: pointer;
-  border-left: 5px solid #d9d9d9;
+  border-left: 5px solid var(--border-primary);
   width: 110px;
   height: 20px;
   border-top-right-radius: 12px;
@@ -125,9 +146,9 @@ body {
 }
 
 .logout-btn {
-  background: #3b4668;
+  background: var(--bg-sidebar-hover);
   border-radius: 12px;
-  color: white;
+  color: var(--text-primary);
   padding: 10px;
   cursor: pointer;
   margin-bottom: 12vh;
@@ -144,13 +165,13 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #efefef;
+  background-color: var(--bg-main);
 }
 
 .login-container {
   width: 30vw;
   padding: 2vw;
-  background-color: #e4e9ff;
+  background-color: var(--bg-login);
   border-radius: 1vw;
   box-shadow: 0 0 1vw rgba(0, 0, 0, 0.2);
   display: flex;
@@ -224,14 +245,14 @@ body {
   font-size: 1.2vw;
   border: none;
   border-radius: 0.5vw;
-  background-color: #007bff;
+  background-color: var(--btn-primary-bg);
   color: whitesmoke;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .login-form button:hover {
-  background-color: #0056b3;
+  background-color: var(--btn-primary-hover);
 }
 
 /* Main content area on dashboard */
@@ -264,12 +285,12 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #d9d9d9;
+  background-color: var(--border-primary);
   padding: 8px 20px;
   cursor: pointer;
   border-radius: 6px;
   border: none;
-  color: #3c2a5d;
+  color: var(--text-accent);
   font-weight: 700;
 }
 
@@ -281,14 +302,14 @@ body {
 /* Overview section */
 .overview {
   margin-top: 30px;
-  background: white;
+  background: var(--bg-card);
   padding: 20px;
   border-radius: 20px;
-  color: 
+  color: var(--text-primary)
 }
 
 .overview h2 {
-  color: #3b4668;
+  color: var(--bg-sidebar-hover);
 }
 
 
@@ -301,7 +322,7 @@ body {
 .overview-card {
   flex: 1;
   min-width: 200px;
-  border: 3px solid #d9d9d9;
+  border: 3px solid var(--border-primary);
   border-radius: 8px;
   padding: 20px;
   text-align: center;
@@ -315,13 +336,13 @@ body {
 .overview-card .value {
   font-size: 24px;
   font-weight: bold;
-  color: #0080fc;
+  color: var(--highlight-blue);
   margin-bottom: 10px;
 }
 
 .card .label {
   font-size: 14px;
-  color: #666;
+  color: var(--text-muted);
 }
 
 /* Accounts section */
@@ -330,7 +351,7 @@ body {
 }
 
 .accounts-box {
-  background-color: white;
+  background-color: var(--bg-card);
   padding: 20px;
   border-radius: 8px;
   text-align: center;
@@ -344,12 +365,12 @@ body {
 .accounts-box .value {
   font-size: 22px;
   font-weight: bold;
-  color: #3c2a5d;
+  color: var(--text-accent);
 }
 
 .accounts-box .label {
   font-size: 14px;
-  color: #666;
+  color: var(--text-muted);
 }
 
 /* empty placeholder cards */
@@ -364,7 +385,7 @@ body {
   flex: 1;
   min-width: 200px;
   height: 100px;
-  background-color: white;
+  background-color: var(--bg-card);
   border-radius: 8px;
 }
 
@@ -380,7 +401,7 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background-color: #efefef;
+  background-color: var(--bg-main);
   border: none;
   cursor: pointer;
   display: inline-flex;
@@ -416,8 +437,8 @@ body {
 }
 
 .btn {
-  background-color: #efefef;
-  color: #1a1a1a;
+  background-color: var(--bg-main);
+  color: var(--text-main);
   border: none;
   border-radius: 10px;
   padding: 8px 14px;
@@ -448,7 +469,7 @@ body {
 }
 
 .btn-discount {
-  background-color: #efefef;
+  background-color: var(--bg-main);
   align-self: left;
   font-weight: 400;
   width: 115px;
@@ -456,7 +477,7 @@ body {
 
 /* Search button */
 .search-button-form {
-  background-color: #efefef;
+  background-color: var(--bg-main);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
   display: inline-flex;
   align-items: center;
@@ -497,7 +518,7 @@ body {
 .table-wrap {
   margin: 24px 20px;
   padding: 8px 12px;
-  background: #ffffff;
+  background: var(--bg-card);
   border-radius: 14px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
@@ -521,7 +542,7 @@ body {
 
 /* Lines between table rows */
 .products-table tbody tr {
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid var(--border-table);
   background-clip: padding-box;
 }
 
