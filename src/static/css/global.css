@@ -558,6 +558,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   table-layout: auto;
+  color: var(--text-main)
 }
 
 /* Header cells */
