@@ -1,8 +1,8 @@
 {
   "jane_doe": {
     "password": "Janespassword",
-    "access_level": "Manager",
-    "name": "Jane Doee"
+    "name": "Jane Doee",
+    "access_level": "Manager"
   },
   "joe_doe": {
     "password": "Joespassword",

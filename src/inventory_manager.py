@@ -6,7 +6,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 ORDER_FILE_PATH = BASE_DIR / "dataset" / "orders.json"
-
+RET_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
 
 #APPLY DISCOUNT FUNCTION
 def apply_discount_to_products(discount_percentage, category=None):
@@ -136,7 +136,6 @@ def delete_product(article_id):
     write_json(FILE_PATH, products)
     return delete
 
-
 #ACCESSING A PRODUCT FEATURE AND HELPER FUNCTIONS
 def format_product_data(product_info):
     labels = {
@@ -248,7 +247,6 @@ def is_number(text: str):
         return True
     except:
         return False
-
 def list_orders():
     orders = load_json(ORDER_FILE_PATH)
 
@@ -282,5 +280,36 @@ def access_order(status, order_number):
     
 
 
+# REGISTER NEW RETURN
+def add_return(article_id, stock, customer, date, status):
+    returns = load_json(RET_FILE_PATH)
 
-
+    errors = []
+    
+    if not article_id.strip():
+        errors.append("Article id is required")
+    if stock < 0:
+        errors.append("Stock cannot be negative")
+    if not customer.strip():
+        errors.append("Customer is required")
+    
+    if errors:
+        return False, errors
+    else:
+        # Figure out how to make return id with letters in the beginning
+        current_ids = returns.keys()
+        next_id_int = int(max(current_ids)) + 1 if current_ids else 1
+        next_id = str(next_id_int).zfill(4)
+        
+        new_return = {
+            "article_id": article_id,
+            "customer": customer,
+            "date": date,
+            "status": status,
+            "stock_amount": stock
+        }
+        
+        returns[next_id] = new_return
+        
+        write_json(RET_FILE_PATH, returns)
+        return True, f"Return for product {article_id} successfully created."

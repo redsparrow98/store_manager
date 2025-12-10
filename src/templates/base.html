@@ -22,7 +22,7 @@
     <header class="top-navbar">
         <div class = "header-icon">
             <div class="notification">
-                <a href="{{ url_for('show_notifications') }}" class="notification-btn">
+                <a href="{{ url_for('notifications_page') }}" class="notification-btn">
                 <img
                     src="{{ url_for('static', filename='images/notification.svg') }}"
                     alt="Notifications"
@@ -88,7 +88,7 @@
             />
             Orders
           </a>
-          <a href="#">
+          <a href="{{ url_for('returns_page') }}">
             <img
               src="{{ url_for('static', filename='images/notepad.svg') }}"
               alt="Returns Icon"

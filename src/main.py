@@ -11,6 +11,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
+RETURNS_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
 ORDER_FILE_PATH = BASE_DIR / "dataset" / "orders.json"
 
 
@@ -184,10 +185,10 @@ def delete_product_page():
     
 
 @app.route("/notifications")
-def show_notifications():
-    scan_low_stock()
-    notifications_list = get_notifications()
-    return render_template("notification.html" , notifications = notifications_list)
+def notifications_page():
+    scan_low_stock() 
+    notifications = get_notifications()
+    return render_template("notification.html", notifications=notifications)
 
 
 @app.route('/inventory/update-product', methods=['GET', 'POST'])
@@ -458,7 +459,7 @@ def edit_user():
 
         else:
             users[original_username] = new_user_info
-               
+
 
         with open(USERS_FILE_PATH, 'w') as f:
             json.dump(users, f, indent=2)
@@ -471,6 +472,7 @@ def edit_user():
 
 
     return render_template("edit_user.html", username=username, user=user)
+
 
 @app.route('/dashboard/orders', methods=['GET'])
 def list_orders_page():
@@ -496,12 +498,44 @@ def access_order_page():
 
         return redirect(url_for('access_order_page', order_number=order_number))
 
+@app.route('/dashboard/returns', methods=['GET'])
+@login_required
+def returns_page():
+    try:
+        returns = load_json(RETURNS_FILE_PATH)
+    except Exception:
+        flash("Error loading returns.", "error")
+        returns = {}
 
+    # Adds dictionary items to a list 
+    returns_list = []
+    if type(returns) == dict:
+        for key, value in returns.items():
+            returns_list.append((key, value))
+
+    return render_template("returns.html", returns=returns_list)
+
+@app.route('/dashboard/add-return', methods=['GET', 'POST'])
+def add_return_page():
+    if request.method == "GET":
+        return render_template("add_return.html")
+    else:
+        article_id = request.form["article_id"]
+        stock = request.form["stock"]
+        customer = request.form["customer"]
         
+        # Values that don't need to be added when creating new return
+        date = datetime.today().strftime("%d/%m/%y")
+        status = "Open"
+        
+        success, result = add_return(article_id, int(stock), customer, date, status)
 
-
-
-
-
+        if success:
+            flash(result, "success")
+        else:
+            for error in result:
+                flash(error, "error")
+        
+        return render_template("add_return.html")
 if __name__=='__main__':
     app.run(debug=True)
