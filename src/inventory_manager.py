@@ -1,5 +1,5 @@
 from reader import *
-import os
+import os, random
 from pathlib import Path
 
 # this is to avoid the file path issues we had
@@ -206,9 +206,16 @@ def add_return(article_id, stock, customer, date, status):
     if errors:
         return False, errors
     else:
+        random_id = "R" + f"{random.randint(0, 999):03d}"
+        
         current_ids = returns.keys()
-        next_id_int = int(max(current_ids)) + 1 if current_ids else 1
-        next_id = str(next_id_int).zfill(4)
+        if len(current_ids) == 1000:
+            return False, f"Max amount of returns reached, cannot create a new."
+            
+        while random_id in current_ids:
+            random_id = "R" + f"{random.randint(0, 999):03d}"
+        
+        next_id = random_id
         
         new_return = {
             "article_id": article_id,
