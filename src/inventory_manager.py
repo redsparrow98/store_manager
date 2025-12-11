@@ -273,8 +273,8 @@ def access_return(status, return_id):
         write_json(RETURNS_FILE_PATH, returns)
         
         current_stock = int(products[article_id]["stock_amount"])
-        returned_qty = int(return_data["stock_amount"])
-        products[article_id]["stock_amount"] = current_stock + returned_qty
+        returned_quantity = int(return_data["stock_amount"])
+        products[article_id]["stock_amount"] = current_stock + returned_quantity
 
         write_json(FILE_PATH, products)
         
