@@ -114,8 +114,6 @@
 .btn {
   border-radius: 10px;
   font-weight: 700;
-  border: var(--btn-border);
-  border-style: solid;
 }
 
 .btn-cancel {
@@ -215,4 +213,9 @@
   padding: 12px;
   border-radius: 5px;
   border: 1px solid rgba(61, 124, 76, 1);
+}
+
+/* Removes white border around fields in Christmas mode */
+[data-theme="christmas"] .product-modal input.field-box[readonly] {
+  border: none;
 }
