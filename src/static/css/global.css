@@ -79,13 +79,14 @@ body {
 
 .header-icon {
   display: flex;
-  gap: 3vw;
+  gap: 2vw;
   align-items: center;
   margin-right: 5vw;
 }
 
 .top-navbar .logo img {
-  height: 80%;
+  height: 5vh;
+  width: auto;
   margin-top: 1.5vh;
 }
 
@@ -107,7 +108,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  margin-top: 6vh;
+  margin-top: 0; /* Sidebar above navbar */
+  z-index: 1200; /* Sidebar above navbar */
   min-width: 120px;
 }
 
@@ -121,8 +123,8 @@ body {
 }
 
 .user-icon-img {
-  width: 6vw;
-  height: 7vh;
+  width: 7vw;
+  height: 14.85vh;
   display: block;
   object-fit: contain;
 }
@@ -167,18 +169,13 @@ body {
   border-bottom-right-radius: 12px;
 }
 
-.nav-icon {
-  width: 20px;
-  height: 20px;
-}
-
 .logout-btn {
   background: var(--btn-logout-bg);
   border-radius: 12px;
   color: var(--text-primary);
   padding: 10px;
   cursor: pointer;
-  margin-bottom: 12vh;
+  margin-bottom: 2vh;
   margin-top: auto;
 }
 
@@ -656,7 +653,7 @@ body {
   } /* allow horizontal scroll rather than breaking layout */
 }
 
-/* Christmas icon (only show when Christmas mode is activated) */
+/* Christmas icons (only show when Christmas mode is activated) */
 [data-theme="christmas"] .nav-icon.default-icon {
   display: none;
 }
@@ -689,8 +686,6 @@ body {
 
 .logo .christmas-logo-icon {
   display: none;
-  width: 5vh;
-  height: 5vh;
   background-size: contain;
   background-position: center;
 }
@@ -702,12 +697,15 @@ body {
 
 .date-btn .christmas-calendar-icon {
   display: none;
+  width: 22px;
+  height: 22px;
+  margin-right: 8px;
+  vertical-align: middle;
   background-repeat: no-repeat;
   background-position: center;
-  vertical-align: middle;
+  background-size: contain;
 }
 
-/* Christmas icons (only show when Christmas mode is activated) */
 [data-theme="christmas"] .sidebar-nav img.nav-icon.default-icon {
   display: none;
 }
@@ -764,6 +762,11 @@ body {
 
 [data-theme="christmas"] .date-btn img.date-icon {
   display: none;
+}
+
+[data-theme="christmas"] .date-btn img.date-icon {
+  display: none;
+  visibility: hidden;
 }
 
 [data-theme="christmas"] .date-btn .christmas-calendar-icon {
