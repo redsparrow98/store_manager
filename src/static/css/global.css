@@ -79,13 +79,14 @@ body {
 
 .header-icon {
   display: flex;
-  gap: 3vw;
+  gap: 2vw;
   align-items: center;
   margin-right: 5vw;
 }
 
 .top-navbar .logo img {
-  height: 80%;
+  height: 5vh;
+  width: auto;
   margin-top: 1.5vh;
 }
 
@@ -107,7 +108,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  margin-top: 6vh;
+  margin-top: 0; /* Sidebar above navbar */
+  z-index: 1200; /* Sidebar above navbar */
   min-width: 120px;
 }
 
@@ -121,9 +123,10 @@ body {
 }
 
 .user-icon-img {
-  width: 6vw;
-  height: 7vh;
+  width: 7vw;
+  height: 14.85vh;
   display: block;
+  object-fit: contain;
 }
 
 .user-label {
@@ -166,18 +169,13 @@ body {
   border-bottom-right-radius: 12px;
 }
 
-.nav-icon {
-  width: 20px;
-  height: 20px;
-}
-
 .logout-btn {
   background: var(--btn-logout-bg);
   border-radius: 12px;
   color: var(--text-primary);
   padding: 10px;
   cursor: pointer;
-  margin-bottom: 12vh;
+  margin-bottom: 2vh;
   margin-top: auto;
 }
 
@@ -660,4 +658,141 @@ body {
   .products-table {
     min-width: 760px;
   } /* allow horizontal scroll rather than breaking layout */
+}
+
+/* Christmas icons (only show when Christmas mode is activated) */
+[data-theme="christmas"] .nav-icon.default-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .notification-img.default-icon {
+  display: none;
+}
+
+.nav-icon.christmas-home-icon,
+.nav-icon.christmas-inventory-icon,
+.nav-icon.christmas-orders-icon,
+.nav-icon.christmas-returns-icon,
+.nav-icon.christmas-account-icon {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+}
+
+.nav-icon.christmas-user-icon {
+  display: none;
+  width: 7vw;
+  height: 14.85vh;
+  background-position: center;
+  background-repeat: no-repeat;     
+  background-size: cover;           
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.logo .christmas-logo-icon {
+  display: none;
+  background-size: contain;
+  background-position: center;
+}
+
+.christmas-notification-icon {
+    display: none;
+    margin-top: 0.6vh;
+}
+
+.date-btn .christmas-calendar-icon {
+  display: none;
+  width: 22px;
+  height: 22px;
+  margin-right: 8px;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+[data-theme="christmas"] .sidebar-nav img.nav-icon.default-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .top-navbar .logo img.nav-icon.default-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .christmas-user-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/usericon.svg');
+}
+
+[data-theme="christmas"] .nav-icon.christmas-home-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/christmas_home.svg');
+}
+
+[data-theme="christmas"] .nav-icon.christmas-inventory-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/gift.svg');
+}
+
+[data-theme="christmas"] .nav-icon.christmas-orders-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/snowflake.svg');
+}
+
+[data-theme="christmas"] .nav-icon.christmas-returns-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/star.svg');
+}
+
+[data-theme="christmas"] .nav-icon.christmas-account-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/account.svg');
+}
+
+[data-theme="christmas"] .christmas-logo-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/logo.svg');
+  width: 8vw;
+  height: 5vh;
+  background-size: contain;
+}
+
+[data-theme="christmas"] .christmas-notification-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/notification.svg');
+  width: 3.1vw;
+  height: 5.9vh;
+  background-size: contain;
+}
+
+[data-theme="christmas"] .date-btn img.date-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .date-btn img.date-icon {
+  display: none;
+  visibility: hidden;
+}
+
+[data-theme="christmas"] .date-btn .christmas-calendar-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/calendar.svg');
+}
+
+/* Garland */
+[data-theme="christmas"] .top-navbar {
+  overflow: visible; 
+}
+
+[data-theme="christmas"] .top-navbar::after {
+  content: "";
+  position: absolute;
+  top: 6vh;
+  left: 16vw;               
+  right: 0;
+  height: 6vh;
+  background: url('../christmas_images/garland.svg');
+  background-size: contain;
 }
