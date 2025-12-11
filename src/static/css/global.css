@@ -678,6 +678,7 @@ body {
   width: 20px;
   height: 20px;
   background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .nav-icon.christmas-user-icon {
@@ -695,11 +696,13 @@ body {
   display: none;
   background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .christmas-notification-icon {
     display: none;
     margin-top: 0.6vh;
+    background-repeat: no-repeat;
 }
 
 .date-btn .christmas-calendar-icon {
@@ -711,6 +714,24 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+
+.christmas-users-icon {
+  display: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  vertical-align: middle;
+}
+
+.btn-discount .christmas-discount-icon,
+.christmas-plus-icon {
+  display: none;
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 2px;
 }
 
 [data-theme="christmas"] .sidebar-nav img.nav-icon.default-icon {
@@ -781,6 +802,17 @@ body {
   background-image: url('../christmas_images/calendar.svg');
 }
 
+[data-theme="christmas"] .accounts-box .icon .card-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .christmas-users-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/users.svg');
+  width: 115px;
+  height: 80px;
+}
+
 /* Garland */
 [data-theme="christmas"] .top-navbar {
   overflow: visible; 
@@ -795,4 +827,36 @@ body {
   height: 6vh;
   background: url('../christmas_images/garland.svg');
   background-size: contain;
+}
+
+/* Christmas icon for inventory page */
+[data-theme="christmas"] .search-button-form .search-icon img {
+  display: none;
+}
+
+.search-button-form .christmas-search-icon {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  margin-right: 8px;
+}
+
+[data-theme="christmas"] .search-button-form .christmas-search-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/search.svg');
+}
+
+[data-theme="christmas"] .btn-discount img.btn-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .btn-discount .christmas-discount-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/discount.svg');
+}
+
+[data-theme="christmas"] .christmas-plus-icon {
+  display: inline-block;
+  background-image: url('../christmas_images/plus.svg');
 }

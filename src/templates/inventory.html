@@ -16,6 +16,8 @@
     <form class="search-button-form btn btn--search" action="{{ url_for('display_inventory') }}" method="get" role="search" aria-label="Search products">
       <span class="search-icon" aria-hidden="true">
         <img src="{{ url_for('static', filename='images/search.svg') }}" alt="">
+        <!-- Christmas search icon -->
+        <span class="nav-icon christmas-search-icon" aria-hidden="true"></span>
       </span>
       <input
         type="search"
@@ -36,6 +38,7 @@
         alt="discount"
         class="btn-icon"
       />
+      <span class="nav-icon christmas-discount-icon" aria-hidden="true"></span>
       <span class="btn-label">Add discount</span>
     </a>
 
@@ -50,6 +53,8 @@
         alt="add"
         class="btn-icon"
       />
+      <!-- Christmas plus icon -->
+      <span class="btn-icon christmas-plus-icon" aria-hidden="true"></span>
       <span class="btn-label">Add product</span>
     </a>
     {% endif %}

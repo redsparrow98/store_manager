@@ -16,8 +16,14 @@
     <!-- Add return button -->
     {% if access_level in ["Manager"] %}
     <a class="btn btn-plus" href="{{ url_for('add_return_page') }}">
-      <img src="{{ url_for('static', filename='images/plus.svg') }}" alt="add" class="btn-icon" />
-      <span class="btn-label">Add return</span>
+      <img
+        src="{{ url_for('static', filename='images/plus.svg') }}"
+        alt="Add Order"
+        class="nav-icon default-icon btn-icon"
+      />
+      <!-- Christmas plus icon -->
+      <span class="nav-icon christmas-plus-icon" aria-hidden="true"></span>
+      <span class="btn-label">Add Return</span>
     </a>
     {% endif %}
   </div>
