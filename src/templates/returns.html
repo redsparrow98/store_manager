@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="inventory-header">
-  <h1 class="title">Returns</h1>
+  <h1 class="title">All Returns</h1>
 
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -39,7 +39,9 @@
         <th class="col-amount">Amount</th>
         <th class="col-date">Returned On</th>
         <th class="col-status">Status</th>
-        <th class="col-actions">Action</th>
+        {% if access_level in ["Manager"] %}
+        <th class="col-actions">Access Return</th>
+        {% endif %}
       </tr>
     </thead>
     <tbody>
@@ -52,11 +54,14 @@
             <td class="col-amount">{{ return.get('stock_amount','') }}</td>
             <td class="col-date">{{ return.get('date','') }}</td>
             <td class="col-status">{{ return.get('status','') }}</td>
+      {% if access_level in ["Manager"] %}
             <td class="col-actions">
+              <!--Viewing returns with status open and changing status if not processed -->
               <div class="col-actions">
                 <a class="icon-btn" href="{{ url_for('access_return_info') }}?return_id={{ return_id }}" title="View">
                   <img src="{{ url_for('static', filename='images/eye.svg') }}" alt="View">
                 </a>
+            {% endif %}
               </div>
             </td>
           </tr>
@@ -71,4 +76,3 @@
 </div>
 
 {% endblock %}
-
