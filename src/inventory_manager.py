@@ -6,7 +6,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 ORDER_FILE_PATH = BASE_DIR / "dataset" / "orders.json"
-RET_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
+RETURNS_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
 
 #APPLY DISCOUNT FUNCTION
 def apply_discount_to_products(discount_percentage, category=None):
@@ -260,9 +260,29 @@ def add_order(fields, username, date):
 
     return True, "Order(s) successfully created"
 
+
+def access_return(status, return_id):
+    returns = load_json(RETURNS_FILE_PATH)
+    products = load_json(FILE_PATH)
+
+    return_data = returns[return_id]
+    article_id = return_data["article_id"]
+    
+    if return_data["status"] != "Processed" and status != return_data["status"]:
+        return_data["status"] = status
+        write_json(RETURNS_FILE_PATH, returns)
+        
+        current_stock = int(products[article_id]["stock_amount"])
+        returned_quantity = int(return_data["stock_amount"])
+        products[article_id]["stock_amount"] = current_stock + returned_quantity
+
+        write_json(FILE_PATH, products)
+        
+        return "Return status successfully changed"
+
 # REGISTER NEW RETURN
-def add_return(article_id, stock, customer, date, status):
-    returns = load_json(RET_FILE_PATH)
+def add_return(article_id, stock, customer, date):
+    returns = load_json(RETURNS_FILE_PATH)
 
     errors = []
     
@@ -291,25 +311,25 @@ def add_return(article_id, stock, customer, date, status):
             "article_id": article_id,
             "customer": customer,
             "date": date,
-            "status": status,
+            "status": "Open",
             "stock_amount": stock
         }
         
         returns[next_id] = new_return
         
-        write_json(RET_FILE_PATH, returns)
+        write_json(RETURNS_FILE_PATH, returns)
         return True, f"Return for product {article_id} successfully created."
     
 # DELETE RETURN
 def delete_return(return_id):
-    returns = load_json(RET_FILE_PATH)
+    returns = load_json(RETURNS_FILE_PATH)
     deleted_return = returns.pop(return_id)
-    write_json(RET_FILE_PATH, returns)
+    write_json(RETURNS_FILE_PATH, returns)
     return deleted_return
 
 # ADD RETURN BACK TO STOCK
 def add_return_to_stock(return_id):
-    returns = load_json(RET_FILE_PATH)
+    returns = load_json(RETURNS_FILE_PATH)
     products = load_json(FILE_PATH)
     
     return_info = returns.get(return_id)
@@ -328,7 +348,7 @@ def add_return_to_stock(return_id):
     write_json(FILE_PATH, products)
     
     returns.pop(return_id)
-    write_json(RET_FILE_PATH, returns)
+    write_json(RETURNS_FILE_PATH, returns)
     
     return True, f"Added {stock_to_add} units back to stock for product ID {article_id}."
 

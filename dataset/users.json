@@ -13,5 +13,15 @@
     "password": "Joespassword",
     "name": "Joe Doe",
     "access_level": "Employee"
+  },
+  "1":{
+    "password": "1",
+    "name": "1",
+    "access_level": "Manager"
+  },
+  "2":{
+    "password": "2",
+    "name": "2",
+    "access_level": "Employee"
   }
 }

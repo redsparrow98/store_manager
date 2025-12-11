@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/access.css') }}" />
 
 <div class="product-modal" role="dialog" aria-modal="true">
-    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('dashboard') }}'">×</button>
+    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('returns_page') }}'">×</button>
 
     <header class="modal-header"><h2>Return Information</h2></header>
 
@@ -25,8 +25,8 @@
     {% endif %}
     {% endwith %}
     <br>
-    <form method="post" action="{{ url_for('access_return_info') }}">
-              <div class="modal-body">
+    <form method="post" action="{{ url_for('access_return_info') }}?return_id={{ return_id }}">
+        <div class="modal-body">
         <div class="form-grid">
 
           {% for label, value in return_display %}
@@ -35,6 +35,22 @@
               <div class="field-box" >{{ value }}</div>
             </div>
           {% endfor %}
+
+          	{% if return_data['status'] != "Processed" %}
+        <div class="form-row">
+            <div class="field-label">Status</div>
+              <select class="btn" name="status">
+                <option value="{{ return_data['status'] }}">{{ return_data['status'] }}</option>
+      	        <option value="Processed">Processed</option>
+							</select>
+        </div>
+				{% else %}
+        <div class="form-row">
+            <div class="field-label">Status</div>
+            <input class="field-box" name="status" type="text" value="{{ return_data['status'] }}" readonly>
+        </div>
+				{% endif %}
+
         </div>
       </div>
 
@@ -46,6 +62,9 @@
         Delete
         </a>
         <a class="btn btn-add" href="{{ url_for('add_return_to_stock_page', return_id=return_id) }}">Add back to stock</a>
+        {% if return_data['status'] != "Processed" %}
+				<button type="submit" class="btn btn-edit">Save Return Status</button>
+				{% endif %}
       </footer>
     </div>
 {% endblock %}

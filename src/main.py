@@ -551,11 +551,15 @@ def returns_page():
 
     return render_template("returns.html", returns=returns_list)
 
-@app.route('/dashboard/returns/info', methods=['GET'])
+@app.route('/dashboard/returns/info', methods=['GET', 'POST'])
 def access_return_info():
     return_id = request.args.get('return_id', '').strip()
+    if request.method == "POST":
+            # This part gets called when the user presses a button
+            status = request.form.get('status')
+            access_return(status, return_id)
     returns = load_json(RETURNS_FILE_PATH)
-
+        
     def build_return_display(item, return_id):
         return [
             ('Return ID', return_id),
@@ -563,17 +567,19 @@ def access_return_info():
             ('Amount', f"{item.get('stock_amount', '')} pcs"),
             ('Customer', item.get('customer', '')),
             ('Returned on', item.get('date', '')),
-            ('Status', item.get('status', '')),
         ]
     
     # Matches return ID
     if return_id in returns:
         item = returns[return_id]
         return_display = build_return_display(item, return_id)
+            
         return render_template("access_return_info.html", 
                                 return_display=return_display, 
-                                return_id=return_id)
+                                return_id=return_id, 
+                                return_data=returns[return_id])
         
+    # If we get here something has gone wrong...
     flash(f'No products found for: {return_id}', 'error')
     return render_template("access_return_info.html")
 
@@ -608,9 +614,8 @@ def add_return_page():
         
         # Values that don't need to be added when creating new return
         date = datetime.today().strftime("%d/%m/%y")
-        status = "Open"
         
-        success, result = add_return(article_id, int(stock), customer, date, status)
+        success, result = add_return(article_id, int(stock), customer, date)
 
         if success:
             flash(result, "success")
