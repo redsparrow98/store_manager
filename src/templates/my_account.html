@@ -26,6 +26,13 @@
         {% endif %}
         {% endwith %}
 
+        {% if access_level in ["Manager", "Admin"] %}
+            <a class="btn btn-cancel" href="{{ url_for('create_account_page') }}">Create Account</a>
+            <a class="btn btn-cancel" href="{{ url_for('delete_user_page') }}">Delete User</a>
+            <a class="btn btn-cancel" href="{{ url_for('users_page') }}">Users</a>
+        {% endif %}
+
+
         <!-- form field for all required fields to add new product -->
         <form action="{{ url_for('account_page') }}" method="POST">
             <div class="modal-body">
@@ -67,16 +74,8 @@
 
             <!-- Buttons to save the new password and to redirect to create account and delete user -->
             <footer class="modal-footer">
-                <button type="submit" class="btn btn-edit">Update Password</button>
-                
-                <!-- Only shows create account and delete user to users with access level manager or admin -->
-                {% if access_level in ["Manager", "Admin"] %}
-                <a class="btn btn-cancel" href="{{ url_for('create_account_page') }}">Create Account</a>
-                <a class="btn btn-cancel" href="{{ url_for('delete_user_page') }}">Delete User</a>
-                <a class="btn btn-cancel" href="{{ url_for('users_page') }}">Users</a>
-                {% endif %}
-
                 <a class="btn btn-cancel" href="{{ url_for('dashboard') }}">Cancel</a>
+                <button type="submit" class="btn btn-edit">Update Password</button>
             </footer>
         </form>
     </div>
