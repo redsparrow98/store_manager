@@ -46,29 +46,29 @@
     <!-- Sidebar navigation  -->
     <aside class="sidebar">
       <div class="sidebar-user">
-        <div class="user-icon">
-          <img
-            src="{{ url_for('static', filename='images/usericon.svg') }}"
-            alt="User Icon"
-            class="nav-icon default-icon user-icon-img"
-          />
-          <!-- Christmas user icon -->
-          <span class="nav-icon christmas-user-icon" aria-hidden="true"></span>
-        </div>
+        <a href="{{ url_for('account_page') }}" class="sidebar-user">
+          <div class="user-icon">
+            <img
+              src="{{ url_for('static', filename='images/usericon.svg') }}"
+              alt="User Icon"
+              class="nav-icon default-icon user-icon-img"
+            />
+            <!-- Christmas user icon -->
+            <span class="nav-icon christmas-user-icon" aria-hidden="true"></span>
+          </div>
 
-        <span class="user-label">
-          {% if current_user.is_authenticated %}
-            {{ current_user.id }}
-          {% else %}
-            Guest
-          {% endif %}
-        </span>
-
-        {% if access_level %}
-          <span class="user-lvl">
-            {{ access_level }}
+          <span class="user-label">
+            {% if current_user.is_authenticated %}
+              {{ current_user.id }}
+            {% else %}
+              Guest
+            {% endif %}
           </span>
-        {% endif %}
+
+          {% if access_level %}
+          <span class="user-lvl">{{ access_level }}</span>
+          {% endif %}
+        </a>
       </div>
       <nav class="sidebar-nav">
         <nav class="navigation">
@@ -111,16 +111,6 @@
             <!-- Christmas returns icon -->
             <span class="nav-icon christmas-returns-icon" aria-hidden="true"></span>
             Returns
-          </a>
-          <a href="{{ url_for('account_page') }}">
-            <img
-              src="{{ url_for('static', filename='images/account.svg') }}"
-              alt="Account Icon"
-              class="nav-icon default-icon"
-            />
-            <!-- Christmas account icon -->
-            <span class="nav-icon christmas-account-icon" aria-hidden="true"></span>
-            Account
           </a>
         </nav>
       </nav>

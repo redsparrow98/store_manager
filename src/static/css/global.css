@@ -115,16 +115,15 @@ body {
 
 .sidebar-user {
   display: flex;
+  margin-top: 3vh;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 3vh;
-  margin-top: 3vh;
+  text-decoration: none;
 }
 
 .user-icon-img {
   width: 7vw;
-  height: 14.85vh;
+  height: auto;
   display: block;
   object-fit: contain;
 }
@@ -144,7 +143,7 @@ body {
 }
 
 .navigation {
-  margin-top: 40px;
+  margin-top: 0px;
 }
 
 .sidebar-nav a {
