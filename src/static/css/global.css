@@ -85,9 +85,9 @@ body {
 }
 
 .top-navbar .logo img {
-  height: 5vh;
   width: auto;
-  margin-top: 1.5vh;
+  height: 5vh;
+  margin-top: 3px;
 }
 
 .notification-btn img {
@@ -372,7 +372,7 @@ body {
   margin-bottom: 10px;
 }
 
-.card .label {
+.overview-card .label {
   font-size: 14px;
   color: var(--text-muted);
 }
