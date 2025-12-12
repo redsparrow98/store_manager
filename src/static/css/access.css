@@ -15,17 +15,16 @@
   --btn-edit-bg: #3b4668;
   --btn-edit-text: #ffffff;
   --btn-discount-text: #3b4668;
-  --btn-delete-bg: #E03137;
+  --btn-delete-bg: #e03137;
   --btn-delete-text: #ffffff;
-
 }
 
 [data-theme="christmas"] {
   --modal-bg: #386641;
   --modal-close: #222222;
-  --modal-header: #F5DEAE;
+  --modal-header: #f5deae;
   --modal-field-label: #9eb694;
-  --modal-field-box: #1C3626;
+  --modal-field-box: #1c3626;
   --modal-field-border: #e6e9ee;
 
   --brand-border: #e9eef3;
@@ -34,10 +33,10 @@
   --btn-border: #e0e6eb;
   --btn-cancel-bg: #ffffff;
   --btn-cancel-text: #22333b;
-  --btn-edit-bg: #1C3626;
-  --btn-edit-text: #F5DEAE;
+  --btn-edit-bg: #1c3626;
+  --btn-edit-text: #f5deae;
   --btn-discount-text: #3b4668;
-  --btn-delete-bg: #E03137;
+  --btn-delete-bg: #e03137;
   --btn-delete-text: #ffffff;
 }
 
@@ -151,6 +150,11 @@
   background: var(--btn-edit-bg);
   color: var(--btn-edit-text);
   padding: 1% 2%;
+}
+/*apply discount buttons for centering*/
+.form-buttons {
+  display: flex;
+  justify-content: center;
 }
 
 /* Brand results */
