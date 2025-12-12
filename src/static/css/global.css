@@ -85,9 +85,9 @@ body {
 }
 
 .top-navbar .logo img {
-  height: 5vh;
   width: auto;
-  margin-top: 1.5vh;
+  height: 5vh;
+  margin-top: 3px;
 }
 
 .notification-btn img {
@@ -372,7 +372,7 @@ body {
   margin-bottom: 10px;
 }
 
-.card .label {
+.overview-card .label {
   font-size: 14px;
   color: var(--text-muted);
 }
@@ -404,6 +404,20 @@ body {
 .accounts-box .label {
   font-size: 14px;
   color: var(--text-muted);
+}
+
+.account-actions {
+    position: absolute;
+    top: 13vh;      
+    right: 10vw;    
+    display: flex;
+    gap: 1rem;
+    z-index: 3000; 
+}
+
+.account-actions .btn {
+    padding: 10px 18px;
+    border-radius: 8px;
 }
 
 /* empty placeholder cards */
@@ -507,6 +521,11 @@ body {
   align-self: left;
   font-weight: 400;
   width: 115px;
+}
+
+.btn-users {
+  background-color: var(--btn-inventory-bg);
+  text-align: center;
 }
 
 /* Search button */
