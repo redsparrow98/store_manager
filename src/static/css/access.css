@@ -223,3 +223,17 @@
 [data-theme="christmas"] .product-modal input.field-box[readonly] {
   border: none;
 }
+
+.checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox .checkmark {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background-color: var(--btn-edit-bg);
+  border-radius: 4px;
+}

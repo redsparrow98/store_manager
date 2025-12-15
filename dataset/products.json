@@ -3,10 +3,10 @@
     "article_name": "Iphone 17 PRO",
     "article_id": "0001",
     "brand": "Apple",
-    "price_SEK": 14995.0,
+    "price_SEK": "14995.0",
     "category": "Phones",
-    "discount_percentage": 0,
-    "stock_amount": 1,
+    "discount_percentage": "0",
+    "stock_amount": "34",
     "discounted_price_SEK": 14995.0
   },
   "0002": {
@@ -198,16 +198,6 @@
     "discount_percentage": 0,
     "stock_amount": 7,
     "discounted_price_SEK": 599.0
-  },
-  "0021": {
-    "article_name": "15W charging cable USB-C",
-    "article_id": "0021",
-    "brand": "Samsung",
-    "price_SEK": 99.0,
-    "category": "Accessories",
-    "discount_percentage": 0,
-    "stock_amount": 14,
-    "discounted_price_SEK": 99.0
   },
   "0022": {
     "article_name": "Logitech MX Master 3S Mouse",

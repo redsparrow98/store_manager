@@ -117,6 +117,12 @@ def display_countdown():
 
 @app.route("/inventory", methods=["GET"])
 def display_inventory():
+    categories = get_filters()
+    products = load_json(FILE_PATH)
+    
+    for article_id, info in products.items():
+        category = info['category']
+
     search_term = request.args.get("search_term", "").strip()
 
     try:
@@ -145,7 +151,7 @@ def display_inventory():
 
     users = load_json(USERS_FILE_PATH)
     username = current_user.id
-    access_level = users[username]["access_level"]
+    access_level = users[username]["access_level"] 
 
     return render_template("inventory.html", products=filtered, search_term=search_term, access_level=access_level)
 

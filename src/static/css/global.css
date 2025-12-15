@@ -512,6 +512,18 @@ body {
   width: 115px;
 }
 
+.filterPanel {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 12px;
+  width: 220px;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+}
+
+
 .btn-users {
   background-color: var(--btn-inventory-bg);
   text-align: center;
@@ -735,7 +747,8 @@ body {
 }
 
 .btn-discount .christmas-discount-icon,
-.christmas-plus-icon {
+.christmas-plus-icon,
+.christmas-filter-icon {
   display: none;
   width: 18px;
   height: 18px;
@@ -869,4 +882,9 @@ body {
 [data-theme="christmas"] .christmas-plus-icon {
   display: inline-block;
   background-image: url("../christmas_images/plus.svg");
+}
+
+[data-theme="christmas"] .christmas-filter-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/filter.svg");
 }
