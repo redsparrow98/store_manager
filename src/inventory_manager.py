@@ -70,46 +70,6 @@ def list_all_products():
         
     return all_products
 
-def get_filters():
-    categories = []
-    
-    products = load_json(FILE_PATH)
-    for article_id, info in products.items():
-        category = info['category']
-        
-
-        if category not in categories:
-            categories.append(category)
-
-        
-    return categories
-
-def filter_products(category=None, price_range=None, stock_range=None):
-    categories, prices, stocks = get_filters()
-    filtered_products = []
-    products = load_json(FILE_PATH)
-
-    filter = input("Enter filter type (category/price/stock): ").strip().lower()
-
-    for article_id, info in products.items():
-        if filter in categories or filter in prices or filter in stocks:
-            if filter in info.values():
-                filtered_products.append({
-                    "article_id" : article_id,
-                    "article_name": info.get("article_name", ""),
-                    "category": info.get("category", ""),
-                    "price_SEK": info.get("price_SEK", 0),
-                    "discount_percentage": info.get("discount_percentage", 0),
-                    "stock_amount": info.get("stock_amount", 0),
-                    "brand": info.get("brand", "")
-                })
-            else:
-                return "No products found matching the filter."
-        else: 
-            return "No products found matching the filter."
-        
-    return filtered_products
-
 #ADDING A PRODUCT FEATURE
 def add_product(name,brand,price,category,discount,stock):
     """creates a new product for the database from the given parameters.
