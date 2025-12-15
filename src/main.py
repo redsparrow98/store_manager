@@ -378,11 +378,12 @@ def create_account_page():
     
     else:
         username = request.form['username']
+        name = request.form['name']
         access_level = request.form['access_level'] 
         password = request.form['password']
         repeat_password = request.form['repeat_password']
 
-        success, result = create_account(username, access_level, password, repeat_password)
+        success, result = create_account(username, name, access_level, password, repeat_password)
 
         # User gets passed to the login and a success message gets flashed
         if success:
@@ -401,11 +402,13 @@ def account_page():
     """
     users = load_json(USERS_FILE_PATH)
     username = current_user.id
+    name = users[username]["name"]
     access_level = users[username]["access_level"]
 
     if request.method == "GET":
         return render_template("my_account.html", 
                             username=username,
+                            name=name,
                             access_level=access_level
                             )    
     else:

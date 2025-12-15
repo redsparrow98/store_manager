@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).parent.parent
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
 
 # Creates a new account if username not already taken
-def create_account(username, access_level, password, repeat_password):
+def create_account(username, name, access_level, password, repeat_password):
     users = load_json(USERS_FILE_PATH)
     
     errors = []
@@ -17,6 +17,8 @@ def create_account(username, access_level, password, repeat_password):
         errors.append("Username already exists, please choose another username")
     if len(username.strip()) == 0:
         errors.append("Username is required")
+    if len(name.strip()) == 0:
+        errors.append("Name is required")
     if len(password.strip()) == 0:
         errors.append("Password is required")
     if repeat_password != password:
@@ -30,7 +32,8 @@ def create_account(username, access_level, password, repeat_password):
     else:
         users[username] = {
             "password": password,
-            "access_level": access_level,
+            "name": name.title(),
+            "access_level": access_level
         }
         write_json(USERS_FILE_PATH, users)
 
