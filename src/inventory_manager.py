@@ -231,7 +231,7 @@ def add_order(fields, username, date):
     for order in fields:
         if not order.get("article_id").strip():
             errors.append("Article id is required")
-        if int(order.get("qty")) <= 0:
+        if int(order.get("quantity")) <= 0:
             errors.append("The ordered ammount can't be negative or zero")
         if order.get("article_id") not in products:
             errors.append(f"Article id: {order.get('article_id')} not found")
@@ -253,7 +253,7 @@ def add_order(fields, username, date):
                 "ordered_by": username,
                 "article_id": order.get("article_id"),
                 "product_name": product,
-                "quantity": int(order.get("qty")),
+                "quantity": int(order.get("quantity")),
                 "order_date": date,
                 "order_status": "Ordered"
                 }
@@ -381,11 +381,11 @@ def update_order_status(order_id, new_status):
         if new_status == "sent":
             products = load_products()
             for item in orders[order_id]["items"]:
-                pid = item["product_id"]
-                qty = item["quantity"]
-                if pid in products:
-                    products[pid]["stock_amount"] = max(
-                        0, products[pid]["stock_amount"] - qty
+                product_id = item["product_id"]
+                quantity = item["quantity"]
+                if product_id in products:
+                    products[product_id]["stock_amount"] = max(
+                        0, products[product_id]["stock_amount"] - quantity
                     )
             save_products(products)
 
@@ -397,9 +397,9 @@ def update_order_status(order_id, new_status):
 def get_orders_grouped():
     orders = load_orders()
     grouped = {"new": {}, "in progress": {}, "packing": {}, "sent": {}}
-    for oid, order in orders.items():
+    for order_id, order in orders.items():
         status = order["status"]
-        grouped.setdefault(status, {})[oid] = order
+        grouped.setdefault(status, {})[order_id] = order
     return grouped
 
 
