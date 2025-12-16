@@ -1,10 +1,10 @@
-{% extends "base.html" %}
-{% block title %}Orders{% endblock %}
-{% block content %}
+{% extends "base.html" %} {% block title %}Orders{% endblock %} {% block content
+%}
 
-<div class="inventory-header"><h1 class="title">All Orders</h1>
-    
-    <div class="inventory-actions">
+<div class="inventory-header">
+  <h1 class="title">All Stock Orders</h1>
+
+  <div class="inventory-actions">
     <!--Add order-->
     {% if access_level in ["Manager"] %}
     <a class="btn btn-plus" href="{{ url_for('add_order_page') }}">
@@ -22,43 +22,48 @@
 </div>
 
 <div class="table-wrap">
-    <table class="products-table">
-      <thead>
-        <tr>
-          <th class="col-order">Order #</th>
-          <th class="col-name">Ordered By</th>
-          <th class="col-date">Ordered On</th>
-          <th class="col-amount">Total Amount Ordered</th>
-          <th class="col-status">Status</th>
-          {% if access_level in ["Manager"] %}
-          <th class="col-actions">Access Order</th>
-          {% endif %}
-        </tr>
-      </thead>
-      
-      <tbody>
-        {% if orders %}
-          {% for key, order in orders.items() %}
-          <tr>
-            <td class="col-order">#{{ order.get('order_number') }}</td>
-            <td class="col-name">{{ order.get('ordered_by') }}</td>
-            <td class="col-date">{{ order.get('order_date') }}</td>
-            <td class="col-amount">{{ order.get('quantity') }} pcs </td> 
-            <td class="col-status"> {{ order.get('order_status') }}</td>
-            {% if access_level in ["Manager"] %}
-            <td class="col-actions">
-            <!--Viewing orders with status delivered and changing status if not delivered -->
-            <div class="col-actions">
-                <a class="icon-btn" href="{{ url_for('access_order_page') }}?order_number={{ key }}" title="Access">
-                  <img src="{{ url_for('static', filename='images/eye.svg') }}" alt="Access">
-                </a>
-            {% endif %}
-            </div>
-            </td>
-          </tr>
-        {% endfor %}
+  <table class="products-table">
+    <thead>
+      <tr>
+        <th class="col-order">Order #</th>
+        <th class="col-name">Ordered By</th>
+        <th class="col-date">Ordered On</th>
+        <th class="col-amount">Total Amount Ordered</th>
+        <th class="col-status">Status</th>
+        {% if access_level in ["Manager"] %}
+        <th class="col-actions">Access Order</th>
         {% endif %}
-        </tbody>
-        </table>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% if orders %} {% for key, order in orders.items() %}
+      <tr>
+        <td class="col-order">#{{ order.get('order_number') }}</td>
+        <td class="col-name">{{ order.get('ordered_by') }}</td>
+        <td class="col-date">{{ order.get('order_date') }}</td>
+        <td class="col-amount">{{ order.get('quantity') }} pcs</td>
+        <td class="col-status">{{ order.get('order_status') }}</td>
+        {% if access_level in ["Manager"] %}
+        <td class="col-actions">
+          <!--Viewing orders with status delivered and changing status if not delivered -->
+          <div class="col-actions">
+            <a
+              class="icon-btn"
+              href="{{ url_for('access_order_page') }}?order_number={{ key }}"
+              title="Access"
+            >
+              <img
+                src="{{ url_for('static', filename='images/eye.svg') }}"
+                alt="Access"
+              />
+            </a>
+            {% endif %}
+          </div>
+        </td>
+      </tr>
+      {% endfor %} {% endif %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}

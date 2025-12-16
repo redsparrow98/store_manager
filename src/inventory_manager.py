@@ -5,8 +5,11 @@ from pathlib import Path
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
-ORDER_FILE_PATH = BASE_DIR / "dataset" / "orders.json"
+ORDER_FILE_PATH = BASE_DIR / "dataset" / "stock_orders.json"
 RETURNS_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
+USER_ORDER_FILE_PATH = BASE_DIR / "dataset" / "user_orders.json"
+
+
 
 #APPLY DISCOUNT FUNCTION
 def apply_discount_to_products(discount_percentage, category=None):
@@ -353,4 +356,52 @@ def add_return_to_stock(return_id):
     write_json(RETURNS_FILE_PATH, returns)
     
     return True, f"Added {stock_to_add} units back to stock for product ID {article_id}."
+
+#USER ORDERS AND DELIVERIES
+
+#Loading and writing to and from products.json and user_orders.json
+def load_products():
+    return load_json(FILE_PATH)
+
+def save_products(products):
+    write_json(FILE_PATH, products)
+
+def load_orders():
+    return load_json(USER_ORDER_FILE_PATH)
+
+def save_orders(orders):
+    write_json(USER_ORDER_FILE_PATH, orders)
+
+#Function for updating order status
+def update_order_status(order_id, new_status):
+    """Update order status. If status is 'sent', stock will be decreased."""
+    orders = load_orders()
+    if order_id in orders:
+        orders[order_id]["status"] = new_status
+
+        # If order is sent, update product stock
+        if new_status == "sent":
+            products = load_products()
+            for item in orders[order_id]["items"]:
+                pid = item["product_id"]
+                qty = item["quantity"]
+                if pid in products:
+                    products[pid]["stock_amount"] = max(
+                        0, products[pid]["stock_amount"] - qty
+                    )
+            save_products(products)
+
+        save_orders(orders)
+        return orders[order_id]
+    return None
+
+"""Return orders grouped by status for easy separation in 3 tables."""
+def get_orders_grouped():
+    orders = load_orders()
+    grouped = {"new": {}, "in progress": {}, "packing": {}, "sent": {}}
+    for oid, order in orders.items():
+        status = order["status"]
+        grouped.setdefault(status, {})[oid] = order
+    return grouped
+
 
