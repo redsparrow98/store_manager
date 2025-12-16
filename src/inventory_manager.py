@@ -101,7 +101,9 @@ def add_product(name,brand,price,category,discount,stock):
         errors.append("Discount amount is not valid (0-100%)")
     if int(stock) < 0:
         errors.append("Stock cant be negative")
-    
+    for product in products:
+        if products[product]['article_name'].lower() == name.lower():
+            errors.append(f"\'{products[product]['article_name']}\' is already an existing product")
     if errors:
         return False, errors
 

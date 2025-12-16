@@ -2,7 +2,7 @@
 {% block title %}Create account{% endblock %}
 {% block content %}
 
-{% if access_level in ["Manager", "Admin"] %}
+{% if access_level in ["Manager"] %}
     <div class="account-actions">
         <a class="btn btn-edit" href="{{ url_for('create_account_page') }}">Create Account</a>
         <a class="btn btn-delete" href="{{ url_for('delete_user_page') }}">Delete User</a>
@@ -43,6 +43,12 @@
                     <div class="form-row">
                         <div class="field-label">Username</div>
                         <input class="field-box" type="text" value="{{ username }}" readonly>
+                    </div>
+
+                    <!--Displaying the username -->
+                    <div class="form-row">
+                        <div class="field-label">Name</div>
+                        <input class="field-box" type="text" value="{{ name }}" readonly>
                     </div>
 
                     <!--Displaying the access level -->
