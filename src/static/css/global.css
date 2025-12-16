@@ -578,6 +578,27 @@ body {
   box-sizing: border-box;
 }
 
+.filter-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.filter-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-column input {
+  margin-right: 0.3rem;
+} 
+
+.filter-column label {
+  margin-right: 2rem;
+  display: inline-block;
+}
+
 /* Table */
 .products-table {
   width: 100%;
