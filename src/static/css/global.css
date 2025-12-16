@@ -96,6 +96,53 @@ body {
   cursor: pointer;
 }
 
+.notification-list {
+  background-color: #f8d7da;
+  max-width: 400px;
+  border: 2px solid #f5c2c7 ;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.notification-modal {
+  position: absolute;
+  top: 15%;
+  left: 25%;
+  width: 60vw;
+  background: var(--modal-bg);
+  border-radius: 15px;
+  padding: 40px;
+}
+
+.notification-modal .modal-close {
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--modal-close);
+}
+
+.notification-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.notification-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.notification-text {
+  color: #DB5358;
+}
+
 /* Sidebar styles */
 .sidebar {
   width: 13vw;

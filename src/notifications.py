@@ -53,7 +53,7 @@ def scan_low_stock():
         threshold = get_threshold(category)
 
         if stock <= threshold:
-            message = f"{product_name} (ID {article_id}) is low: {stock} left"
+            message = f"{product_name} is low: {stock} left"
             add_notification(article_id, message)
 
 def get_notifications():
