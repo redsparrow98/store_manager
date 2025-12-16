@@ -117,7 +117,6 @@ def display_countdown():
 
 @app.route("/inventory", methods=["GET"])
 def display_inventory():
-    categories = get_filters()
     products = load_json(FILE_PATH)
     
     for article_id, info in products.items():
