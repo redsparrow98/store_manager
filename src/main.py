@@ -433,6 +433,7 @@ def account_page():
     
 @app.route('/dashboard/users', methods=['GET'])
 def users_page():
+    #Reads all existing users
     users = load_json(USERS_FILE_PATH)
 
     return render_template("users.html", users=users)
@@ -441,6 +442,7 @@ def users_page():
 def edit_user():
     users = load_json(USERS_FILE_PATH)
 
+    #Render existing user information
     if request.method == "POST":
         original_username = request.form['original_username']
         new_username = request.form['username']
@@ -450,6 +452,7 @@ def edit_user():
             flash("User not found", "error")
             return redirect(url_for("users_page"))
 
+        #new user info if changes made
         new_user_info = {
             "password": request.form['password'],
             "name": request.form['name'],
@@ -457,14 +460,16 @@ def edit_user():
         }
 
         if original_username != new_username:
+            #checking for duplicates
             if new_username in users:
                 flash("Username already exists", "error")
 
-
+            #pop user since username is dictionary key
             else:
                 users.pop(original_username)
                 users[new_username] = new_user_info
 
+        #only chaning info if username does not change
         else:
             users[original_username] = new_user_info
 

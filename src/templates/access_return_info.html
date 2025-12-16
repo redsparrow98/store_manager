@@ -8,7 +8,7 @@
     <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('returns_page') }}'">×</button>
 
     <header class="modal-header"><h2>Return Information</h2></header>
-
+  <!-- messages field -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     {% for category, message in messages %}
@@ -25,6 +25,7 @@
     {% endif %}
     {% endwith %}
     <br>
+    <!-- Fields of return info -->
     <form method="post" action="{{ url_for('access_return_info') }}?return_id={{ return_id }}">
         <div class="modal-body">
         <div class="form-grid">

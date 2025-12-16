@@ -5,6 +5,7 @@
 <div class="inventory-header">
   <h1 class="title">All Returns</h1>
 
+  <!-- messages field -->
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for category, message in messages %}
@@ -56,7 +57,7 @@
             <td class="col-status">{{ return.get('status','') }}</td>
       {% if access_level in ["Manager"] %}
             <td class="col-actions">
-              <!--Viewing returns with status open and changing status if not processed -->
+              <!-- Viewing returns with status open and changing status if not processed -->
               <div class="col-actions">
                 <a class="icon-btn" href="{{ url_for('access_return_info') }}?return_id={{ return_id }}" title="View">
                   <img src="{{ url_for('static', filename='images/eye.svg') }}" alt="View">

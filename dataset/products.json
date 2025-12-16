@@ -65,9 +65,9 @@
     "brand": "Samsung",
     "price_SEK": 1200.0,
     "category": "Headphones",
-    "discount_percentage": 0,
+    "discount_percentage": 10.0,
     "stock_amount": 20,
-    "discounted_price_SEK": 1200.0
+    "discounted_price_SEK": 1080.0
   },
   "0008": {
     "article_name": "Airpods Max",
@@ -75,9 +75,9 @@
     "brand": "Apple",
     "price_SEK": 8990.0,
     "category": "Headphones",
-    "discount_percentage": 0,
+    "discount_percentage": 10.0,
     "stock_amount": 3,
-    "discounted_price_SEK": 8990.0
+    "discounted_price_SEK": 8091.0
   },
   "0009": {
     "article_name": "Pixel Buds pro 2",
@@ -85,9 +85,9 @@
     "brand": "Google",
     "price_SEK": 2590.0,
     "category": "Headphones",
-    "discount_percentage": 0,
+    "discount_percentage": 10.0,
     "stock_amount": 16,
-    "discounted_price_SEK": 2590.0
+    "discounted_price_SEK": 2331.0
   },
   "0010": {
     "article_name": "Sonos Era 100 Speaker",
@@ -125,7 +125,7 @@
     "brand": "Apple",
     "price_SEK": 15145.0,
     "category": "Computers",
-    "discount_percentage": 0,
+    "discount_percentage": 0.0,
     "stock_amount": 2,
     "discounted_price_SEK": 15145.0
   },
@@ -135,7 +135,7 @@
     "brand": "Dell",
     "price_SEK": 20799.0,
     "category": "Computers",
-    "discount_percentage": 0,
+    "discount_percentage": 0.0,
     "stock_amount": 6,
     "discounted_price_SEK": 20799.0
   },
@@ -145,7 +145,7 @@
     "brand": "Lenovo",
     "price_SEK": 7100.0,
     "category": "Computers",
-    "discount_percentage": 0,
+    "discount_percentage": 0.0,
     "stock_amount": 4,
     "discounted_price_SEK": 7100.0
   },
@@ -185,9 +185,9 @@
     "brand": "JETech",
     "price_SEK": 119.0,
     "category": "Accessories",
-    "discount_percentage": 0,
+    "discount_percentage": 10.0,
     "stock_amount": 13,
-    "discounted_price_SEK": 119.0
+    "discounted_price_SEK": 107.1
   },
   "0020": {
     "article_name": "Anker Nano Power Bank",
@@ -195,9 +195,9 @@
     "brand": "Anker",
     "price_SEK": 599.0,
     "category": "Accessories",
-    "discount_percentage": 0,
+    "discount_percentage": 10.0,
     "stock_amount": 7,
-    "discounted_price_SEK": 599.0
+    "discounted_price_SEK": 539.1
   },
   "0022": {
     "article_name": "Logitech MX Master 3S Mouse",
@@ -205,8 +205,17 @@
     "brand": "Logitech",
     "price_SEK": 999.0,
     "category": "Accessories",
-    "discount_percentage": 0,
+    "discount_percentage": 10.0,
     "stock_amount": 10,
-    "discounted_price_SEK": 999.0
+    "discounted_price_SEK": 899.1
+  },
+  "0023": {
+    "article_name": "Iphone 4",
+    "article_id": "0023",
+    "brand": "Apple",
+    "price_SEK": 200.0,
+    "category": "Phones",
+    "discount_percentage": 10.0,
+    "stock_amount": 3
   }
 }
