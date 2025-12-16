@@ -26,8 +26,8 @@ DEFAULT_THRESHOLD = 3
 #add notification if doesn't exist
 def add_notification(article_id: str, message: str):
 #check for existing notification
-    for n in notifications:
-        if n["id"] == article_id and n["message"] == message:
+    for number in notifications:
+        if number["id"] == article_id and number["message"] == message:
             return
 
 #add new notification
