@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
 RETURNS_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
-ORDER_FILE_PATH = BASE_DIR / "dataset" / "orders.json"
+ORDER_FILE_PATH = BASE_DIR / "dataset" / "stock_orders.json"
 
 
 app = Flask(__name__)
@@ -383,11 +383,12 @@ def create_account_page():
     
     else:
         username = request.form['username']
+        name = request.form['name']
         access_level = request.form['access_level'] 
         password = request.form['password']
         repeat_password = request.form['repeat_password']
 
-        success, result = create_account(username, access_level, password, repeat_password)
+        success, result = create_account(username, name, access_level, password, repeat_password)
 
         # User gets passed to the login and a success message gets flashed
         if success:
@@ -406,11 +407,13 @@ def account_page():
     """
     users = load_json(USERS_FILE_PATH)
     username = current_user.id
+    name = users[username]["name"]
     access_level = users[username]["access_level"]
 
     if request.method == "GET":
         return render_template("my_account.html", 
                             username=username,
+                            name=name,
                             access_level=access_level
                             )    
     else:
@@ -629,5 +632,34 @@ def add_return_page():
                 flash(error, "error")
         
         return render_template("add_return.html")
+    
+#Route for user orders and delivery tracking
+@app.route('/dashboard/user-orders', methods=['GET', 'POST'])
+def user_orders_page():
+    orders = load_orders()
+
+    order_number = request.args.get('order_number')
+    order = orders.get(order_number) if order_number else None
+
+    if request.method == 'GET':
+        # Show grouped orders in 3 tables
+        grouped_orders = get_orders_grouped()
+        return render_template(
+            'user_orders.html',
+            grouped_orders=grouped_orders,
+            order=order
+        )
+
+    else:
+        status = request.form["status"]
+        result = update_order_status(order_number, status)
+
+        if result:
+            flash(f"Order {order_number} updated to {status}", "success")
+        else:
+            flash("Order not found", "error")
+
+        return redirect(url_for('user_orders_page', order_number=order_number))
+
 if __name__=='__main__':
     app.run(debug=True)

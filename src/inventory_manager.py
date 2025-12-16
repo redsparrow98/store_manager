@@ -5,8 +5,11 @@ from pathlib import Path
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
-ORDER_FILE_PATH = BASE_DIR / "dataset" / "orders.json"
+ORDER_FILE_PATH = BASE_DIR / "dataset" / "stock_orders.json"
 RETURNS_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
+USER_ORDER_FILE_PATH = BASE_DIR / "dataset" / "user_orders.json"
+
+
 
 #APPLY DISCOUNT FUNCTION
 def apply_discount_to_products(discount_percentage, category=None):
@@ -98,7 +101,9 @@ def add_product(name,brand,price,category,discount,stock):
         errors.append("Discount amount is not valid (0-100%)")
     if int(stock) < 0:
         errors.append("Stock cant be negative")
-    
+    for product in products:
+        if products[product]['article_name'].lower() == name.lower():
+            errors.append(f"\'{products[product]['article_name']}\' is already an existing product")
     if errors:
         return False, errors
 
@@ -228,7 +233,7 @@ def add_order(fields, username, date):
     for order in fields:
         if not order.get("article_id").strip():
             errors.append("Article id is required")
-        if int(order.get("qty")) <= 0:
+        if int(order.get("quantity")) <= 0:
             errors.append("The ordered ammount can't be negative or zero")
         if order.get("article_id") not in products:
             errors.append(f"Article id: {order.get('article_id')} not found")
@@ -250,7 +255,7 @@ def add_order(fields, username, date):
                 "ordered_by": username,
                 "article_id": order.get("article_id"),
                 "product_name": product,
-                "quantity": int(order.get("qty")),
+                "quantity": int(order.get("quantity")),
                 "order_date": date,
                 "order_status": "Ordered"
                 }
@@ -351,4 +356,52 @@ def add_return_to_stock(return_id):
     write_json(RETURNS_FILE_PATH, returns)
     
     return True, f"Added {stock_to_add} units back to stock for product ID {article_id}."
+
+#USER ORDERS AND DELIVERIES
+
+#Loading and writing to and from products.json and user_orders.json
+def load_products():
+    return load_json(FILE_PATH)
+
+def save_products(products):
+    write_json(FILE_PATH, products)
+
+def load_orders():
+    return load_json(USER_ORDER_FILE_PATH)
+
+def save_orders(orders):
+    write_json(USER_ORDER_FILE_PATH, orders)
+
+#Function for updating order status
+def update_order_status(order_id, new_status):
+    """Update order status. If status is 'sent', stock will be decreased."""
+    orders = load_orders()
+    if order_id in orders:
+        orders[order_id]["status"] = new_status
+
+        # If order is sent, update product stock
+        if new_status == "sent":
+            products = load_products()
+            for item in orders[order_id]["items"]:
+                product_id = item["product_id"]
+                quantity = item["quantity"]
+                if product_id in products:
+                    products[product_id]["stock_amount"] = max(
+                        0, products[product_id]["stock_amount"] - quantity
+                    )
+            save_products(products)
+
+        save_orders(orders)
+        return orders[order_id]
+    return None
+
+"""Return orders grouped by status for easy separation in 3 tables."""
+def get_orders_grouped():
+    orders = load_orders()
+    grouped = {"new": {}, "in progress": {}, "packing": {}, "sent": {}}
+    for order_id, order in orders.items():
+        status = order["status"]
+        grouped.setdefault(status, {})[order_id] = order
+    return grouped
+
 
