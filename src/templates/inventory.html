@@ -2,6 +2,7 @@
 {% block title %}Inventory{% endblock %}
 {% block content %}
 
+
 <div class="inventory-header">
   <h1 class="title">All Products</h1>
 
@@ -27,6 +28,20 @@
         value="{{ request.args.get('search_term','') }}"
       />
     </form>
+
+    <!-- Filter by category -->
+
+    <a
+      id="filterToggle" class="btn btn-discount"
+    >
+      <img
+        src="{{ url_for('static', filename='images/filter.svg') }}"
+        alt="filter"
+        class="btn-icon"
+      />
+      <span class="nav-icon christmas-filter-icon" aria-hidden="true"></span>
+      <span class="btn-label">Filter</span>
+    </a>
 
     <!-- Add discount -->
     <a
@@ -61,6 +76,13 @@
   </div>
 </div>
 
+<div id="filterPanel" hidden>
+      <div class="table-wrap">
+          <h4>Category</h4>
+          <div id="categoryFilters"></div>
+      </div>
+    </div>
+
 <div class="table-wrap">
   <table class="products-table">
     <thead>
@@ -75,40 +97,42 @@
       </tr>
     </thead>
     <tbody>
-      {% if products %}
-        {% for article_id, item in products.items() %}
-          <tr>
-            <td class="col-name">{{ item.get('article_name','') }}</td>
-            <td class="col-id">{{ article_id }}</td>
-            <td class="col-cat">{{ item.get('category','') }}</td>
-            <td class="col-price">{{ item.get('price_SEK', item.get('price','')) }} kr</td>
-            <td class="col-discount">{{ item.get('discount_percentage','0') }}%</td>
-            <td class="col-amount">{{ item.get('stock_amount', item.get('stock','')) }} pcs</td>
-            <td class="col-actions">
-              <div class="col-actions">
-                <a class="icon-btn" href="{{ url_for('access_product') }}?search_term={{ article_id }}" title="View">
-                  <img src="{{ url_for('static', filename='images/eye.svg') }}" alt="View">
-                </a>
-                <a class="icon-btn" href="{{ url_for('update_product_page') }}?article_id={{ article_id }}" title="Edit">
-                  <img src="{{ url_for('static', filename='images/edit.svg') }}" alt="Edit">
-                </a>
-                {% if access_level in ["Manager"] %}
-                <a class="icon-btn" href="{{ url_for('delete_product_page') }}?article_id={{ article_id }}" title="Delete" 
-                onclick="return confirm('Are you sure you want to delete product {{ article_id }}?');">
-                  <img src="{{ url_for('static', filename='images/delete.svg') }}" alt="Delete">
-                </a>
-                {% endif %}
-              </div>
-            </td>
-          </tr>
-        {% endfor %}
-      {% else %}
-        <tr>
-          <td colspan="7">No products found for "{{ search_term }}".</td>
-        </tr>
-      {% endif %}
+      <!-- Rows will be populated by JS -->
     </tbody>
   </table>
 </div>
+
+<!-- Flask data -->
+<script>
+  window.PRODUCTS_DATA = {{ products | tojson}};
+</script>
+
+<!-- Inventory display -->
+ <script>
+  // Pass url for action buttons
+const BASE_URLS = {
+  view: "{{ url_for('access_product') }}",
+  edit: "{{ url_for('update_product_page')}}",
+  delete: "{{ url_for('delete_product_page')}}"
+}
+
+// Pass products data to JS
+const PRODUCTS = Object.entries({{ products | tojson }}).map(
+    ([id, item]) => ({
+    id: id,
+    name: item.article_name,
+    category: item.category,
+    price: item.price_SEK || item.price,
+    amount: item.stock_amount || item.stock,
+    discount: item.discount_percentage || 0
+})
+);
+
+// Pass access level to JS
+const accessLevel = "{{ access_level }}";
+ </script>
+
+<!-- Inventory display with filters -->
+<script src="{{ url_for('static', filename='JavaScript/filter.js') }}"></script>
 
 {% endblock %}
