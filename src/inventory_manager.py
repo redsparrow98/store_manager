@@ -398,7 +398,7 @@ def update_order_status(order_id, new_status):
 """Return orders grouped by status for easy separation in 3 tables."""
 def get_orders_grouped():
     orders = load_orders()
-    grouped = {"new orders": {}, "in progress": {}, "packing": {}, "sent orders": {}}
+    grouped = {"ordered": {}, "dispatched": {}, "in transit": {}, "delivered": {}}
     for order_id, order in orders.items():
         status = order["status"]
         grouped.setdefault(status, {})[order_id] = order
