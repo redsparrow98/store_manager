@@ -996,5 +996,7 @@ html[data-theme="christmas"] .top-navbar .notification-btn .notification-counter
 
 [data-theme="christmas"] .christmas-filter-icon {
   display: inline-block;
+  width: 24px;
+  height: 24px;
   background-image: url("../christmas_images/filter.svg");
 }
