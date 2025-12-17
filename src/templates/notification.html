@@ -1,32 +1,37 @@
-{% extends "base.html" %} {% block title %}Notifications{% endblock %} {% block
-content %}
+{% extends "base.html" %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
 
 <div class="notification-modal" role="dialog" aria-modal="true">
     <div>
         <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
-        <h2 class="modal-header">
-        Notifications
-        </h2>
+        <h2 class="modal-header">Notifications</h2>
     </div>
+
     {% if notifications %}
         <div class="notification-table">
-            {% for number in notifications %}
+            {% for notification in notifications %}
                 <div class="notification-list">
                     <div class="notification-header">
-                        <img src="{{url_for('static', filename='images/warning-error.svg')}}"
-                            alt="Warning Icon" class="notification-icon">
-                            <strong style="color: #DB5358;">Low Stock Alert!</strong>
+                        <img src="{{ url_for('static', filename='images/warning-error.svg') }}"
+                             alt="Warning Icon" class="notification-icon">
+                        <strong style="color: #DB5358;">Low Stock Alert!</strong>
                     </div>
-                    <b>{{ number.product_name }}</b>
-                    <p>{{ number.message }}</p>
-                    <small>Product ID: {{ number.id }}</small>
+
+                    {% if notification.get('product_name') %}
+                        <b>{{ notification.get('product_name') }}</b>
+                    {% endif %}
+
+                    <p>{{ notification.get('message') }}</p>
+                    <small>Product ID: {{ notification.get('id') }}</small>
                 </div>
             {% endfor %}
         </div>
     {% else %}
         <header class="modal-header" style="text-align: center">
-        <h4>No notifications</h4>
+            <h4>No notifications</h4>
         </header>
-    {% endif %}    
+    {% endif %}
 </div>
+
 {% endblock %}
