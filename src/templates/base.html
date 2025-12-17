@@ -28,8 +28,12 @@
                     alt="Notifications"
                     class="nav-icon default-icon notification-img"
                 />
-                  <!-- Christmas notification icon -->
+                <!-- Christmas notification icon -->
                 <span class="nav-icon christmas-notification-icon" aria-hidden="true"></span>
+                <!-- Notification counter -->
+                {% if notifications_count > 0 %}
+                  <span class="notification-counter" aria-hidden="true">{{ notifications_count }}</span>
+                {% endif %}
                 </a>
             </div>
             <div class="logo">

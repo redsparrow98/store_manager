@@ -90,10 +90,31 @@ body {
   margin-top: 3px;
 }
 
+.notification-btn {
+  position: relative;
+  display: inline-flex;
+}
+
 .notification-btn img {
-  width: 6vh;
-  height: 6vh;
+  width: 2vw;
+  height: 3vh;
   cursor: pointer;
+}
+
+.notification-counter {
+  position: absolute;
+  height: 18px;
+  top: -10px;
+  left: 10px;
+  padding: 0 6px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #D9D9D9;
+  color: #262A35;
+  border: 1px solid #262A35;
+  font-size: 11px;
+  font-weight: 600;
 }
 
 /* Sidebar styles */
@@ -409,7 +430,7 @@ body {
     border-radius: 8px;
 }
 
-/* empty placeholder cards */
+/* Empty placeholder cards */
 .placeholders {
   margin-top: 30px;
   display: flex;
@@ -723,7 +744,6 @@ body {
 
 .christmas-notification-icon {
   display: none;
-  margin-top: 0.6vh;
   background-repeat: no-repeat;
 }
 
@@ -806,9 +826,16 @@ body {
 [data-theme="christmas"] .christmas-notification-icon {
   display: inline-block;
   background-image: url("../christmas_images/notification.svg");
-  width: 3.1vw;
-  height: 5.9vh;
+  width: 2vw;
+  height: 3vh;
   background-size: contain;
+}
+
+/* Christmas notification counter */
+html[data-theme="christmas"] .top-navbar .notification-btn .notification-counter {
+  background: #386641;
+  color: #F5DEAE;
+  border: 1px solid #062b18;
 }
 
 [data-theme="christmas"] .date img.date-icon {
@@ -852,7 +879,7 @@ body {
   background-size: contain;
 }
 
-/* Christmas icon for inventory page */
+/* Christmas icons for inventory page */
 [data-theme="christmas"] .search-button-form .search-icon img {
   display: none;
 }

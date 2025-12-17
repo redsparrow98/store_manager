@@ -96,6 +96,16 @@ def dashboard():
         total_users = total_users
     )
 
+@app.context_processor
+def inject_notifications_count():
+    try:
+        notification_count = len(get_notifications()) 
+
+    except Exception:
+        notification_count = 0
+
+    return {"notifications_count": notification_count}
+
 @app.route("/logout")
 @login_required
 def logout():

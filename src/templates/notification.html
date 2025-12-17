@@ -7,11 +7,11 @@ content %}
         <h2>Notifications</h2>
     </header>
     {% if notifications %}
-        {% for n in notifications %}
+        {% for notification in notifications %}
            <div>
-               <b>{{ n.product_name }}</b>
-               <p>{{ n.message }}</p>
-               <small>Product ID: {{ n.id }}</small>
+               <b>{{ notification.product_name }}</b>
+               <p>{{ notification.message }}</p>
+               <small>Product ID: {{ notification.id }}</small>
            </div>
         {% endfor %}
     {% else %}
