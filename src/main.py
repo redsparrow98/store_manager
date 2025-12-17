@@ -534,7 +534,7 @@ def access_order_page():
 def add_order_page():
     
     if request.method == 'GET':
-       fields = [{"article_id": "", "qty": ""}]
+       fields = [{"article_id": "", "quantity": ""}]
        return render_template('add_order.html', fields=fields)
     
     else:
@@ -545,10 +545,10 @@ def add_order_page():
         quantitys = request.form.getlist("quantity")
 
         for id, qty in zip(article_ids, quantitys):
-            fields.append({"article_id": id, "qty": qty})
+            fields.append({"article_id": id, "quantity": qty})
          
         if action == "add_field":
-            fields.append({"article_id": "", "qty": ""})
+            fields.append({"article_id": "", "quantity": ""})
             return render_template('add_order.html', fields=fields)
 
         else:
