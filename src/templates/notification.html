@@ -1,24 +1,32 @@
 {% extends "base.html" %} {% block title %}Notifications{% endblock %} {% block
 content %}
 
-<div class="product-modal" role="dialog" aria-modal="true">
-    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
-    <header class="modal-header">
-        <h2>Notifications</h2>
-    </header>
+<div class="notification-modal" role="dialog" aria-modal="true">
+    <div>
+        <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
+        <h2 class="modal-header">
+        Notifications
+        </h2>
+    </div>
     {% if notifications %}
-        {% for n in notifications %}
-           <div>
-               <b>{{ n.product_name }}</b>
-               <p>{{ n.message }}</p>
-               <small>Product ID: {{ n.id }}</small>
-           </div>
-        {% endfor %}
+        <div class="notification-table">
+            {% for number in notifications %}
+                <div class="notification-list">
+                    <div class="notification-header">
+                        <img src="{{url_for('static', filename='images/warning-error.svg')}}"
+                            alt="Warning Icon" class="notification-icon">
+                            <strong style="color: #DB5358;">Low Stock Alert!</strong>
+                    </div>
+                    <b>{{ number.product_name }}</b>
+                    <p>{{ number.message }}</p>
+                    <small>Product ID: {{ number.id }}</small>
+                </div>
+            {% endfor %}
+        </div>
     {% else %}
-
         <header class="modal-header" style="text-align: center">
         <h4>No notifications</h4>
-      </header>
+        </header>
     {% endif %}    
 </div>
 {% endblock %}

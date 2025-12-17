@@ -96,6 +96,60 @@ body {
   cursor: pointer;
 }
 
+/* This is the container for our notification. Here we automatically wrap so we have a 2 column layout. */
+.notification-table {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 20px;
+  grid-row-gap: 2px;
+}
+
+.notification-list {
+  background-color: #f8d7da;
+  /* max-width: 400px; */
+  /* width: 100%; */
+  border: 2px solid #f5c2c7 ;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.notification-modal {
+  background: var(--modal-bg);
+  border-radius: 15px;
+  padding: 40px;
+  margin: 20px 20px;
+  box-sizing: border-box;
+}
+
+.notification-modal .modal-close {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--modal-close);
+  margin-left: auto;
+  margin-right: 0px;
+  display: block;
+}
+
+.notification-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.notification-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.notification-text {
+  color: #DB5358;
+}
+
 /* Sidebar styles */
 .sidebar {
   width: 13vw;
