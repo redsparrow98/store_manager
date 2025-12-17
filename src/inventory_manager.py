@@ -387,7 +387,7 @@ def update_order_status(order_id, new_status):
                 quantity = item["quantity"]
                 if product_id in products:
                     products[product_id]["stock_amount"] = max(
-                        0, products[product_id]["stock_amount"] - quantity
+                        0, int(products[product_id]["stock_amount"]) - quantity
                     )
             save_products(products)
 
@@ -398,7 +398,7 @@ def update_order_status(order_id, new_status):
 """Return orders grouped by status for easy separation in 3 tables."""
 def get_orders_grouped():
     orders = load_orders()
-    grouped = {"new": {}, "in progress": {}, "packing": {}, "sent": {}}
+    grouped = {"ordered": {}, "dispatched": {}, "in transit": {}, "delivered": {}}
     for order_id, order in orders.items():
         status = order["status"]
         grouped.setdefault(status, {})[order_id] = order
