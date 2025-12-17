@@ -77,11 +77,25 @@
 </div>
 
 <div id="filterPanel" hidden>
-      <div class="table-wrap">
-          <h4>Category</h4>
-          <div id="categoryFilters"></div>
-      </div>
+  <div class="table-wrap filter-row">
+    <div class="filter-column" id="categoryFiltersWrapper">
+      <h4>Category</h4>
+      <div id="categoryFilters"></div>
     </div>
+    <div class="filter-column" id="priceFiltersWrapper">
+      <h4>Price</h4>
+      <div id="priceFilters"></div>
+    </div>
+    <div class="filter-column" id="stockFiltersWrapper">
+      <h4>Stock</h4>
+      <div id="stockFilters"></div>
+    </div>
+    <div class="filter.column" id="discountFiltersWrapper">
+      <h4>Discount</h4>
+      <div id="discountFilters"></div>
+    </div>
+  </div>
+</div>
 
 <div class="table-wrap">
   <table class="products-table">
@@ -122,8 +136,8 @@ const PRODUCTS = Object.entries({{ products | tojson }}).map(
     id: id,
     name: item.article_name,
     category: item.category,
-    price: item.price_SEK || item.price,
-    amount: item.stock_amount || item.stock,
+    price: item.price_SEK ?? item.price,
+    amount: item.stock_amount ?? item.stock,
     discount: item.discount_percentage || 0
 })
 );
