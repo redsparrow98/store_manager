@@ -15,43 +15,21 @@
 
 </head>
 <body>
-    <div class="product-modal" role="dialog" aria-modal="true" style="position: static; margin-bottom: auto; margin: auto">
-        <header class="modal-header" style="text-align:center">
-        <h1>You have been locked out</h1>
-        </header>
-
-        <h1 id="countdown" style="text-align:center"></h1>
-
-        <header class="modal-header" style="text-align:center">
-        <h2>When the timer is completed you will be redirected to the login page</h2>
-        </header>
-
-
-        <script>
-            let timeLeft = 180; 
+    <section class="login-section">
+        <div class="product-modal" role="dialog" aria-modal="true" style="position: static; margin-bottom: auto; margin: auto">
+            <header class="modal-header" style="text-align:center">
+            <h1>You have been locked out</h1>
+            </header>
         
-            const countdownEl = document.getElementById("countdown");
+            <h1 id="countdown" style="text-align:center"></h1>
         
-            function updateTimer() {
-                const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-                const secs = String(timeLeft % 60).padStart(2, '0');
-                countdownEl.textContent = `${mins}:${secs}`;
-            }
+            <header class="modal-header" style="text-align:center">
+            <h2>When the timer is completed you will be redirected to the login page</h2>
+            </header>
         
-            updateTimer();
-        
-            const timer = setInterval(() => {
-                timeLeft--;
-            
-                if (timeLeft < 0) {
-                    clearInterval(timer);
-                    window.location.href = "/";
-                } else {
-                    updateTimer();
-                }
-            }, 1000);
-        
-        </script>
-    </div>
+            <!-- javaScrip for countdown -->
+            <script src="{{ url_for('static', filename='JavaScript/countdown.js') }}"></script>
+        </div>
+    </section>
 </body>
 </html>

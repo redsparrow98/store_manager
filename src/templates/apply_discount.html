@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}Apply discount{% endblock %} {% block
+ {% extends "base.html" %} {% block title %}Apply discount{% endblock %} {% block
 content %}
 
 <div class="product-modal" role="dialog" aria-modal="true">
@@ -13,14 +13,17 @@ content %}
     <h2>Apply Discount</h2>
   </header>
 
-  {% with messages = get_flashed_messages(with_categories=true) %} {% if
-  messages %}
-  <ul>
-    {% for category, message in messages %}
-    <li class="{{ category }}">{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %} {% endwith %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        {% if category == 'success' %}
+            <div class= "success-message">
+                {{ message }}
+            </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 
   <form method="POST">
     <label for="discount_percentage">Discount Percentage:</label>
