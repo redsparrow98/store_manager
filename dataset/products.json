@@ -6,7 +6,7 @@
     "price_SEK": "14995.0",
     "category": "Phones",
     "discount_percentage": "0",
-    "stock_amount": "34",
+    "stock_amount": "1",
     "discounted_price_SEK": 14995.0
   },
   "0002": {
@@ -166,7 +166,7 @@
     "price_SEK": 1999.0,
     "category": "Smart Watches",
     "discount_percentage": 0,
-    "stock_amount": 0,
+    "stock_amount": 2,
     "discounted_price_SEK": 1999.0
   },
   "0018": {
