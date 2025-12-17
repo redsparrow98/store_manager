@@ -21,18 +21,17 @@ CATEGORY_THRESHOLDS = {
 }
 DEFAULT_THRESHOLD = 3
 
-# Add notification if doesn't exist
+# Add notification if one doesn't exist
 def add_notification(article_id: str, message: str):
-# Check for existing notification
-    existing_notifications = notifications.get(article_id, [])
-    if existing_notifications:
+    # Check for existing notification
+    if article_id in notifications:
         return len(notifications) # Amount of notifications
 
     # Add new notification if there's no existing one
     notifications[article_id] = {
         "id": article_id,
         "message": message,
-        "created_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+        "created_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"),
     }
     return len(notifications) # Amount of notifications
 
@@ -41,10 +40,12 @@ def get_threshold(category: str) -> int:
 
 
 def scan_low_stock():
+    low_article_ids.clear()
+
     try:
         products = load_json(FILE_PATH)
-    except Exception:
-        print("Error")
+    except Exception as e:
+        print("Error loading products:", e)
         return
 
     for article_id, info in products.items():
@@ -58,9 +59,10 @@ def scan_low_stock():
             message = f"{product_name} (ID {article_id}) is low: {stock} left"
             add_notification(article_id, message)
 
+    # Remove notifications for products that no longer are low in stock
     for article_id in list(notifications.keys()):
         if article_id not in low_article_ids:
-            notifications.pop(article_id, None)
+            notifications.pop(article_id)
 
 def get_notifications():
     """
@@ -68,4 +70,3 @@ def get_notifications():
     This is what Flask will call to pass notifications to templates.
     """
     return list(notifications.values())
-    

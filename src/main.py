@@ -205,6 +205,15 @@ def notifications_page():
     notifications = get_notifications()
     return render_template("notification.html", notifications=notifications)
 
+@app.context_processor
+def inject_notifications_count():
+    try:
+        notification_count = len(get_notifications()) 
+
+    except Exception:
+        notification_count = 0
+
+    return {"notifications_count": notification_count}
 
 @app.route('/inventory/update-product', methods=['GET', 'POST'])
 def update_product_page():
