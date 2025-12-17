@@ -907,5 +907,7 @@ body {
 
 [data-theme="christmas"] .christmas-filter-icon {
   display: inline-block;
+  width: 25px;
+  height: 25px;
   background-image: url("../christmas_images/filter.svg");
 }
