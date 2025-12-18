@@ -1,11 +1,4 @@
 {
-  "R073": {
-    "article_id": "0001",
-    "customer": "Jennys Company",
-    "date": "05/11/2025",
-    "status": "Processed",
-    "stock_amount": 2
-  },
   "R138": {
     "article_id": "0002",
     "customer": "Get It Done With Doe",
@@ -33,5 +26,12 @@
     "date": "25/11/2025",
     "status": "Processed",
     "stock_amount": 4
+  },
+  "R715": {
+    "article_id": "0001",
+    "customer": "test",
+    "date": "18/12/25",
+    "status": "Open",
+    "stock_amount": 1
   }
 }

@@ -16,5 +16,14 @@
     "quantity": 1,
     "order_date": "01/01/2025",
     "order_status": "Delivered"
+  },
+  "O0003": {
+    "order_number": "O0003",
+    "ordered_by": "jane_doe",
+    "article_id": "0001",
+    "product_name": "Iphone 17 PRO",
+    "quantity": 2,
+    "order_date": "18/12/2025",
+    "order_status": "Ordered"
   }
 }

@@ -6,7 +6,7 @@
     "price_SEK": "14995.0",
     "category": "Phones",
     "discount_percentage": "0",
-    "stock_amount": 1,
+    "stock_amount": 2,
     "discounted_price_SEK": 14995.0
   },
   "0002": {
@@ -35,9 +35,9 @@
     "brand": "Lenovo",
     "price_SEK": 1190.0,
     "category": "Tablets",
-    "discount_percentage": 0,
+    "discount_percentage": 5.0,
     "stock_amount": 19,
-    "discounted_price_SEK": 1190.0
+    "discounted_price_SEK": 1130.5
   },
   "0005": {
     "article_name": "Samsung Galaxy Tab A9",
@@ -45,9 +45,9 @@
     "brand": "Samsung",
     "price_SEK": 1490.0,
     "category": "Tablets",
-    "discount_percentage": 0,
+    "discount_percentage": 5.0,
     "stock_amount": 3,
-    "discounted_price_SEK": 1490.0
+    "discounted_price_SEK": 1415.5
   },
   "0006": {
     "article_name": "Ipad 11\" (11th gen)",
@@ -55,9 +55,9 @@
     "brand": "Apple",
     "price_SEK": 4490.0,
     "category": "Tablets",
-    "discount_percentage": 0,
+    "discount_percentage": 5.0,
     "stock_amount": 21,
-    "discounted_price_SEK": 4490.0
+    "discounted_price_SEK": 4265.5
   },
   "0007": {
     "article_name": "Galaxy Buds FE",
@@ -208,14 +208,5 @@
     "discount_percentage": 10.0,
     "stock_amount": 10,
     "discounted_price_SEK": 899.1
-  },
-  "0023": {
-    "article_name": "Iphone 4",
-    "article_id": "0023",
-    "brand": "Apple",
-    "price_SEK": 200.0,
-    "category": "Phones",
-    "discount_percentage": 10.0,
-    "stock_amount": 3
   }
 }

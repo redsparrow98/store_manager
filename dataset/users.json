@@ -2,7 +2,7 @@
   "bobby_tables": {
     "password": "Bobbyspassword",
     "name": "Bobby Tables",
-    "access_level": "Manager"
+    "access_level": "Employee"
   },
   "jane_doe": {
     "password": "Janespassword",
@@ -22,6 +22,11 @@
   "2": {
     "password": "2",
     "name": "2",
+    "access_level": "Employee"
+  },
+  "test_user": {
+    "password": "12345",
+    "name": "Test",
     "access_level": "Employee"
   }
 }
