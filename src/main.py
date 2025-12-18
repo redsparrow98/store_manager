@@ -73,6 +73,8 @@ def dashboard():
     #to load datasets for dashboard values
     products = load_json(FILE_PATH)
     users = load_json(USERS_FILE_PATH)
+    returns = load_json(RETURNS_FILE_PATH)
+    total_returns = len(returns)
 
     #getting all the values needed for dashboard
     total_products = len(products)
@@ -100,6 +102,7 @@ def dashboard():
         total_products = total_products,
         low_stock = low_stock,
         total_users = total_users,
+        total_returns = total_returns,
         top_brands = top_brands,
         top_products = top_products,
         deliveries_this_month = deliveries_this_month,
