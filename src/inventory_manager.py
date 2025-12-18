@@ -1,6 +1,7 @@
 from reader import *
 import os, random
 from pathlib import Path
+from datetime import datetime
 
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
@@ -405,3 +406,66 @@ def get_orders_grouped():
     return grouped
 
 
+# =============================================================================
+# Analytics functions
+
+
+def get_top_stored_brand():
+    stock = load_json(FILE_PATH)
+
+    # I choose to find the dictionary of the current brands in the inventory
+    # these brands should not be hardcoded and they can always change
+    brands = {}
+    for item in stock.values():
+        current_brand = item["brand"].capitalize()
+
+        if current_brand not in brands:
+            brands[current_brand] = 1
+        else:
+            brands[current_brand] += 1
+
+    # in case there are multiple brands with same
+    highest_stock = max(brands.values())
+    top_brands = []
+
+    for brand, count in brands.items():
+        if count == highest_stock:
+            top_brands.append(brand)
+
+
+    top_brands.sort()
+    return top_brands
+
+
+
+def get_top_stored_product():
+    stock = load_json(FILE_PATH)
+
+    highest_stock = 0
+    for item in stock.values():
+        if int(item["stock_amount"]) > highest_stock:
+            highest_stock = item["stock_amount"]
+
+    top_products = []
+    for item in stock.values():
+        if int(item["stock_amount"]) >= highest_stock:
+            top_products.append(item["article_name"])
+            highest_stock = item["stock_amount"]
+
+    return top_products
+
+
+def get_done_deliveries_month():
+    orders = load_json(USER_ORDER_FILE_PATH)
+
+    current_date = datetime.now()
+    orders_count = 0
+    for order in orders.values():
+        if order["status"] == "done":
+            created = datetime.fromisoformat(order["created_at"])
+            if created.year == current_date.year and created.month == current_date.month:
+                orders_count += 1
+    
+    current_month = current_date.strftime("%B")
+    
+    return orders_count, current_month

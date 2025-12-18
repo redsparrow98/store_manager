@@ -77,10 +77,74 @@ content %}
   </div>
 </section>
 
-<!-- Optional empty section -->
-<section class="placeholders">
-  <div class="placeholder"></div>
-  <div class="placeholder"></div>
-  <div class="placeholder"></div>
-</section>
+<!-- Analytics section -->
+<section class="overview">
+  <h2>Analytics</h2>
+  <div class="overview-cards">
+    <!-- top stored brand card -->
+    <div class="overview-card">
+      <div class="icon">
+        <img
+          src="{{ url_for('static', filename='images/reward.svg') }}"
+          alt="Top stored brand Icon"
+          class="card-icon analytics-icon"
+        />
+      </div>
+      <div class="value">
+        {% if top_brands %}
+          <span title="{{ top_brands|join(', ') }}">
+            {{ top_brands[0] }}
+              {% if top_brands|length > 1 %}
+                *
+              {% endif %}
+          </span>
+        {% else %}
+          N/A
+        {% endif %}
+      </div>
+
+
+      <div class="label">Top stocked brand</div>
+    </div>
+
+
+    <!-- top stocked product card -->
+    <div class="overview-card">
+      <div class="icon">
+        <img
+          src="{{ url_for('static', filename='images/chart-line.svg') }}"
+          alt="Top stocked product icon"
+          class="card-icon analytics-icon"
+        />
+      </div>
+      <div class="value">
+        {% if top_products %}
+          <span title="{{ top_products|join(', ') }}">
+            {{ top_products[0] }}
+              {% if top_products|length > 1 %}
+                *
+              {% endif %}
+          </span>
+        {% else %}
+          N/A
+        {% endif %}
+      </div>
+      <div class="label">Top stocked product</div>
+    </div>
+
+
+    <!-- Done deliveries this month -->
+    <div class="overview-card">
+      <div class="icon">
+        <img
+          src="{{ url_for('static', filename='images/delivery-done.svg') }}"
+          alt="Done deliveries icon"
+          class="card-icon analytics-icon"
+        />
+      </div>
+      <div class="value">{{ deliveries_this_month }}</div>
+      <div class="label">Done deliveries in {{ current_month }} </div>
+    </div>
+  </div>
+  </section>
 {% endblock %}

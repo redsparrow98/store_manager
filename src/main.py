@@ -6,6 +6,7 @@ from notifications import *
 from account_manager import *
 from login import *
 from pathlib import Path
+from datetime import datetime
 
 # this is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
@@ -83,6 +84,11 @@ def dashboard():
     #need to add it for returns here eventually
 
     username = current_user.id
+
+    # analytics data for the dashboard
+    top_brands = get_top_stored_brand()
+    top_products = get_top_stored_product()
+    deliveries_this_month, current_month = get_done_deliveries_month()
     
 
     return render_template(
@@ -93,7 +99,11 @@ def dashboard():
         today = today,
         total_products = total_products,
         low_stock = low_stock,
-        total_users = total_users
+        total_users = total_users,
+        top_brands = top_brands,
+        top_products = top_products,
+        deliveries_this_month = deliveries_this_month,
+        current_month = current_month
     )
 
 @app.context_processor
