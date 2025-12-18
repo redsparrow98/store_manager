@@ -73,8 +73,6 @@ def dashboard():
     #to load datasets for dashboard values
     products = load_json(FILE_PATH)
     users = load_json(USERS_FILE_PATH)
-    returns = load_json(RETURNS_FILE_PATH)
-    total_returns = len(returns)
 
     #getting all the values needed for dashboard
     total_products = len(products)
@@ -83,8 +81,10 @@ def dashboard():
         if int(product.get("stock_amount", 0)) <= 5:
             low_stock += 1
     total_users = len(users)
-    #need to add it for returns here eventually
 
+    #real time return product mirroing
+    returns = load_json(RETURNS_FILE_PATH)
+    total_returns = len(returns) 
     username = current_user.id
 
     # analytics data for the dashboard
