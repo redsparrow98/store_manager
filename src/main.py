@@ -3,6 +3,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from flask import Flask, render_template, redirect, url_for, request, flash, session
 from inventory_manager import *
 from notifications import *
+from notifications import clear_notifications
 from account_manager import *
 from login import *
 from pathlib import Path
@@ -227,6 +228,11 @@ def inject_notifications_count():
         notification_count = 0
 
     return {"notifications_count": notification_count}
+
+@app.route("/notifications/clear", methods=["POST"])
+def clear_notifications_page():
+    clear_notifications()
+    return redirect(url_for("notifications_page"))
 
 @app.route('/inventory/update-product', methods=['GET', 'POST'])
 def update_product_page():

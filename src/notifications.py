@@ -70,3 +70,10 @@ def get_notifications():
     This is what Flask will call to pass notifications to templates.
     """
     return list(notifications.values())
+    
+def clear_notifications():
+    """
+    Clear all notifications at once.
+    Called when the user clicks 'Clear all notifications'.
+    """
+    notifications.clear()
