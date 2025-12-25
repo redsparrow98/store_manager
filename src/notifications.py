@@ -77,14 +77,11 @@ def get_notifications():
     """
     return list(notifications.values())
 
-cleared_notifications = set() #Track cleared notifications so they don't reappear immediately 
-notification = {} #dictionary of notifications to clear them globally
+
 def clear_notifications():
     """
     Clear all notifications at once.
     Called when the user clicks 'Clear all notifications'.
     """
     global notification, clear_notifications
-    # Add all currently visible notifications to cleared set
-    cleared_notifications.update(notifications.keys())
     notifications.clear()
