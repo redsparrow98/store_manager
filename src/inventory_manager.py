@@ -466,7 +466,7 @@ def get_top_stored_brand():
         else:
             brands[current_brand] += 1
 
-    # in case there are multiple brands with same
+    # in case there are multiple brands with same stock
     highest_stock = max(brands.values())
     top_brands = []
 
