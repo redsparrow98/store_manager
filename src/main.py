@@ -126,7 +126,7 @@ def logout():
     session.clear()        
     return redirect(url_for("login"))
 
-# Gives the access level to the templates
+# Gives the access level of the currently logged in user to the HTML templates
 @app.context_processor
 def inject_access_level():
     access_level = session.get("access_level")
@@ -422,7 +422,7 @@ def create_account_page():
 
         success, result = create_account(username, name, access_level, password, repeat_password)
 
-        # User gets passed to the login and a success message gets flashed
+        # If the username is not already taken and the password match the password confirmation
         if success:
             flash (result, "success")
             return render_template("create_account.html")
@@ -535,6 +535,7 @@ def access_order_page():
         return render_template('access_order.html', order=order)
     
     else:
+        # Changing the status if it's not already delivered
         status = request.form["status"]
         result = access_order(status, order_number)
 
@@ -552,6 +553,7 @@ def add_order_page():
     
     else:
         
+        # All of the new orders being placed are stored in separate dictionaries in this list
         fields = []
         action = request.form["action"]
         article_ids = request.form.getlist("article_id")
@@ -559,12 +561,14 @@ def add_order_page():
 
         for id, qty in zip(article_ids, quantitys):
             fields.append({"article_id": id, "quantity": qty})
-         
+
+        #Adds two new input boxes while keeping the previous 
         if action == "add_field":
             fields.append({"article_id": "", "quantity": ""})
             return render_template('add_order.html', fields=fields)
 
         else:
+            # These values are automatically added to each order
             username = current_user.id
             date = datetime.today().strftime("%d/%m/%Y")
 
@@ -624,7 +628,7 @@ def access_return_info():
                                 return_id=return_id, 
                                 return_data=returns[return_id])
         
-    # If we get here something has gone wrong...
+    # If we get here something has gone wrong
     flash(f'No products found for: {return_id}', 'error')
     return render_template("access_return_info.html")
 
