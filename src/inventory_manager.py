@@ -136,6 +136,8 @@ def delete_product(article_id):
 
     Args:
         article_id (String): Article ID key for the DB
+    Returns: 
+    Dict of the deleted products info
     """
     products = load_json(FILE_PATH)
     delete = products.pop(article_id)
@@ -144,6 +146,10 @@ def delete_product(article_id):
 
 #ACCESSING A PRODUCT FEATURE AND HELPER FUNCTIONS
 def format_product_data(product_info):
+    """Format a products data when being accessed through search
+    
+    Args:
+        product_info (dict) the specific products/product info being searched for"""
     labels = {
     "article_name": "Product name",
     "article_id": "Product ID", 
@@ -174,6 +180,7 @@ def format_product_data(product_info):
     return formatted_data
 
 def find_brand_matches(products_data, search_term):
+
     matches = []
     search_lower = search_term.lower()
     
@@ -207,6 +214,12 @@ def list_orders():
 
 # Viewing order and updating order status
 def access_order(status, order_number):
+    """Viewing the full (restock) order information and changing order status if it's not already set to delivered
+    
+    Args:
+        status (String) The order updated order status
+        order_number (String) the order number of the specific order being accessed."""
+    
     orders = load_json(ORDER_FILE_PATH)
     products = load_json(FILE_PATH)
 
@@ -226,6 +239,13 @@ def access_order(status, order_number):
 
 # Adding Orders  
 def add_order(fields, username, date):
+    """Placing new restock orders
+    
+    Args:
+        fields (list) all info for the new order/orders.
+        username (String) the current username of the currently logged in user
+        date (String) the date when the order was placed """
+    
     orders = load_json(ORDER_FILE_PATH)
     products = load_json(FILE_PATH)
 
@@ -268,6 +288,11 @@ def add_order(fields, username, date):
 
 
 def access_return(status, return_id):
+    """Viewing the return information, updating status, deleting and adding returned products back to stock
+    Args:
+        status (String) the updated status of the return
+        return_id (String) the return id to access the return in the DB """
+    
     returns = load_json(RETURNS_FILE_PATH)
     products = load_json(FILE_PATH)
 
@@ -288,8 +313,14 @@ def access_return(status, return_id):
 
 # REGISTER NEW RETURN
 def add_return(article_id, stock, customer, date):
+    """Add new return to be processed
+    Args:
+        article_id (String) the product getting returned
+        stock (int) the returned ammount of the product
+        customer (String) the customer returning the product
+        date (String) the return date."""
+    
     returns = load_json(RETURNS_FILE_PATH)
-
     errors = []
     
     if not article_id.strip():
@@ -328,6 +359,13 @@ def add_return(article_id, stock, customer, date):
     
 # DELETE RETURN
 def delete_return(return_id):
+    """Deletes a return using the return id from the DB
+
+    Args:
+        return_id (String): return ID key for the DB
+    Returns: 
+        Dict of the returns info
+    """
     returns = load_json(RETURNS_FILE_PATH)
     deleted_return = returns.pop(return_id)
     write_json(RETURNS_FILE_PATH, returns)
@@ -335,6 +373,10 @@ def delete_return(return_id):
 
 # ADD RETURN BACK TO STOCK
 def add_return_to_stock(return_id):
+    """Adding returned products back to the inventory
+    Args:
+        return_id (String) return ID key for the DB."""
+    
     returns = load_json(RETURNS_FILE_PATH)
     products = load_json(FILE_PATH)
     
