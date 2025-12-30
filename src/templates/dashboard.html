@@ -4,14 +4,14 @@ content %}
   <h1>Welcome, {{ name }}!</h1>
   <div class="header-right">
     <!-- Date button with icon -->
-    <button class="btn date">
+    <button class="btn date date-btn">
       <img
         src="{{ url_for('static', filename='images/calendar.svg') }}"
         alt="Calendar Icon"
         class="date-icon"
       />
       <!-- Christmas calendar icon -->
-      <span class="nav-icon christmas-calendar-icon" aria-hidden="true"></span>
+      <span class="sidebar-icon christmas-calendar-icon" aria-hidden="true"></span>
       {{ today }}
     </button>
   </div>
@@ -81,7 +81,7 @@ content %}
 <section class="overview">
   <h2>Analytics</h2>
   <div class="overview-cards">
-    <!-- top stored brand card -->
+    <!-- Top stored brand card -->
     <div class="overview-card">
       <div class="icon">
         <img
@@ -108,7 +108,7 @@ content %}
     </div>
 
 
-    <!-- top stocked product card -->
+    <!-- Top stocked product card -->
     <div class="overview-card">
       <div class="icon">
         <img
@@ -133,7 +133,7 @@ content %}
     </div>
 
 
-    <!-- Done deliveries this month -->
+    <!-- Amount of deliveries this month -->
     <div class="overview-card">
       <div class="icon">
         <img
@@ -143,7 +143,7 @@ content %}
         />
       </div>
       <div class="value">{{ deliveries_this_month }}</div>
-      <div class="label">Done deliveries in {{ current_month }} </div>
+      <div class="label">Amount of deliveries in {{ current_month }} </div>
     </div>
   </div>
   </section>
