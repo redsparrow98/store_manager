@@ -3,10 +3,10 @@
     "article_name": "Iphone 17 PRO",
     "article_id": "0001",
     "brand": "Apple",
-    "price_SEK": "14995.0",
+    "price_SEK": 14994.0,
     "category": "Phones",
-    "discount_percentage": "0",
-    "stock_amount": 2,
+    "discount_percentage": 0,
+    "stock_amount": "2",
     "discounted_price_SEK": 14995.0
   },
   "0002": {
