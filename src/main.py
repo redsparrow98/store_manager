@@ -241,7 +241,7 @@ def update_product_page():
         product['price_SEK'] = float(request.form.get('price', ''))
         product['discount_percentage'] = int(request.form.get('discount', ''))
         product['category'] = request.form.get('category', '').strip().capitalize()
-        product['stock_amount'] = request.form.get('stock', '').strip()
+        product['stock_amount'] = int(request.form.get('stock', ''))
 
         # If statements so it only updates if the input is valid
         if product['article_name'].isdigit() or product['article_name'] == "":
@@ -253,11 +253,11 @@ def update_product_page():
             flash (f"Brand cannot be digit or blank.", "error")
             return render_template("update_product.html", product=product_copy)
 
-        elif is_number(product['price_SEK']) == False or float(product['price_SEK']) < 0:
+        elif product['price_SEK'] < 0:
             flash (f"Price cannot be negative or blank.", "error")
             return render_template("update_product.html", product=product_copy)
         
-        elif is_number(product['discount_percentage']) == False or int(product['discount_percentage']) < 0:
+        elif product['discount_percentage'] < 0:
             flash (f"Discount percentage cannot be negative or blank.", "error")
             return render_template("update_product.html", product=product_copy)
             
@@ -265,9 +265,6 @@ def update_product_page():
             flash (f"Category cannot be digit or blank.", "error")
             return render_template("update_product.html", product=product_copy)
         
-        elif not product['stock_amount'].isdigit():
-            flash (f"Stock amount cannot be text, blank or negative.", "error")
-            return render_template("update_product.html", product=product_copy)
         
         # Saves the updated product information to the JSON file
         with open(FILE_PATH, 'w') as f:
