@@ -8,7 +8,7 @@ from login import *
 from pathlib import Path
 from datetime import datetime
 
-# this is to avoid the file path issues we had
+# This is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"

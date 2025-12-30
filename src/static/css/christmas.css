@@ -1,0 +1,143 @@
+[data-theme="christmas"] {
+  --bg-main: #1c3626;
+  --bg-card: #386641;
+  --bg-sidebar: #02230b;
+  --bg-sidebar-hover: #708567;
+
+  --text-main: #f5deae;
+  --text-primary: #f5deae;
+  --text-muted: #708567;
+  --text-accent: #f5deae;
+
+  --border-primary: #f5deae;
+  --border-table: #f5deae;
+}
+
+.sidebar .user-icon .christmas-user-icon {
+  width: 90px;
+  height: 90px;
+  position: relative;
+  overflow: visible; 
+}
+
+.icon--christmas {
+  display: none;
+}
+
+[data-theme="christmas"] .icon--default {
+  display: none;
+}
+
+[data-theme="christmas"] .icon--christmas {
+  display: inline-block;
+}
+
+/* Show Christmas icons only in Christmas mode */
+[data-theme="christmas"] .sidebar-icon[class*="christmas-"] {
+  display: inline-block;
+}
+
+/* Hide default sidebar icons in Christmas mode */
+[data-theme="christmas"] .sidebar-icon.default-icon {
+  display: none;
+}
+
+[data-theme="christmas"] img.user-icon-img {
+  display: none;
+}
+
+/* Hide Christmas icons by default */
+.sidebar-icon[class*="christmas-"] {
+  display: none;
+}
+
+/* Default icons */
+.icon--notification.icon--default {
+  background-image: url("../images/notification.svg");
+}
+
+.icon--logo.icon--default {
+  background-image: url("../images/logo.svg");
+}
+
+.icon--user.icon--default {
+  background-image: url("../images/usericon.svg");
+}
+
+.icon--calendar.icon--default {
+  background-image: url("../images/calendar.svg");
+}
+
+/* Christmas icons */
+[data-theme="christmas"] .icon--notification.icon--christmas {
+  background-image: url("../christmas_images/notification.svg");
+}
+
+[data-theme="christmas"] .icon--logo.icon--christmas {
+  background-image: url("../christmas_images/logo.svg");
+}
+
+[data-theme="christmas"] .icon--user.icon--christmas {
+  background-image: url("../christmas_images/usericon.svg");
+}
+
+[data-theme="christmas"] .icon--calendar.icon--christmas {
+  background-image: url("../christmas_images/calendar.svg");
+}
+
+/* Sidebar Christmas icons */
+[data-theme="christmas"] .christmas-user-icon {
+  background-image: url("../christmas_images/usericon.svg");
+}
+
+[data-theme="christmas"] .christmas-home-icon {
+  background-image: url("../christmas_images/christmas_home.svg");
+}
+
+[data-theme="christmas"] .christmas-inventory-icon {
+  background-image: url("../christmas_images/gift.svg");
+}
+
+[data-theme="christmas"] .christmas-stock-icon {
+  background-image: url("../christmas_images/stock.svg");
+}
+
+[data-theme="christmas"] .christmas-orders-icon {
+  background-image: url("../christmas_images/order.svg");
+}
+
+[data-theme="christmas"] .christmas-returns-icon {
+  background-image: url("../christmas_images/star.svg");
+}
+
+/* Notifications */
+[data-theme="christmas"] .notification-counter {
+  background: #386641;
+  color: #f5deae;
+  border: 1px solid #062b18;
+}
+
+html[data-theme="christmas"] .date .date-icon {
+  display: none;
+}
+
+html[data-theme="christmas"] .date .sidebar-icon.christmas-calendar-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/calendar.svg");
+}
+
+/* Garland */
+[data-theme="christmas"] .top-navbar {
+  overflow: visible;
+}
+
+[data-theme="christmas"] .top-navbar::after {
+  content: "";
+  position: absolute;
+  top: 95%;
+  left: 16vw;
+  right: 0;
+  height: 6vh;
+  background-image: url("../christmas_images/garland.svg");
+  background-size: contain;
+}
