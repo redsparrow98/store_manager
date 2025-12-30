@@ -146,7 +146,7 @@ def delete_product(article_id):
 
 #ACCESSING A PRODUCT FEATURE AND HELPER FUNCTIONS
 def format_product_data(product_info):
-    """Format a products data when being accessed through search
+    """Format a product's data when being accessed through search
     
     Args:
         product_info (dict) the specific products/product info being searched for"""
@@ -400,9 +400,9 @@ def add_return_to_stock(return_id):
     
     return True, f"Added {stock_to_add} units back to stock for product ID {article_id}."
 
-#USER ORDERS AND DELIVERIES
+# USER ORDERS AND DELIVERIES
 
-#Loading and writing to and from products.json and user_orders.json
+# Loading and writing to and from products.json and user_orders.json
 def load_products():
     return load_json(FILE_PATH)
 
@@ -415,7 +415,7 @@ def load_orders():
 def save_orders(orders):
     write_json(USER_ORDER_FILE_PATH, orders)
 
-#Function for updating order status
+# Function for updating order status
 def update_order_status(order_id, new_status):
     """Update order status. If status is 'sent', stock will be decreased."""
     orders = load_orders()
@@ -466,7 +466,7 @@ def get_top_stored_brand():
         else:
             brands[current_brand] += 1
 
-    # in case there are multiple brands with same stock
+    # In case there are multiple brands with same stock
     highest_stock = max(brands.values())
     top_brands = []
 
