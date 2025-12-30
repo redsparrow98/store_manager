@@ -238,8 +238,8 @@ def update_product_page():
         product_copy = product.copy()
         product['article_name'] = request.form.get('name', '').strip()
         product['brand'] = request.form.get('brand', '').strip()
-        product['price_SEK'] = request.form.get('price', '').strip()
-        product['discount_percentage'] = request.form.get('discount', '').strip()
+        product['price_SEK'] = float(request.form.get('price', ''))
+        product['discount_percentage'] = int(request.form.get('discount', ''))
         product['category'] = request.form.get('category', '').strip().capitalize()
         product['stock_amount'] = request.form.get('stock', '').strip()
 

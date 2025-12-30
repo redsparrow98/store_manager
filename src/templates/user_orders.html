@@ -40,6 +40,7 @@ content %}
 					<tr>
 						<td class="col-order">{{ order_id }}</td>
 						<td class="col-date">{{ order.get('created_at') }}</td>
+						{% if access_level in ["Manager"] %}
 						<td class="col-actions">
 							<form method="post" action="{{ url_for('user_orders_page') }}?order_number={{ order_id }}">
 								<select class="btn" name="status">
@@ -52,6 +53,10 @@ content %}
 						<td class="col-actions">
 								<button type="submit" class="btn btn-edit">Update</button>
 							</form>
+							{% else %}
+							<td class="col-actions"> {{ status|title }}</td>
+							{% endif %}
+							
 						</td>
 					</tr>
 				{% endfor %} {% endif %}
