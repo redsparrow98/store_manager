@@ -654,7 +654,7 @@ body {
   outline: none;
   background: var(--btn-inventory-bg);
   font-size: 15px;
-  color: var(--text-primary);
+  color: var(--text-main);
   flex: 5%;
   min-width: 0;
   padding: 6px 0;
