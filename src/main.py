@@ -496,7 +496,7 @@ def edit_user():
             if new_username in users:
                 flash("Username already exists", "error")
 
-            # Delet user from DB since username is dictionary key
+            # Delete user from DB since username is dictionary key
             else:
                 users.pop(original_username)
                 users[new_username] = new_user_info

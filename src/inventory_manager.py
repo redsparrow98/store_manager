@@ -146,7 +146,7 @@ def delete_product(article_id):
 
 #ACCESSING A PRODUCT FEATURE AND HELPER FUNCTIONS
 def format_product_data(product_info):
-    """Format a product's data when being accessed through search
+    """Formats a product's data when being accessed through search
     
     Args:
         product_info (dict) the specific products/product info being searched for"""
