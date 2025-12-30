@@ -245,7 +245,7 @@ def update_product_page():
 
         # If statements so it only updates if the input is valid
         if product['article_name'].isdigit() or product['article_name'] == "":
-            #Shows error message and redirects to same page with original product info in case of wrong input type
+            # Shows error message and redirects to same page with original product info in case of wrong input type
             flash (f"Name cannot be digit or blank.", "error")
             return render_template("update_product.html", product=product_copy)
 
@@ -295,12 +295,12 @@ def update_product_page():
 
 @app.route('/inventory/apply-discount', methods=['GET', 'POST'])
 def apply_discount_page():
-    #loading categories from JSON
+    # Loading categories from JSON
     try: 
         dataset = load_json(FILE_PATH)
         categories = sorted({product.get("category") for product in dataset.values() if product.get("category")})
     except FileNotFoundError:
-        categories = [] #if file is missing, to not throw an error
+        categories = [] # If file is missing, to not throw an error
 
     if request.method == "GET":
         
@@ -312,7 +312,7 @@ def apply_discount_page():
         try:
             if not discount_input:
                 raise ValueError("You must enter a discount percentage")
-            discount_percentage = float(discount_input) #needed to allow decimals
+            discount_percentage = float(discount_input) # Needed to allow decimals
             message = apply_discount_to_products(discount_percentage, category)
             flash(message, "success")
      
@@ -465,7 +465,7 @@ def account_page():
     
 @app.route('/dashboard/users', methods=['GET'])
 def users_page():
-    #Reads all existing users
+    # Reads all existing users
     users = load_json(USERS_FILE_PATH)
 
     return render_template("users.html", users=users)
@@ -474,7 +474,7 @@ def users_page():
 def edit_user():
     users = load_json(USERS_FILE_PATH)
 
-    #Render existing user information
+    # Render existing user information
     if request.method == "POST":
         original_username = request.form['original_username']
         new_username = request.form['username']
@@ -484,7 +484,7 @@ def edit_user():
             flash("User not found", "error")
             return redirect(url_for("users_page"))
 
-        #new user info if changes made
+        # New user info if changes made
         new_user_info = {
             "password": request.form['password'],
             "name": request.form['name'],
@@ -492,16 +492,16 @@ def edit_user():
         }
 
         if original_username != new_username:
-            #checking for duplicates
+            # Checking for duplicates
             if new_username in users:
                 flash("Username already exists", "error")
 
-            #pop user since username is dictionary key
+            # Delet user from DB since username is dictionary key
             else:
                 users.pop(original_username)
                 users[new_username] = new_user_info
 
-        #only chaning info if username does not change
+        # Only chaning info if username does not change
         else:
             users[original_username] = new_user_info
 
@@ -562,7 +562,7 @@ def add_order_page():
         for id, qty in zip(article_ids, quantitys):
             fields.append({"article_id": id, "quantity": qty})
 
-        #Adds two new input boxes while keeping the previous 
+        # Adds two new input boxes while keeping the previous 
         if action == "add_field":
             fields.append({"article_id": "", "quantity": ""})
             return render_template('add_order.html', fields=fields)
@@ -674,7 +674,7 @@ def add_return_page():
         
         return render_template("add_return.html")
     
-#Route for user orders and delivery tracking
+# Route for user orders and delivery tracking
 @app.route('/dashboard/user-orders', methods=['GET', 'POST'])
 def user_orders_page():
     orders = load_orders()
