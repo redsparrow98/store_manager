@@ -43,10 +43,10 @@ content %}
 						<td class="col-actions">
 							<form method="post" action="{{ url_for('user_orders_page') }}?order_number={{ order_id }}">
 								<select class="btn" name="status">
-									<option value="ordered" {{ 'selected' if status == 'ordered' else '' }}>New Orders</option>
-									<option value="dispatched" {{ 'selected' if status == 'dispatched' else '' }}>In Progress</option>
-									<option value="in transit" {{ 'selected' if status == 'in transit' else '' }}>Packing</option>
-									<option value="delivered" {{ 'selected' if status == 'delivered' else '' }}>Sent Orders</option>
+									<option value="ordered" {{ 'selected' if status == 'ordered' else '' }}>Ordered</option>
+									<option value="dispatched" {{ 'selected' if status == 'dispatched' else '' }}>Dispatched</option>
+									<option value="in transit" {{ 'selected' if status == 'in transit' else '' }}>In Transit</option>
+									<option value="delivered" {{ 'selected' if status == 'delivered' else '' }}>Delivered</option>
 								</select>
 						</td>
 						<td class="col-actions">
