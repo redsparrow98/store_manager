@@ -23,6 +23,29 @@
   --highlight-blue: #0080fc;
 }
 
+[data-theme="christmas"] {
+  --bg-main: #1c3626;
+  --bg-card: #386641;
+  --bg-sidebar: #02230b;
+  --bg-sidebar-hover: #708567;
+  --bg-login: #e4e9ff;
+
+  --text-main: #f5deae;
+  --text-primary: #f5deae;
+  --text-muted: #708567;
+  --text-accent: #f5deae;
+
+  --border-primary: #f5deae;
+  --border-table: #f5deae;
+
+  --btn-primary-bg: #007bff;
+  --btn-primary-hover: #0056b3;
+  --btn-date: #386641;
+  --btn-inventory-bg: #708567;
+
+  --highlight-blue: #0080fc;
+}
+
 body {
   margin: 0;
   padding: 20px;
@@ -68,9 +91,10 @@ body {
   margin-right: 5vw;
 }
 
-.icon--logo {
-  width: 8vw;
+.top-navbar .logo img {
+  width: auto;
   height: 5vh;
+  margin-top: 3px;
 }
 
 .notification-btn {
@@ -171,16 +195,6 @@ body {
   min-width: 120px;
 }
 
-.icon,
-.sidebar-icon {
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-
 .sidebar-user {
   display: flex;
   margin-top: 3vh;
@@ -189,22 +203,13 @@ body {
   text-decoration: none;
 }
 
-.sidebar-user-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-}
-
 .user-icon {
-  width: 90px;
-  height: 90px;
   position: relative;
-  overflow: visible; 
+  width: 7vw;
+  height: 7vw;
 }
 
 .user-icon-img {
-  display: block;
   width: 100%;
   height: 100%;
 }
@@ -247,12 +252,6 @@ body {
   border-left: 5px solid var(--border-primary);
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
-}
-
-/* Logo */
-.logo .icon {
-  width: 8vw;
-  height: 5vh;
 }
 
 .logout-btn {
@@ -401,12 +400,10 @@ body {
 }
 
 /* Date button */
-.date-btn .date-icon,
-.date-btn .christmas-calendar-icon {
-  display: inline-block;
+
+.date-icon {
   width: 20px;
   height: 20px;
-  vertical-align: middle;
 }
 
 /* Overview section */
@@ -435,29 +432,18 @@ body {
   border-radius: 8px;
   padding: 20px;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
 }
 
-.overview-card .analytics-icon,
-.overview-card .icon,
-.overview-card .overview-icon {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  vertical-align: middle;
+.overview-card .icon {
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 .overview-card .value {
   font-size: 24px;
   font-weight: bold;
   color: var(--bg-sidebar);
-  margin: 6px 0 0;
+  margin-bottom: 10px;
 }
 
 .overview-card .label {
@@ -487,22 +473,8 @@ body {
 }
 
 .accounts-box .icon {
-  display: block;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 10px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  line-height: 1;
-}
-
-.accounts-box .icon img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  margin: 0;
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 .accounts-box .value {
@@ -528,4 +500,510 @@ body {
 .account-actions .btn {
     padding: 10px 18px;
     border-radius: 8px;
+}
+
+/* Empty placeholder cards */
+.placeholders {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.placeholder {
+  flex: 1;
+  min-width: 200px;
+  height: 100px;
+  background-color: var(--bg-card);
+  border-radius: 8px;
+}
+
+/*INVENTORY PAGE STYLES*/
+/*Buttons on top bar(search and add)*/
+.round-btn img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+.plus-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--btn-inventory-bg);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plus-btn img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.inventory-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 12px;
+  padding-left: 25px;
+  padding-bottom: 2px;
+  color: var(--text-main);
+}
+
+.inventory-header .title {
+  margin: 0;
+  line-height: 1;
+  display: flex;
+}
+
+.inventory-actions {
+  display: flex;
+  gap: 20px;
+}
+
+.btn {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border: none;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.btn:hover {
+  filter: brightness(0.98);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-search {
+  width: 200px;
+}
+
+.btn-search img {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-discount {
+  background-color: var(--btn-inventory-bg);
+  align-self: left;
+  font-weight: 400;
+  width: 115px;
+}
+
+.filterPanel {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 12px;
+  width: 220px;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+}
+
+
+.btn-users {
+  background-color: var(--btn-inventory-bg);
+  text-align: center;
+}
+
+/* Search button */
+.search-button-form {
+  background-color: var(--btn-inventory-bg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  width: 117px;
+  box-sizing: border-box;
+}
+
+.search-button-form:hover {
+  width: 270px;
+}
+
+/* Search icon */
+.search-button-form .search-icon img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Search input */
+.search-button-form .search-input-in-btn {
+  border: none;
+  outline: none;
+  background: var(--btn-inventory-bg);
+  font-size: 15px;
+  color: var(--text-primary);
+  flex: 5%;
+  min-width: 0;
+  padding: 6px 0;
+  width: auto;
+}
+
+/* Table container */
+.table-wrap {
+  margin: 24px 20px;
+  padding: 8px 12px;
+  background: var(--bg-card);
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.filter-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-column input {
+  margin-right: 0.3rem;
+} 
+
+.filter-column label {
+  margin-right: 2rem;
+  display: inline-block;
+}
+
+/* Table */
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  color: var(--text-main);
+}
+
+/* Header cells */
+.products-table thead th {
+  text-align: left;
+  background: transparent;
+  white-space: nowrap;
+  border-bottom: none;
+  padding: 12px 16px;
+}
+
+/* Lines between table rows */
+.products-table tbody tr {
+  border-bottom: 1px solid var(--border-table);
+  background-clip: padding-box;
+}
+
+/* Table body */
+.products-table tbody td {
+  padding: 12px 16px;
+}
+
+.col-actions {
+  display: flex;
+  gap: 5px;
+  width: 14%;
+  box-sizing: border-box;
+}
+
+/* Icons in the table */
+.icon-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  margin: 0;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+/* SVG  */
+.icon-btn svg {
+  display: block;
+  object-fit: contain;
+  background: transparent;
+}
+
+.btn-christmas {
+  background: var(--bg-sidebar-hover);
+  color: var(--text-primary);
+  font-size: 16px;
+  padding: 5% 10%;
+  border-radius: 7px;
+  border: None;
+  cursor: pointer;
+}
+
+/*for inventory*/
+@media (max-width: 900px) {
+  .col-name {
+    width: 28%;
+  }
+  .col-id {
+    width: 10%;
+  }
+  .col-cat {
+    width: 14%;
+  }
+  .col-price {
+    white-space: nowrap;
+  }
+  .col-discount {
+    width: 18%;
+  }
+  .col-amount {
+    width: 10%;
+  }
+
+  .topbar {
+    flex-wrap: wrap;
+  }
+  .topbar-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .table-wrap {
+    overflow-x: auto;
+  }
+  .products-table {
+    min-width: 760px;
+  } /* allow horizontal scroll rather than breaking layout */
+}
+
+/* Christmas icons (only show when Christmas mode is activated) */
+[data-theme="christmas"] .nav-icon.default-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .notification-img.default-icon {
+  display: none;
+}
+
+.nav-icon.christmas-home-icon,
+.nav-icon.christmas-inventory-icon,
+.nav-icon.christmas-orders-icon,
+.nav-icon.christmas-returns-icon,
+.nav-icon.christmas-account-icon {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.nav-icon.christmas-user-icon {
+  position: absolute;
+  bottom: 0; /* Same bottom position as regular user icon */
+  width: 112%;         
+  height: 113%;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.logo .christmas-logo-icon {
+  display: none;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.christmas-notification-icon {
+  display: none;
+  background-repeat: no-repeat;
+}
+
+.date .christmas-calendar-icon {
+  display: none;
+  width: 22px;
+  height: 22px;
+  margin-right: 8px;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.christmas-users-icon {
+  display: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  vertical-align: middle;
+}
+
+.btn-discount .christmas-discount-icon,
+.christmas-plus-icon,
+.christmas-filter-icon {
+  display: none;
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 2px;
+}
+
+[data-theme="christmas"] .sidebar-nav img.nav-icon.default-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .top-navbar .logo img.nav-icon.default-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .christmas-user-icon {
+  background-image: url("../christmas_images/usericon.svg");
+}
+
+[data-theme="christmas"] .nav-icon.christmas-home-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/christmas_home.svg");
+}
+
+[data-theme="christmas"] .nav-icon.christmas-inventory-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/gift.svg");
+}
+
+[data-theme="christmas"] .nav-icon.christmas-orders-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/snowflake.svg");
+}
+
+[data-theme="christmas"] .nav-icon.christmas-returns-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/star.svg");
+}
+
+[data-theme="christmas"] .nav-icon.christmas-account-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/account.svg");
+}
+
+[data-theme="christmas"] .christmas-logo-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/logo.svg");
+  width: 8vw;
+  height: 5vh;
+  background-size: contain;
+}
+
+[data-theme="christmas"] .christmas-notification-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/notification.svg");
+  width: 2vw;
+  height: 3vh;
+  background-size: contain;
+}
+
+/* Christmas notification counter */
+html[data-theme="christmas"] .top-navbar .notification-btn .notification-counter {
+  background: #386641;
+  color: #F5DEAE;
+  border: 1px solid #062b18;
+}
+
+[data-theme="christmas"] .date img.date-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .date img.date-icon {
+  display: none;
+  visibility: hidden;
+}
+
+[data-theme="christmas"] .date .christmas-calendar-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/calendar.svg");
+}
+
+[data-theme="christmas"] .accounts-box .icon .card-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .christmas-users-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/users.svg");
+  width: 115px;
+  height: 80px;
+}
+
+/* Garland */
+[data-theme="christmas"] .top-navbar {
+  overflow: visible;
+}
+
+[data-theme="christmas"] .top-navbar::after {
+  content: "";
+  position: absolute;
+  top: 6vh;
+  left: 16vw;
+  right: 0;
+  height: 6vh;
+  background: url("../christmas_images/garland.svg");
+  background-size: contain;
+}
+
+/* Christmas icons for inventory page */
+[data-theme="christmas"] .search-button-form .search-icon img {
+  display: none;
+}
+
+.search-button-form .christmas-search-icon {
+  display: none;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  margin-right: 8px;
+}
+
+[data-theme="christmas"] .search-button-form .christmas-search-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/search.svg");
+}
+
+[data-theme="christmas"] .btn-discount img.btn-icon {
+  display: none;
+}
+
+[data-theme="christmas"] .btn-discount .christmas-discount-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/discount.svg");
+}
+
+[data-theme="christmas"] .christmas-plus-icon {
+  display: inline-block;
+  background-image: url("../christmas_images/plus.svg");
+}
+
+[data-theme="christmas"] .christmas-filter-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url("../christmas_images/filter.svg");
 }

@@ -16,14 +16,6 @@
     rel="stylesheet"
     href="{{ url_for('static', filename='css/access.css') }}"
     />
-    <link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/inventory.css') }}"
-    />
-    <link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/christmas.css') }}"
-    />
   </head>
   <body>
     <!-- Top navigation bar -->
@@ -31,9 +23,13 @@
         <div class = "header-icon">
             <div class="notification">
                 <a href="{{ url_for('notifications_page') }}" class="notification-btn" title="Notifications">
-                <span class="icon icon--notification icon--default sidebar-icon"></span>
+                <img
+                    src="{{ url_for('static', filename='images/notification.svg') }}"
+                    alt="Notifications"
+                    class="nav-icon default-icon notification-img"
+                />
                 <!-- Christmas notification icon -->
-                <span class="icon icon--notification icon--christmas sidebar-icon"></span>
+                <span class="nav-icon christmas-notification-icon" aria-hidden="true"></span>
                 <!-- Notification counter -->
                 {% if notifications_count > 0 %}
                   <span class="notification-counter" aria-hidden="true">{{ notifications_count }}</span>
@@ -41,19 +37,28 @@
                 </a>
             </div>
             <div class="logo">
-                <span class="icon icon--logo icon--default sidebar-icon"></span>
+                <img
+                    src="{{ url_for('static', filename='images/logo.svg') }}"
+                    alt="Logo"
+                    class="nav-icon default-icon logo-img"
+                />
                 <!-- Christmas logo icon -->
-                <span class="icon icon--logo icon--christmas sidebar-icon"></span>
+                <span class="nav-icon christmas-logo-icon" aria-hidden="true"></span>
             </div>
     </header>
 
     <!-- Sidebar navigation  -->
     <aside class="sidebar">
       <div class="sidebar-user">
-        <a href="{{ url_for('account_page') }}" class="sidebar-user-link" aria-label="My account">
+        <a href="{{ url_for('account_page') }}" class="sidebar-user">
           <div class="user-icon">
-            <img src="{{ url_for('static', filename='images/usericon.svg') }}" alt="User" class="user-icon-img default-icon" />
-            <span class="sidebar-icon christmas-user-icon" aria-hidden="true"></span>
+            <img
+              src="{{ url_for('static', filename='images/usericon.svg') }}"
+              alt="User Icon"
+              class="nav-icon default-icon user-icon-img"
+            />
+            <!-- Christmas user icon -->
+            <span class="nav-icon christmas-user-icon" aria-hidden="true"></span>
           </div>
 
           <span class="user-label">
@@ -75,50 +80,50 @@
             <img
               src="{{ url_for('static', filename='images/home.svg') }}"
               alt="Home Icon"
-              class="sidebar-icon default-icon"
+              class="nav-icon default-icon"
             />
             <!-- Christmas home icon -->
-            <span class="sidebar-icon christmas-home-icon" aria-hidden="true"></span>
+            <span class="nav-icon christmas-home-icon" aria-hidden="true"></span>
             Home
           </a>
           <a href="{{ url_for('display_inventory') }}">
             <img
               src="{{ url_for('static', filename='images/shoppingbag.svg') }}"
               alt="Inventory Icon"
-              class="sidebar-icon default-icon"
+              class="nav-icon default-icon"
             />
             <!-- Christmas inventory icon -->
-            <span class="sidebar-icon christmas-inventory-icon" aria-hidden="true"></span>
+            <span class="nav-icon christmas-inventory-icon" aria-hidden="true"></span>
             Inventory
           </a>
           <a href="{{ url_for('list_orders_page') }}">
             <img
               src="{{ url_for('static', filename='images/orders.svg') }}"
               alt="Orders Icon"
-              class="sidebar-icon default-icon"
+              class="nav-icon default-icon"
             />
-            <!-- Christmas stock icon -->
-            <span class="sidebar-icon christmas-stock-icon" aria-hidden="true"></span>
+            <!-- Christmas orders icon -->
+            <span class="nav-icon christmas-orders-icon" aria-hidden="true"></span>
             Stock
           </a>
           <a href="{{ url_for('user_orders_page') }}">
             <img
               src="{{ url_for('static', filename='images/user-orders-icon.svg') }}"
               alt="User Orders Icon"
-              class="sidebar-icon default-icon"
+              class="nav-icon default-icon"
             />
             <!-- Christmas orders icon -->
-            <span class="sidebar-icon christmas-orders-icon" aria-hidden="true"></span>
+            <span class="nav-icon christmas-orders-icon" aria-hidden="true"></span>
             User Orders
           </a>
           <a href="{{ url_for('returns_page') }}">
             <img
               src="{{ url_for('static', filename='images/notepad.svg') }}"
               alt="Returns Icon"
-              class="sidebar-icon default-icon"
+              class="nav-icon default-icon"
             />
             <!-- Christmas returns icon -->
-            <span class="sidebar-icon christmas-returns-icon" aria-hidden="true"></span>
+            <span class="nav-icon christmas-returns-icon" aria-hidden="true"></span>
             Returns
           </a>
         </nav>
@@ -130,8 +135,12 @@
     <!-- Main content area -->
     <main class="main-content">
       <section class="content">{% block content %}{% endblock %}</section>
+      <!--Add a notification button and logo here-->
     </main>
     <script src="{{ url_for('static', filename='JavaScript/christmasMode.js') }}">
+       
     </script>
+
+
   </body>
 </html>
