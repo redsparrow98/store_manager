@@ -2,10 +2,10 @@
 {% block title %}Create account{% endblock %} 
 {% block content %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/access.css') }}" />
 
 <div class="product-modal" role="dialog" aria-modal="true">
-    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
+    <!-- X button to close page -->
+    <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('account_page') }}'">×</button>
     <header class="modal-header">
         <h2>Add User</h2>
     </header>
@@ -70,5 +70,6 @@
                 <button type="submit" class="btn btn-edit">Create Account</button>
             </div>
         </form>
+    </div>
 </div>
 {% endblock %}

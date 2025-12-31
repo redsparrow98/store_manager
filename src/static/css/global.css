@@ -1,4 +1,5 @@
 /* Global reset and layout */
+/*standard UI colors*/
 :root {
   --bg-main: #efefef;
   --bg-card: #ffffff;
@@ -23,6 +24,7 @@
   --highlight-blue: #0080fc;
 }
 
+/*christmas UI colors*/
 [data-theme="christmas"] {
   --bg-main: #1c3626;
   --bg-card: #386641;
@@ -280,6 +282,7 @@ body {
   background-size: cover;
 }
 
+/*hard coded color because no christmas mode when logged out*/
 .login-container {
   width: 30vw;
   padding: 3vw;
@@ -400,7 +403,6 @@ body {
 }
 
 /* Date button */
-
 .date-icon {
   width: 20px;
   height: 20px;
@@ -502,22 +504,6 @@ body {
     border-radius: 8px;
 }
 
-/* Empty placeholder cards */
-.placeholders {
-  margin-top: 30px;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.placeholder {
-  flex: 1;
-  min-width: 200px;
-  height: 100px;
-  background-color: var(--bg-card);
-  border-radius: 8px;
-}
-
 /*INVENTORY PAGE STYLES*/
 /*Buttons on top bar(search and add)*/
 .round-btn img {
@@ -605,18 +591,6 @@ body {
   width: 115px;
 }
 
-.filterPanel {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 12px;
-  width: 220px;
-  position: absolute;
-  top: 70px;
-  right: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,.1);
-}
-
-
 .btn-users {
   background-color: var(--btn-inventory-bg);
   text-align: center;
@@ -671,6 +645,7 @@ body {
   box-sizing: border-box;
 }
 
+/*toggled filtering panel*/
 .filter-row {
   display: flex;
   flex-wrap: nowrap;
@@ -747,6 +722,7 @@ body {
   background: transparent;
 }
 
+/*christmas mode button*/
 .btn-christmas {
   background: var(--bg-sidebar-hover);
   color: var(--text-primary);
