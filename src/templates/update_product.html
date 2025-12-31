@@ -47,7 +47,7 @@
 
                 <div class="form-row">
                     <div class="field-label">Price</div>
-                    <input class="field-box" name="price" required value="{{ product.price_SEK if product else (price or '') }}">
+                    <input class="field-box" name="price" type="number" step="0" required value="{{ product.price_SEK if product else (price or '') }}">
                 </div>
 
                 <div class="form-row">
@@ -57,12 +57,12 @@
 
                 <div class="form-row">
                     <div class="field-label">Discount percentage</div>
-                    <input class="field-box" name="discount" type="number" required value="{{ product.discount_percentage if product else (discount or '') }}">
+                    <input class="field-box" name="discount" type="number" step="0" required value="{{ product.discount_percentage if product else (discount or '') }}">
                 </div>
 
                 <div class="form-row">
                     <div class="field-label">Stock amount</div>
-                    <input class="field-box" name="stock" type="number" required value="{{ product.stock_amount if product else (stock or '') }}">
+                    <input class="field-box" name="stock" type="number" step="0" required value="{{ product.stock_amount if product else (stock or '') }}">
                 </div>
 
                 </div>

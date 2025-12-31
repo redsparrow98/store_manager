@@ -3,10 +3,10 @@
     "article_name": "Iphone 17 PRO",
     "article_id": "0001",
     "brand": "Apple",
-    "price_SEK": "14995.0",
+    "price_SEK": 14994.0,
     "category": "Phones",
-    "discount_percentage": "0",
-    "stock_amount": 12,
+    "discount_percentage": 0,
+    "stock_amount": 3,
     "discounted_price_SEK": 14995.0
   },
   "0002": {
@@ -207,24 +207,15 @@
     "category": "Accessories",
     "discount_percentage": 0.0,
     "stock_amount": 10,
-    "discounted_price_SEK": 999.0
+    "discounted_price_SEK": 899.1
   },
   "0023": {
-    "article_name": "MacBook Air 13\" 2025",
+    "article_name": "iPhone 14",
     "article_id": "0023",
     "brand": "Apple",
-    "price_SEK": 11990.0,
-    "category": "Computers",
-    "discount_percentage": 0.0,
-    "stock_amount": 21
-  },
-  "0024": {
-    "article_name": "MacBook PRO 15\" 2024",
-    "article_id": "0024",
-    "brand": "Apple",
-    "price_SEK": 10590.0,
-    "category": "Computers",
-    "discount_percentage": 0.0,
-    "stock_amount": 21
+    "price_SEK": 10000.0,
+    "category": "Phones",
+    "discount_percentage": 1.0,
+    "stock_amount": 2
   }
 }

@@ -8,7 +8,7 @@ from login import *
 from pathlib import Path
 from datetime import datetime
 
-# this is to avoid the file path issues we had
+# This is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
@@ -126,7 +126,7 @@ def logout():
     session.clear()        
     return redirect(url_for("login"))
 
-# Gives the access level to the templates
+# Gives the access level of the currently logged in user to the HTML templates
 @app.context_processor
 def inject_access_level():
     access_level = session.get("access_level")
@@ -238,14 +238,14 @@ def update_product_page():
         product_copy = product.copy()
         product['article_name'] = request.form.get('name', '').strip()
         product['brand'] = request.form.get('brand', '').strip()
-        product['price_SEK'] = request.form.get('price', '').strip()
-        product['discount_percentage'] = request.form.get('discount', '').strip()
+        product['price_SEK'] = float(request.form.get('price', ''))
+        product['discount_percentage'] = int(request.form.get('discount', ''))
         product['category'] = request.form.get('category', '').strip().capitalize()
-        product['stock_amount'] = request.form.get('stock', '').strip()
+        product['stock_amount'] = int(request.form.get('stock', ''))
 
         # If statements so it only updates if the input is valid
         if product['article_name'].isdigit() or product['article_name'] == "":
-            #Shows error message and redirects to same page with original product info in case of wrong input type
+            # Shows error message and redirects to same page with original product info in case of wrong input type
             flash (f"Name cannot be digit or blank.", "error")
             return render_template("update_product.html", product=product_copy)
 
@@ -253,11 +253,11 @@ def update_product_page():
             flash (f"Brand cannot be digit or blank.", "error")
             return render_template("update_product.html", product=product_copy)
 
-        elif is_number(product['price_SEK']) == False or float(product['price_SEK']) < 0:
+        elif product['price_SEK'] < 0:
             flash (f"Price cannot be negative or blank.", "error")
             return render_template("update_product.html", product=product_copy)
         
-        elif is_number(product['discount_percentage']) == False or int(product['discount_percentage']) < 0:
+        elif product['discount_percentage'] < 0:
             flash (f"Discount percentage cannot be negative or blank.", "error")
             return render_template("update_product.html", product=product_copy)
             
@@ -265,9 +265,6 @@ def update_product_page():
             flash (f"Category cannot be digit or blank.", "error")
             return render_template("update_product.html", product=product_copy)
         
-        elif not product['stock_amount'].isdigit():
-            flash (f"Stock amount cannot be text, blank or negative.", "error")
-            return render_template("update_product.html", product=product_copy)
         
         # Saves the updated product information to the JSON file
         with open(FILE_PATH, 'w') as f:
@@ -295,12 +292,12 @@ def update_product_page():
 
 @app.route('/inventory/apply-discount', methods=['GET', 'POST'])
 def apply_discount_page():
-    #loading categories from JSON
+    # Loading categories from JSON
     try: 
         dataset = load_json(FILE_PATH)
         categories = sorted({product.get("category") for product in dataset.values() if product.get("category")})
     except FileNotFoundError:
-        categories = [] #if file is missing, to not throw an error
+        categories = [] # If file is missing, to not throw an error
 
     if request.method == "GET":
         
@@ -312,7 +309,7 @@ def apply_discount_page():
         try:
             if not discount_input:
                 raise ValueError("You must enter a discount percentage")
-            discount_percentage = float(discount_input) #needed to allow decimals
+            discount_percentage = float(discount_input) # Needed to allow decimals
             message = apply_discount_to_products(discount_percentage, category)
             flash(message, "success")
      
@@ -422,7 +419,7 @@ def create_account_page():
 
         success, result = create_account(username, name, access_level, password, repeat_password)
 
-        # User gets passed to the login and a success message gets flashed
+        # If the username is not already taken and the password match the password confirmation
         if success:
             flash (result, "success")
             return render_template("create_account.html")
@@ -465,7 +462,7 @@ def account_page():
     
 @app.route('/dashboard/users', methods=['GET'])
 def users_page():
-    #Reads all existing users
+    # Reads all existing users
     users = load_json(USERS_FILE_PATH)
 
     return render_template("users.html", users=users)
@@ -474,7 +471,7 @@ def users_page():
 def edit_user():
     users = load_json(USERS_FILE_PATH)
 
-    #Render existing user information
+    # Render existing user information
     if request.method == "POST":
         original_username = request.form['original_username']
         new_username = request.form['username']
@@ -484,7 +481,7 @@ def edit_user():
             flash("User not found", "error")
             return redirect(url_for("users_page"))
 
-        #new user info if changes made
+        # New user info if changes made
         new_user_info = {
             "password": request.form['password'],
             "name": request.form['name'],
@@ -492,16 +489,16 @@ def edit_user():
         }
 
         if original_username != new_username:
-            #checking for duplicates
+            # Checking for duplicates
             if new_username in users:
                 flash("Username already exists", "error")
 
-            #pop user since username is dictionary key
+            # Delete user from DB since username is dictionary key
             else:
                 users.pop(original_username)
                 users[new_username] = new_user_info
 
-        #only chaning info if username does not change
+        # Only chaning info if username does not change
         else:
             users[original_username] = new_user_info
 
@@ -535,6 +532,7 @@ def access_order_page():
         return render_template('access_order.html', order=order)
     
     else:
+        # Changing the status if it's not already delivered
         status = request.form["status"]
         result = access_order(status, order_number)
 
@@ -552,6 +550,7 @@ def add_order_page():
     
     else:
         
+        # All of the new orders being placed are stored in separate dictionaries in this list
         fields = []
         action = request.form["action"]
         article_ids = request.form.getlist("article_id")
@@ -559,12 +558,14 @@ def add_order_page():
 
         for id, qty in zip(article_ids, quantitys):
             fields.append({"article_id": id, "quantity": qty})
-         
+
+        # Adds two new input boxes while keeping the previous 
         if action == "add_field":
             fields.append({"article_id": "", "quantity": ""})
             return render_template('add_order.html', fields=fields)
 
         else:
+            # These values are automatically added to each order
             username = current_user.id
             date = datetime.today().strftime("%d/%m/%Y")
 
@@ -624,7 +625,7 @@ def access_return_info():
                                 return_id=return_id, 
                                 return_data=returns[return_id])
         
-    # If we get here something has gone wrong...
+    # If we get here something has gone wrong
     flash(f'No products found for: {return_id}', 'error')
     return render_template("access_return_info.html")
 
@@ -670,7 +671,7 @@ def add_return_page():
         
         return render_template("add_return.html")
     
-#Route for user orders and delivery tracking
+# Route for user orders and delivery tracking
 @app.route('/dashboard/user-orders', methods=['GET', 'POST'])
 def user_orders_page():
     orders = load_orders()

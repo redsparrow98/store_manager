@@ -93,10 +93,9 @@ body {
   margin-right: 5vw;
 }
 
-.top-navbar .logo img {
-  width: auto;
+.icon--logo {
+  width: 8vw;
   height: 5vh;
-  margin-top: 3px;
 }
 
 .notification-btn {
@@ -197,6 +196,16 @@ body {
   min-width: 120px;
 }
 
+.icon,
+.sidebar-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
 .sidebar-user {
   display: flex;
   margin-top: 3vh;
@@ -205,13 +214,22 @@ body {
   text-decoration: none;
 }
 
+.sidebar-user-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
 .user-icon {
+  width: 90px;
+  height: 90px;
   position: relative;
-  width: 7vw;
-  height: 7vw;
+  overflow: visible; 
 }
 
 .user-icon-img {
+  display: block;
   width: 100%;
   height: 100%;
 }
@@ -254,6 +272,12 @@ body {
   border-left: 5px solid var(--border-primary);
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
+}
+
+/* Logo */
+.logo .icon {
+  width: 8vw;
+  height: 5vh;
 }
 
 .logout-btn {
@@ -403,9 +427,12 @@ body {
 }
 
 /* Date button */
-.date-icon {
+.date-btn .date-icon,
+.date-btn .christmas-calendar-icon {
+  display: inline-block;
   width: 20px;
   height: 20px;
+  vertical-align: middle;
 }
 
 /* Overview section */
@@ -434,18 +461,29 @@ body {
   border-radius: 8px;
   padding: 20px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
 
-.overview-card .icon {
-  font-size: 24px;
-  margin-bottom: 10px;
+.overview-card .analytics-icon,
+.overview-card .icon,
+.overview-card .overview-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  vertical-align: middle;
 }
 
 .overview-card .value {
   font-size: 24px;
   font-weight: bold;
   color: var(--bg-sidebar);
-  margin-bottom: 10px;
+  margin: 6px 0 0;
 }
 
 .overview-card .label {
@@ -475,8 +513,22 @@ body {
 }
 
 .accounts-box .icon {
-  font-size: 24px;
-  margin-bottom: 10px;
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  line-height: 1;
+}
+
+.accounts-box .icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  margin: 0;
 }
 
 .accounts-box .value {
