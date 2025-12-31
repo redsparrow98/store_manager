@@ -25,5 +25,68 @@
     "quantity": 2,
     "order_date": "18/12/2025",
     "order_status": "Ordered"
+  },
+  "O0004": {
+    "order_number": "O0004",
+    "ordered_by": "jane_doe",
+    "article_id": "0001",
+    "product_name": "Iphone 17 PRO",
+    "quantity": 3,
+    "order_date": "29/12/2025",
+    "order_status": "Ordered"
+  },
+  "O0005": {
+    "order_number": "O0005",
+    "ordered_by": "jane_doe",
+    "article_id": "0001",
+    "product_name": "Iphone 17 PRO",
+    "quantity": 3,
+    "order_date": "29/12/2025",
+    "order_status": "Ordered"
+  },
+  "O0006": {
+    "order_number": "O0006",
+    "ordered_by": "jane_doe",
+    "article_id": "0003",
+    "product_name": "Google Pixel 9a 5G smartphone 8",
+    "quantity": 5,
+    "order_date": "29/12/2025",
+    "order_status": "Ordered"
+  },
+  "O0007": {
+    "order_number": "O0007",
+    "ordered_by": "jane_doe",
+    "article_id": "0002",
+    "product_name": "Samsung Galaxy Z Fold7",
+    "quantity": 2,
+    "order_date": "29/12/2025",
+    "order_status": "Ordered"
+  },
+  "O0008": {
+    "order_number": "O0008",
+    "ordered_by": "jane_doe",
+    "article_id": "0001",
+    "product_name": "Iphone 17 PRO",
+    "quantity": 10,
+    "order_date": "29/12/2025",
+    "order_status": "Delivered"
+  },
+  "O0009": {
+    "order_number": "O0009",
+    "ordered_by": "jane_doe",
+    "article_id": "0020",
+    "product_name": "Anker Nano Power Bank",
+    "quantity": 15,
+    "order_date": "29/12/2025",
+    "order_status": "Ordered"
+  },
+  "O0010": {
+    "order_number": "O0010",
+    "ordered_by": "jane_doe",
+    "article_id": "0006",
+    "product_name": "Ipad 11\" (11th gen)",
+    "quantity": 20,
+    "order_date": "29/12/2025",
+    "order_status": "Ordered"
   }
 }

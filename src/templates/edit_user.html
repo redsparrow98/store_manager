@@ -3,6 +3,7 @@
 {% block content %}
 
 <div class="product-modal" role="dialog" aria-modal="true">
+    <!-- X button to close page -->
     <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('dashboard') }}'"></button>
     <header class="modal-header">
         <h1>Edit user {{ username }}</h1>

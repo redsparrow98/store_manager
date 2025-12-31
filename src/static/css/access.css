@@ -1,3 +1,4 @@
+/*standard UI colors*/
 :root {
   --modal-bg: #ffffff;
   --modal-close: #222222;
@@ -19,6 +20,7 @@
   --btn-delete-text: #ffffff;
 }
 
+/*christmas UI colors*/
 [data-theme="christmas"] {
   --modal-bg: #386641;
   --modal-close: #222222;
@@ -42,7 +44,6 @@
 
 /* Modal */
 .product-modal {
-  /* Add shadow? */
   position: absolute;
   top: 20%;
   left: 25%;
@@ -204,6 +205,7 @@
 }
 
 .error-message {
+  /*hard coded colors for intuuitive messages*/
   background: rgba(220, 53, 69, 0.2);
   color: #721c24;
   padding: 12px;
@@ -212,6 +214,7 @@
 }
 
 .success-message {
+  /*hard coded colors for intuitive messages*/
   background: rgba(185, 225, 195, 0.2);
   color: #155724;
   padding: 12px;
@@ -222,18 +225,4 @@
 /* Removes white border around fields in Christmas mode */
 [data-theme="christmas"] .product-modal input.field-box[readonly] {
   border: none;
-}
-
-.checkbox input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.checkbox .checkmark {
-  position: absolute;
-  height: 20px;
-  width: 20px;
-  background-color: var(--btn-edit-bg);
-  border-radius: 4px;
 }

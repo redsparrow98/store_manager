@@ -5,6 +5,10 @@
 <div class="inventory-header">
     <h1 class="tittle">Users</h1>
 
+    <div class="account-actions">
+        <a class="btn btn-users" href="{{ url_for('account_page')}}">Back to my account</a>
+    </div>
+
     <!-- messages field -->
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %}

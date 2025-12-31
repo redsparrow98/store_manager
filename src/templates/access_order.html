@@ -3,8 +3,8 @@
 {% block content %}
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/access.css') }}" />
-
 <div class="product-modal" role="dialog" aria-modal="true">
+  <!-- X button to close page -->
 	<button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('list_orders_page') }}'">×</button>
 	<header class="modal-header"><h2>Access Order</h2></header>
 	<!-- Messages -->
@@ -19,6 +19,7 @@
 	{% endwith %}
 	<br>
 	
+    <!--Order information-->
 	  <form method="POST" action="{{ url_for('access_order_page', order_number=order['order_number']) }}">
     <div class="modal-body">
         <div class="form-grid">
