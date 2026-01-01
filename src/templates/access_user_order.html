@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Access User Order{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/access.css') }}" />
+<div class="product-modal" role="dialog" aria-modal="true">
+  <!-- X button to close page -->
+	<button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('user_orders_page') }}'">×</button>
+	
+  <header class="modal-header"><h2>Access User Order</h2></header>
+	<!-- Messages -->
+		<!-- messages field -->
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+	{% for category, message in messages %}
+	{% if category == 'success' %}
+	<div class="success-message">
+			{{ message }}
+	</div>
+	{% elif category == 'error' %}
+	<div class="error-message">
+			{{ message }}
+	</div>
+	{% endif %}
+	{% endfor %}
+	{% endif %}
+	{% endwith %}
+	<br>
+	
+    <!--Order information-->
+	  <form method="POST" action="{{ url_for('access_user_order_page') }}">
+    <div class="modal-body">
+        <div class="form-grid">
+
+        <div class="form-row">
+            <div class="field-label">Order Number</div>
+            <input class="field-box" name="order_id" value="{{ order_id }}" readonly>
+        </div>
+
+        {% for item in order["items"] %}
+        
+          <div class="form-row">
+            <div class="field-label">Product ID - Quantity</div>
+            <input class="field-box" value="{{ item['product_id'] }} - {{ item['quantity'] }} pcs" readonly>
+          </div>
+        {% endfor %}
+
+				<!-- Drop down menu for setting order status to delivered -->
+        {% if order['status'] != "delivered" %}
+        <div class="form-row"> 
+            <div class="field-label">Status</div>
+                <select class="field-box" name="status">
+                  <option value="ordered" {{ 'selected' if order['status'] == 'ordered' else 'disabled' }}>Ordered</option>
+                  <option value="dispatched" {{ 'selected' if order['status'] == 'dispatched' else 'disabled' if order['status'] == 'in transit' }}>Dispatched</option>
+                  <option value="in transit" {{ 'selected' if order['status'] == 'in transit' else '' }}>In Transit</option>
+                  <option value="delivered"> Delivered</option>
+                </select>
+            
+        {% endif %}
+        </div>
+    </div>
+		<!-- Buttons at the bottom -->
+    <div class="modal-footer">
+        <a class="btn btn-cancel" href="{{ url_for('user_orders_page') }}">Cancel</a>
+        {% if order['status'] != "delivered" %}
+				<button type="submit" class="btn btn-edit">Save Order Status</button>
+				{% endif %}
+    </div>
+  </form>
+</div>
+</div>
+{% endblock %}
+
+
+
+

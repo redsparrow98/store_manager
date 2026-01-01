@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Add user order{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/access.css') }}" />
+
+<div class="product-modal" role="dialog" aria-modal="true">
+  <!-- X button to close page -->
+  <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('user_orders_page') }}'">×</button>
+
+  <header class="modal-header"><h2>Add User Order</h2></header>
+
+  <!--Messages-->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'success' %}
+    <div class="success-message">
+        {{ message }}
+    </div>
+    {% elif category == 'error' %}
+    <div class="error-message">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <br>
+
+    <form method="POST" action="{{ url_for('add_user_order_page') }}">
+      <div class="modal-body">
+        <div class="form-grid">
+        
+        <!-- Dynamically adds new field and keeps the previous when add field is pressed-->
+        {% for order in items %}
+        <div class="form-row">
+            <div class="field-label">Product id</div>
+            <input class="field-box" type="text" name="product_id" value="{{ order.product_id }}" required>
+        </div>
+
+        <div class="form-row">
+            <div class="field-label">Quantity</div>
+            <input class="field-box" name="quantity" type="number" step="1" min="0" value="{{ order.quantity }}" required>
+        </div>
+        {% endfor %}
+        </div>
+        
+        <br>
+        <!-- Adds new field -->
+        <button type="submit" name="action" value="add_field" class="btn btn-plus">
+          <img src="{{ url_for('static', filename='images/plus.svg') }}" alt="add" class="btn-icon" />
+          <span class="btn-label">Add Field</span>
+        </button>
+          
+        <!-- Buttons at the bottom -->
+          <div class="modal-footer">
+            <a class="btn btn-cancel" href="{{ url_for('user_orders_page') }}">Cancel</a>
+            <button type="submit" name="action" value="submit" class="btn btn-edit">Add Order</button>
+          </div>
+    </form>
+</div>
+{% endblock %}

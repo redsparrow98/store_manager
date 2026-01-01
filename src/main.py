@@ -14,6 +14,7 @@ FILE_PATH = BASE_DIR / "dataset" / "products.json"
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
 RETURNS_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
 ORDER_FILE_PATH = BASE_DIR / "dataset" / "stock_orders.json"
+USER_ORDERS_FILE_PATH = BASE_DIR /  "dataset" / "user_orders.json"
 
 
 app = Flask(__name__)
@@ -599,18 +600,20 @@ def returns_page():
 
 @app.route('/dashboard/returns/info', methods=['GET', 'POST'])
 def access_return_info():
+    returns = load_json(RETURNS_FILE_PATH)
     return_id = request.args.get('return_id', '').strip()
     if request.method == "POST":
             # This part gets called when the user presses a button
             status = request.form.get('status')
+            old_status = returns[return_id]["status"]
             access_return(status, return_id)
-    returns = load_json(RETURNS_FILE_PATH)
-        
-    def build_return_display(item, return_id):
+            if status != old_status:
+                flash(f"Return with return id {return_id} has been added back to stock", "success")
+
+    def build_return_display(item, return_id ):
         return [
             ('Return ID', return_id),
-            ('Article ID', item.get('article_id', '')),
-            ('Amount', f"{item.get('stock_amount', '')} pcs"),
+            ('Order Number', item.get('order_id', '')),
             ('Customer', item.get('customer', '')),
             ('Returned on', item.get('date', '')),
         ]
@@ -619,6 +622,7 @@ def access_return_info():
     if return_id in returns:
         item = returns[return_id]
         return_display = build_return_display(item, return_id)
+        
             
         return render_template("access_return_info.html", 
                                 return_display=return_display, 
@@ -654,14 +658,14 @@ def add_return_page():
     if request.method == "GET":
         return render_template("add_return.html")
     else:
-        article_id = request.form["article_id"]
-        stock = request.form["stock"]
+        order_id = request.form["order_id"]
         customer = request.form["customer"]
+    
         
         # Values that don't need to be added when creating new return
         date = datetime.today().strftime("%d/%m/%y")
         
-        success, result = add_return(article_id, int(stock), customer, date)
+        success, result = add_return(order_id, customer, date,)
 
         if success:
             flash(result, "success")
@@ -672,7 +676,7 @@ def add_return_page():
         return render_template("add_return.html")
     
 # Route for user orders and delivery tracking
-@app.route('/dashboard/user-orders', methods=['GET', 'POST'])
+@app.route('/dashboard/user-orders', methods=['GET'])
 def user_orders_page():
     orders = load_orders()
 
@@ -680,24 +684,73 @@ def user_orders_page():
     order = orders.get(order_number) if order_number else None
 
     if request.method == 'GET':
-        # Show grouped orders in 3 tables
+        # Show grouped orders in 4 tables
         grouped_orders = get_orders_grouped()
         return render_template(
             'user_orders.html',
             grouped_orders=grouped_orders,
-            order=order
-        )
+            order=order)
 
+@app.route('/dashboard/add-user-order', methods=['GET', 'POST'])
+def add_user_order_page():
+    if request.method == 'GET':
+       items = [{"product_id": "", "quantity": ""}]
+       return render_template('add_user_order.html', items=items)
+    
     else:
-        status = request.form["status"]
-        result = update_order_status(order_number, status)
+        # All of the new orders being placed are stored in separate dictionaries in this list
+        items = []
+        action = request.form["action"]
+        product_ids = request.form.getlist("product_id")
+        quantitys = request.form.getlist("quantity")
 
-        if result:
-            flash(f"Order {order_number} updated to {status}", "success")
+        for id, qty in zip(product_ids, quantitys):
+            items.append({"product_id": id, "quantity": int(qty)})
+
+        # Adds two new input boxes while keeping the previous 
+        if action == "add_field":
+            items.append({"product_id": "", "quantity": ""})
+            return render_template('add_user_order.html', items=items)
+
         else:
-            flash("Order not found", "error")
+            # These values are automatically added to each order
+            date = datetime.today().strftime("%Y-%m-%d")
 
-        return redirect(url_for('user_orders_page', order_number=order_number))
+            success, result = new_user_order(items, date)
 
+            if success:
+                flash(result, "success")
+        
+            else:
+                for error in result:
+                    flash(error, "error")
+            
+            return redirect(url_for('add_user_order_page'))
+
+@app.route("/dashboard/user-order/info", methods=['GET', 'POST'])
+def access_user_order_page():
+    
+    if request.method == "GET":
+        orders = load_json(USER_ORDERS_FILE_PATH)
+        order_id = request.args.get('order_id')
+        order = orders[order_id]
+        return render_template('access_user_order.html', 
+                               order_id=order_id,
+                               order=order)
+    else:
+        # This part gets called when the user presses a button
+        order_id = request.form.get('order_id')
+        status = request.form.get('status')
+        success, result = access_user_order(status, order_id)
+
+        if success:
+            flash(result, "success")
+        
+
+        elif success == False:
+            flash(result, "error")
+
+        return redirect(url_for('access_user_order_page', order_id=order_id))
+    
 if __name__=='__main__':
     app.run(debug=True)
