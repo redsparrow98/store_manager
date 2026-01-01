@@ -411,6 +411,7 @@ def add_return_to_stock(return_id):
         
     returns.pop(return_id)
     orders.pop(order_id)
+    write_json(USER_ORDER_FILE_PATH, orders)
     write_json(RETURNS_FILE_PATH, returns)
     
     return True
