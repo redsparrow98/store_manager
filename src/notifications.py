@@ -2,14 +2,14 @@ from reader import *
 from pathlib import Path
 from datetime import datetime
 
-#Paths
+# Paths
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 
 notifications = {}
 low_article_ids = []
 
-#Thresholds
+# Thresholds
 CATEGORY_THRESHOLDS = {
     "phones": 3,
     "tablets": 3,
@@ -23,6 +23,11 @@ DEFAULT_THRESHOLD = 3
 
 # Add notification if one doesn't exist
 def add_notification(article_id: str, message: str):
+
+    # When user manually clears this notification, it skips adding
+    if article_id in cleared_notifications:
+        return len(notifications)
+
     # Check for existing notification
     if article_id in notifications:
         return len(notifications) # Amount of notifications
@@ -63,6 +68,7 @@ def scan_low_stock():
     for article_id in list(notifications.keys()):
         if article_id not in low_article_ids:
             notifications.pop(article_id)
+            cleared_notifications.discard(article_id)  # Allow future notifications
 
 def get_notifications():
     """
@@ -70,3 +76,13 @@ def get_notifications():
     This is what Flask will call to pass notifications to templates.
     """
     return list(notifications.values())
+
+cleared_notifications = set() # Track cleared notifications so they don't reappear immediately 
+def clear_notifications():
+    """
+    Clear all notifications at once.
+    Called when the user clicks 'Clear all notifications'.
+    """
+    global notification, clear_notifications
+    cleared_notifications.update(notifications.keys())
+    notifications.clear()

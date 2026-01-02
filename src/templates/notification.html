@@ -3,10 +3,21 @@
 {% block content %}
 
 <div class="notification-modal" role="dialog" aria-modal="true">
-    <div>
-        <!-- X button to close page -->
-        <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
+    <div style="display: flex; align-items: center; justify-content: space-between;">
         <h2 class="modal-header">Notifications</h2>
+    
+        <div style="display: flex; gap: 10px;">
+            {% if notifications %}
+            <form method="POST" action="{{ url_for('clear_notifications_page') }}">
+                <button class="btn btn-cancel" type="submit">
+                    Clear all
+                </button>
+            </form>
+            {% endif %}
+    
+            <button class="modal-close" aria-label="Close"
+                onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
+        </div>
     </div>
 
     <!-- rendering notifications -->

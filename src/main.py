@@ -3,6 +3,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from flask import Flask, render_template, redirect, url_for, request, flash, session
 from inventory_manager import *
 from notifications import *
+from notifications import clear_notifications
 from account_manager import *
 from login import *
 from pathlib import Path
@@ -71,11 +72,11 @@ def dashboard():
     notif_count = len(get_notifications())
     today = datetime.today().strftime("%B %d, %Y") # Date formatting
 
-    #to load datasets for dashboard values
+    # To load datasets for dashboard values
     products = load_json(FILE_PATH)
     users = load_json(USERS_FILE_PATH)
 
-    #getting all the values needed for dashboard
+    # Getting all the values needed for dashboard
     total_products = len(products)
     low_stock = 0
     for product in products.values():
@@ -83,7 +84,7 @@ def dashboard():
             low_stock += 1
     total_users = len(users)
 
-    #real time return product mirroing
+    # Real time return product mirroing
     returns = load_json(RETURNS_FILE_PATH)
     total_returns = len(returns) 
     username = current_user.id
@@ -229,6 +230,11 @@ def inject_notifications_count():
 
     return {"notifications_count": notification_count}
 
+@app.route("/notifications/clear", methods=["POST"])
+def clear_notifications_page():
+    clear_notifications()
+    return redirect(url_for("notifications_page"))
+
 @app.route('/inventory/update-product', methods=['GET', 'POST'])
 def update_product_page():
     if request.method == 'POST':
@@ -242,7 +248,7 @@ def update_product_page():
         product['price_SEK'] = float(request.form.get('price', ''))
         product['discount_percentage'] = int(request.form.get('discount', ''))
         product['category'] = request.form.get('category', '').strip().capitalize()
-        product['stock_amount'] = int(request.form.get('stock', ''))
+        stock_input = request.form.get('stock', '').strip()
 
         # If statements so it only updates if the input is valid
         if product['article_name'].isdigit() or product['article_name'] == "":
@@ -266,6 +272,13 @@ def update_product_page():
             flash (f"Category cannot be digit or blank.", "error")
             return render_template("update_product.html", product=product_copy)
         
+        elif not stock_input.isdigit():
+            flash("Stock amount cannot be text, blank or negative.", "error")
+            return render_template("update_product.html", product=product_copy)
+
+        # Convert stock to integer
+        product['stock_amount'] = int(stock_input)
+
         
         # Saves the updated product information to the JSON file
         with open(FILE_PATH, 'w') as f:

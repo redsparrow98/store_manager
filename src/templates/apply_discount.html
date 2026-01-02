@@ -21,10 +21,16 @@ content %}
             <div class= "success-message">
                 {{ message }}
             </div>
+        {% elif category == 'error' %}
+        <div class="error-message">
+          {{ message }}
+        </div>
         {% endif %}
       {% endfor %}
     {% endif %}
   {% endwith %}
+        
+  
 
   <form method="POST">
     <label for="discount_percentage">Discount Percentage:</label>
