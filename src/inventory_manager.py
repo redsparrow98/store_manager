@@ -449,7 +449,7 @@ def new_user_order(items, date):
 
     for order in items:
         if order["product_id"] not in products:
-            errors.append(f"Product id: {order["product_id"]} not found")
+            errors.append(f"Product id: {order['product_id']} not found")
 
     if errors:
         return False, errors
