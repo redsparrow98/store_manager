@@ -566,6 +566,6 @@ def get_done_deliveries_month():
             if created.year == current_date.year and created.month == current_date.month:
                 orders_count += 1
     
-    current_month = current_date.strftime("%m")
+    current_month = current_date.strftime("%B")
     
     return orders_count, current_month
