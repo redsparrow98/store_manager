@@ -1,37 +1,26 @@
 {
-  "R138": {
-    "article_id": "0002",
+  "R507": {
+    "order_id": "ORD001",
     "customer": "Get It Done With Doe",
-    "date": "22/11/2025",
-    "status": "Processed",
-    "stock_amount": 1
+    "date": "01/01/26",
+    "status": "Processed"
   },
-  "R942": {
-    "article_id": "0003",
-    "customer": "Bonnies Table Shop",
-    "date": "18/11/2025",
-    "status": "Open",
-    "stock_amount": 4
+  "R383": {
+    "order_id": "ORD003",
+    "customer": "Me, Myself And Bobby",
+    "date": "01/01/26",
+    "status": "Processed"
   },
-  "R341": {
-    "article_id": "0004",
-    "customer": "Me, Myself and Bobby",
-    "date": "23/11/2025",
-    "status": "Open",
-    "stock_amount": 3
-  },
-  "R123": {
-    "article_id": "0005",
+  "R934": {
+    "order_id": "ORD005",
     "customer": "Me and Micheal",
-    "date": "25/11/2025",
-    "status": "Processed",
-    "stock_amount": 4
+    "date": "01/01/26",
+    "status": "Open"
   },
-  "R715": {
-    "article_id": "0001",
-    "customer": "test",
-    "date": "18/12/25",
-    "status": "Open",
-    "stock_amount": 1
+  "R297": {
+    "order_id": "ORD002",
+    "customer": "Bonnies Table Shop",
+    "date": "02/01/26",
+    "status": "Open"
   }
 }

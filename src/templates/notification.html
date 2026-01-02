@@ -4,6 +4,9 @@
 
 <div class="notification-modal" role="dialog" aria-modal="true">
     <div style="display: flex; align-items: center; justify-content: space-between;">
+    <div>
+        <!-- X button to close page -->
+        <button class="modal-close" aria-label="Close" onclick="location.href='{{ url_for('display_inventory') }}'">×</button>
         <h2 class="modal-header">Notifications</h2>
     
         <div style="display: flex; gap: 10px;">
@@ -20,6 +23,7 @@
         </div>
     </div>
 
+    <!-- rendering notifications -->
     {% if notifications %}
         <div class="notification-table">
             {% for notification in notifications %}
@@ -40,6 +44,7 @@
             {% endfor %}
         </div>
     {% else %}
+    <!-- message for no notifications -->
         <header class="modal-header" style="text-align: center">
             <h4>No notifications</h4>
         </header>

@@ -9,12 +9,13 @@ from login import *
 from pathlib import Path
 from datetime import datetime
 
-# this is to avoid the file path issues we had
+# This is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
 RETURNS_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
 ORDER_FILE_PATH = BASE_DIR / "dataset" / "stock_orders.json"
+USER_ORDERS_FILE_PATH = BASE_DIR /  "dataset" / "user_orders.json"
 
 
 app = Flask(__name__)
@@ -127,7 +128,7 @@ def logout():
     session.clear()        
     return redirect(url_for("login"))
 
-# Gives the access level to the templates
+# Gives the access level of the currently logged in user to the HTML templates
 @app.context_processor
 def inject_access_level():
     access_level = session.get("access_level")
@@ -244,14 +245,14 @@ def update_product_page():
         product_copy = product.copy()
         product['article_name'] = request.form.get('name', '').strip()
         product['brand'] = request.form.get('brand', '').strip()
-        product['price_SEK'] = request.form.get('price', '').strip()
-        product['discount_percentage'] = request.form.get('discount', '').strip()
+        product['price_SEK'] = float(request.form.get('price', ''))
+        product['discount_percentage'] = int(request.form.get('discount', ''))
         product['category'] = request.form.get('category', '').strip().capitalize()
         stock_input = request.form.get('stock', '').strip()
 
         # If statements so it only updates if the input is valid
         if product['article_name'].isdigit() or product['article_name'] == "":
-            #Shows error message and redirects to same page with original product info in case of wrong input type
+            # Shows error message and redirects to same page with original product info in case of wrong input type
             flash (f"Name cannot be digit or blank.", "error")
             return render_template("update_product.html", product=product_copy)
 
@@ -259,11 +260,11 @@ def update_product_page():
             flash (f"Brand cannot be digit or blank.", "error")
             return render_template("update_product.html", product=product_copy)
 
-        elif is_number(product['price_SEK']) == False or float(product['price_SEK']) < 0:
+        elif product['price_SEK'] < 0:
             flash (f"Price cannot be negative or blank.", "error")
             return render_template("update_product.html", product=product_copy)
         
-        elif is_number(product['discount_percentage']) == False or int(product['discount_percentage']) < 0:
+        elif product['discount_percentage'] < 0:
             flash (f"Discount percentage cannot be negative or blank.", "error")
             return render_template("update_product.html", product=product_copy)
             
@@ -305,12 +306,12 @@ def update_product_page():
 
 @app.route('/inventory/apply-discount', methods=['GET', 'POST'])
 def apply_discount_page():
-    #loading categories from JSON
+    # Loading categories from JSON
     try: 
         dataset = load_json(FILE_PATH)
         categories = sorted({product.get("category") for product in dataset.values() if product.get("category")})
     except FileNotFoundError:
-        categories = [] #if file is missing, to not throw an error
+        categories = [] # If file is missing, to not throw an error
 
     if request.method == "GET":
         
@@ -322,7 +323,7 @@ def apply_discount_page():
         try:
             if not discount_input:
                 raise ValueError("You must enter a discount percentage")
-            discount_percentage = float(discount_input) #needed to allow decimals
+            discount_percentage = float(discount_input) # Needed to allow decimals
             message = apply_discount_to_products(discount_percentage, category)
             flash(message, "success")
      
@@ -432,7 +433,7 @@ def create_account_page():
 
         success, result = create_account(username, name, access_level, password, repeat_password)
 
-        # User gets passed to the login and a success message gets flashed
+        # If the username is not already taken and the password match the password confirmation
         if success:
             flash (result, "success")
             return render_template("create_account.html")
@@ -475,7 +476,7 @@ def account_page():
     
 @app.route('/dashboard/users', methods=['GET'])
 def users_page():
-    #Reads all existing users
+    # Reads all existing users
     users = load_json(USERS_FILE_PATH)
 
     return render_template("users.html", users=users)
@@ -484,7 +485,7 @@ def users_page():
 def edit_user():
     users = load_json(USERS_FILE_PATH)
 
-    #Render existing user information
+    # Render existing user information
     if request.method == "POST":
         original_username = request.form['original_username']
         new_username = request.form['username']
@@ -494,7 +495,7 @@ def edit_user():
             flash("User not found", "error")
             return redirect(url_for("users_page"))
 
-        #new user info if changes made
+        # New user info if changes made
         new_user_info = {
             "password": request.form['password'],
             "name": request.form['name'],
@@ -502,16 +503,16 @@ def edit_user():
         }
 
         if original_username != new_username:
-            #checking for duplicates
+            # Checking for duplicates
             if new_username in users:
                 flash("Username already exists", "error")
 
-            #pop user since username is dictionary key
+            # Delete user from DB since username is dictionary key
             else:
                 users.pop(original_username)
                 users[new_username] = new_user_info
 
-        #only chaning info if username does not change
+        # Only chaning info if username does not change
         else:
             users[original_username] = new_user_info
 
@@ -545,6 +546,7 @@ def access_order_page():
         return render_template('access_order.html', order=order)
     
     else:
+        # Changing the status if it's not already delivered
         status = request.form["status"]
         result = access_order(status, order_number)
 
@@ -562,6 +564,7 @@ def add_order_page():
     
     else:
         
+        # All of the new orders being placed are stored in separate dictionaries in this list
         fields = []
         action = request.form["action"]
         article_ids = request.form.getlist("article_id")
@@ -569,12 +572,14 @@ def add_order_page():
 
         for id, qty in zip(article_ids, quantitys):
             fields.append({"article_id": id, "quantity": qty})
-         
+
+        # Adds two new input boxes while keeping the previous 
         if action == "add_field":
             fields.append({"article_id": "", "quantity": ""})
             return render_template('add_order.html', fields=fields)
 
         else:
+            # These values are automatically added to each order
             username = current_user.id
             date = datetime.today().strftime("%d/%m/%Y")
 
@@ -608,18 +613,20 @@ def returns_page():
 
 @app.route('/dashboard/returns/info', methods=['GET', 'POST'])
 def access_return_info():
+    returns = load_json(RETURNS_FILE_PATH)
     return_id = request.args.get('return_id', '').strip()
     if request.method == "POST":
             # This part gets called when the user presses a button
             status = request.form.get('status')
+            old_status = returns[return_id]["status"]
             access_return(status, return_id)
-    returns = load_json(RETURNS_FILE_PATH)
-        
-    def build_return_display(item, return_id):
+            if status != old_status:
+                flash(f"Return with return id {return_id} has been added back to stock", "success")
+
+    def build_return_display(item, return_id ):
         return [
             ('Return ID', return_id),
-            ('Article ID', item.get('article_id', '')),
-            ('Amount', f"{item.get('stock_amount', '')} pcs"),
+            ('Order Number', item.get('order_id', '')),
             ('Customer', item.get('customer', '')),
             ('Returned on', item.get('date', '')),
         ]
@@ -628,13 +635,14 @@ def access_return_info():
     if return_id in returns:
         item = returns[return_id]
         return_display = build_return_display(item, return_id)
+        
             
         return render_template("access_return_info.html", 
                                 return_display=return_display, 
                                 return_id=return_id, 
                                 return_data=returns[return_id])
         
-    # If we get here something has gone wrong...
+    # If we get here something has gone wrong
     flash(f'No products found for: {return_id}', 'error')
     return render_template("access_return_info.html")
 
@@ -663,14 +671,14 @@ def add_return_page():
     if request.method == "GET":
         return render_template("add_return.html")
     else:
-        article_id = request.form["article_id"]
-        stock = request.form["stock"]
+        order_id = request.form["order_id"]
         customer = request.form["customer"]
+    
         
         # Values that don't need to be added when creating new return
         date = datetime.today().strftime("%d/%m/%y")
         
-        success, result = add_return(article_id, int(stock), customer, date)
+        success, result = add_return(order_id, customer, date,)
 
         if success:
             flash(result, "success")
@@ -680,8 +688,8 @@ def add_return_page():
         
         return render_template("add_return.html")
     
-#Route for user orders and delivery tracking
-@app.route('/dashboard/user-orders', methods=['GET', 'POST'])
+# Route for user orders and delivery tracking
+@app.route('/dashboard/user-orders', methods=['GET'])
 def user_orders_page():
     orders = load_orders()
 
@@ -689,24 +697,73 @@ def user_orders_page():
     order = orders.get(order_number) if order_number else None
 
     if request.method == 'GET':
-        # Show grouped orders in 3 tables
+        # Show grouped orders in 4 tables
         grouped_orders = get_orders_grouped()
         return render_template(
             'user_orders.html',
             grouped_orders=grouped_orders,
-            order=order
-        )
+            order=order)
 
+@app.route('/dashboard/add-user-order', methods=['GET', 'POST'])
+def add_user_order_page():
+    if request.method == 'GET':
+       items = [{"product_id": "", "quantity": ""}]
+       return render_template('add_user_order.html', items=items)
+    
     else:
-        status = request.form["status"]
-        result = update_order_status(order_number, status)
+        # All of the new orders being placed are stored in separate dictionaries in this list
+        items = []
+        action = request.form["action"]
+        product_ids = request.form.getlist("product_id")
+        quantitys = request.form.getlist("quantity")
 
-        if result:
-            flash(f"Order {order_number} updated to {status}", "success")
+        for id, qty in zip(product_ids, quantitys):
+            items.append({"product_id": id, "quantity": int(qty)})
+
+        # Adds two new input boxes while keeping the previous 
+        if action == "add_field":
+            items.append({"product_id": "", "quantity": ""})
+            return render_template('add_user_order.html', items=items)
+
         else:
-            flash("Order not found", "error")
+            # These values are automatically added to each order
+            date = datetime.today().strftime("%Y-%m-%d")
 
-        return redirect(url_for('user_orders_page', order_number=order_number))
+            success, result = new_user_order(items, date)
 
+            if success:
+                flash(result, "success")
+        
+            else:
+                for error in result:
+                    flash(error, "error")
+            
+            return redirect(url_for('add_user_order_page'))
+
+@app.route("/dashboard/user-order/info", methods=['GET', 'POST'])
+def access_user_order_page():
+    
+    if request.method == "GET":
+        orders = load_json(USER_ORDERS_FILE_PATH)
+        order_id = request.args.get('order_id')
+        order = orders[order_id]
+        return render_template('access_user_order.html', 
+                               order_id=order_id,
+                               order=order)
+    else:
+        # This part gets called when the user presses a button
+        order_id = request.form.get('order_id')
+        status = request.form.get('status')
+        success, result = access_user_order(status, order_id)
+
+        if success:
+            flash(result, "success")
+        
+
+        elif success == False:
+            flash(result, "error")
+
+        return redirect(url_for('access_user_order_page', order_id=order_id))
+    
 if __name__=='__main__':
     app.run(debug=True)

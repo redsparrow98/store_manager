@@ -7,8 +7,17 @@ from werkzeug.security import generate_password_hash, check_password_hash
 BASE_DIR = Path(__file__).parent.parent
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
 
-# Creates a new account if username not already taken
+# Creates a new account
 def create_account(username, name, access_level, password, repeat_password):
+    """Managers can add new users to the system, all users have unique usernames.
+    
+    Args: 
+        username (String) the new username for logging in,
+        name (String) the new users name in the DB
+        access_level (String) the new users access level 
+        password (String) the chosen password for the new user,
+        repeat_password (String) confirmation of the chosen password
+    """
     users = load_json(USERS_FILE_PATH)
     
     errors = []
@@ -40,9 +49,14 @@ def create_account(username, name, access_level, password, repeat_password):
         return True, "Account succesfully created."
 
 
-# Deletes user if correct access level
+# Deletes user 
 
 def delete_user(deleted_user):
+    """A manager can delete a user from the system
+    Args:
+        deleted_user (String) the username that should be deleted.
+    """
+
     users = load_json(USERS_FILE_PATH)
     
     if deleted_user not in users:
@@ -58,7 +72,14 @@ def delete_user(deleted_user):
 # Update password
 
 def update_password_page(username, current_password, new_password, repeat_new_password):
-    
+    """Each user can change their own password,
+    Args:
+        username (String) username of the user currently logged in.
+        current_password (String) the old password to confirm the identity of the user before changing the password.
+        new_password (String) the updated password
+        repeat_new_password (String) to confirm the new password before changing.
+    """
+
     users = load_json(USERS_FILE_PATH)
 
     errors = []

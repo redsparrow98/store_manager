@@ -1,37 +1,34 @@
 {% extends "base.html" %} {% block title %}User Orders{% endblock %} {% block
 content %}
 
-<h1>User Orders</h1>
+<div class="inventory-header">
+	<h1>User Orders</h1>
 
-  <!--Messages-->
-{% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-{% for category, message in messages %}
-{% if category == 'success' %}
-<div class="success-message">
-		{{ message }}
+	{% if access_level in ["Manager"] %}
+		<a class="btn btn-plus" href="{{ url_for('add_user_order_page') }}">
+			<img
+				src="{{ url_for('static', filename='images/plus.svg') }}"
+				alt="Add Order"
+				class="nav-icon default-icon btn-icon"
+			/>
+			<!-- Christmas plus icon -->
+			<span class="nav-icon christmas-plus-icon" aria-hidden="true"></span>
+			<span class="btn-label">Add Order</span>
+		</a>
+	{% endif %}
 </div>
-{% elif category == 'error' %}
-<div class="error-message">
-		{{ message }}
-</div>
-{% endif %}
-{% endfor %}
-{% endif %}
-{% endwith %}
-<br>
 
 <!--This is already a set template, so only needing the html implementation, pre-linked to both css-->
 {% for status, orders in grouped_orders.items() %}
-    <h2>{{ status|title }}</h2>
-
     <div class="table-wrap">
+			  <h2 class="title">{{ status|title }}</h2>
 			<table class="products-table">
 				<thead>
 					<tr>
 						<th class="col-order">Order ID</th>
 						<th class="col-date">Created At</th>
 						<th class="col-status">Status</th>
+						<th class="col-actions">Access</th>
 					</tr>
 				</thead>
 
@@ -40,24 +37,20 @@ content %}
 					<tr>
 						<td class="col-order">{{ order_id }}</td>
 						<td class="col-date">{{ order.get('created_at') }}</td>
-						<td class="col-actions">
-							<form method="post" action="{{ url_for('user_orders_page') }}?order_number={{ order_id }}">
-								<select class="btn" name="status">
-									<option value="ordered" {{ 'selected' if status == 'ordered' else '' }}>New Orders</option>
-									<option value="dispatched" {{ 'selected' if status == 'dispatched' else '' }}>In Progress</option>
-									<option value="in transit" {{ 'selected' if status == 'in transit' else '' }}>Packing</option>
-									<option value="delivered" {{ 'selected' if status == 'delivered' else '' }}>Sent Orders</option>
-								</select>
+						<td class="col-status"> {{ status|title }}</td>
+						<td class="col-actions"> 
+							<div class="col-actions">
+                	<a class="icon-btn" href="{{ url_for('access_user_order_page') }}?order_id={{ order_id }}" title="View">
+                  	<img src="{{ url_for('static', filename='images/eye.svg') }}" alt="View">
+                	</a> 
 						</td>
-						<td class="col-actions">
-								<button type="submit" class="btn btn-edit">Update</button>
-							</form>
-						</td>
+					
 					</tr>
 				{% endfor %} {% endif %}
 				</tbody>
 			</table>
 		</div>
+
 {% endfor %}
 
 
