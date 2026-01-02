@@ -6,7 +6,7 @@
     "price_SEK": 14994.0,
     "category": "Phones",
     "discount_percentage": 0,
-    "stock_amount": 3,
+    "stock_amount": 9,
     "discounted_price_SEK": 14995.0
   },
   "0002": {
@@ -16,7 +16,7 @@
     "price_SEK": 19990.0,
     "category": "Phones",
     "discount_percentage": 0,
-    "stock_amount": 33,
+    "stock_amount": 35,
     "discounted_price_SEK": 19990.0
   },
   "0003": {
@@ -26,7 +26,7 @@
     "price_SEK": "3790.0",
     "category": "Phones",
     "discount_percentage": "0",
-    "stock_amount": 5,
+    "stock_amount": 7,
     "discounted_price_SEK": 3790.0
   },
   "0004": {
@@ -46,7 +46,7 @@
     "price_SEK": 1490.0,
     "category": "Tablets",
     "discount_percentage": 5.0,
-    "stock_amount": 3,
+    "stock_amount": 5,
     "discounted_price_SEK": 1415.5
   },
   "0006": {
@@ -126,7 +126,7 @@
     "price_SEK": 15145.0,
     "category": "Computers",
     "discount_percentage": 0.0,
-    "stock_amount": 2,
+    "stock_amount": 5,
     "discounted_price_SEK": 15145.0
   },
   "0014": {
@@ -136,7 +136,7 @@
     "price_SEK": 20799.0,
     "category": "Computers",
     "discount_percentage": 0.0,
-    "stock_amount": 6,
+    "stock_amount": 5,
     "discounted_price_SEK": 20799.0
   },
   "0015": {
@@ -206,7 +206,7 @@
     "price_SEK": 999.0,
     "category": "Accessories",
     "discount_percentage": 0.0,
-    "stock_amount": 10,
+    "stock_amount": 7,
     "discounted_price_SEK": 899.1
   },
   "0023": {

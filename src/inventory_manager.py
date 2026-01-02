@@ -287,7 +287,7 @@ def add_order(fields, username, date):
     return True, "Order(s) successfully created"
 
 
-def access_return(status, return_id):
+def access_return(status, return_id,):
     """Viewing the return information, updating status, deleting and adding returned products back to stock
     Args:
         status (String) the updated status of the return
@@ -295,24 +295,28 @@ def access_return(status, return_id):
     
     returns = load_json(RETURNS_FILE_PATH)
     products = load_json(FILE_PATH)
+    orders = load_json(USER_ORDER_FILE_PATH)
 
     return_data = returns[return_id]
-    article_id = return_data["article_id"]
+    order_id = return_data["order_id"]
     
     if return_data["status"] != "Processed" and status != return_data["status"]:
         return_data["status"] = status
         write_json(RETURNS_FILE_PATH, returns)
         
-        current_stock = int(products[article_id]["stock_amount"])
-        returned_quantity = int(return_data["stock_amount"])
-        products[article_id]["stock_amount"] = current_stock + returned_quantity
-
-        write_json(FILE_PATH, products)
+    for item in orders[order_id]["items"]:
+        product_id = item["product_id"]
+        stock_to_add = item['quantity']
         
-        return "Return status successfully changed"
+        product_info = products[product_id]
+        product_info["stock_amount"] += stock_to_add
+
+    write_json(FILE_PATH, products)
+        
+    return "Return status successfully changed"
 
 # REGISTER NEW RETURN
-def add_return(article_id, stock, customer, date):
+def add_return(order_id, customer, date):
     """Add new return to be processed
     Args:
         article_id (String) the product getting returned
@@ -320,15 +324,19 @@ def add_return(article_id, stock, customer, date):
         customer (String) the customer returning the product
         date (String) the return date."""
     
+    orders = load_json(USER_ORDER_FILE_PATH)
     returns = load_json(RETURNS_FILE_PATH)
     errors = []
-    
-    if not article_id.strip():
-        errors.append("Article id is required")
-    if stock < 0:
-        errors.append("Stock cannot be negative")
+
     if not customer.strip():
         errors.append("Customer is required")
+    if order_id not in orders:
+        errors.append("Order number not found")
+    if orders[order_id]["status"] != "delivered":
+        errors.append("Order must be delivered in order to be returned ")
+    for order in returns:
+        if order_id == returns[order]["order_id"]:
+            errors.append(f"return for order {order_id} already exists.")
     
     if errors:
         return False, errors
@@ -345,17 +353,16 @@ def add_return(article_id, stock, customer, date):
         next_id = random_id
         
         new_return = {
-            "article_id": article_id,
+            "order_id": order_id,
             "customer": customer,
             "date": date,
             "status": "Open",
-            "stock_amount": stock
         }
         
         returns[next_id] = new_return
         
         write_json(RETURNS_FILE_PATH, returns)
-        return True, f"Return for product {article_id} successfully created."
+        return True, f"Return for order {order_id} successfully created."
     
 # DELETE RETURN
 def delete_return(return_id):
@@ -379,26 +386,35 @@ def add_return_to_stock(return_id):
     
     returns = load_json(RETURNS_FILE_PATH)
     products = load_json(FILE_PATH)
+    orders = load_json(USER_ORDER_FILE_PATH)
     
     return_info = returns.get(return_id)
     if not return_info:
         return False, "Return ID not found."
     
-    article_id = return_info.get("article_id")
-    stock_to_add = return_info.get("stock_amount")
-    
-    product_info = products.get(article_id)
-    if not product_info:
-        return False, "Associated product not found."
-    
-    current_stock = product_info.get("stock_amount")
-    product_info["stock_amount"] = current_stock + stock_to_add
-    write_json(FILE_PATH, products)
-    
+    order_id = return_info.get("order_id")
+
+  
+    for item in orders[order_id]["items"]:
+        product_id = item["product_id"]
+        stock_to_add = item['quantity']
+        
+        product_info = products[product_id]
+        product_info["stock_amount"] += stock_to_add
+        if not product_info:
+            return False
+        
+
+        product_info["stock_amount"] += stock_to_add
+        
+        write_json(FILE_PATH, products)
+        
     returns.pop(return_id)
+    orders.pop(order_id)
+    write_json(USER_ORDER_FILE_PATH, orders)
     write_json(RETURNS_FILE_PATH, returns)
     
-    return True, f"Added {stock_to_add} units back to stock for product ID {article_id}."
+    return True
 
 # USER ORDERS AND DELIVERIES
 
@@ -415,28 +431,6 @@ def load_orders():
 def save_orders(orders):
     write_json(USER_ORDER_FILE_PATH, orders)
 
-# Function for updating order status
-def update_order_status(order_id, new_status):
-    """Update order status. If status is 'sent', stock will be decreased."""
-    orders = load_orders()
-    if order_id in orders:
-        orders[order_id]["status"] = new_status
-
-        # If order is sent, update product stock
-        if new_status == "sent":
-            products = load_products()
-            for item in orders[order_id]["items"]:
-                product_id = item["product_id"]
-                quantity = item["quantity"]
-                if product_id in products:
-                    products[product_id]["stock_amount"] = max(
-                        0, int(products[product_id]["stock_amount"]) - quantity
-                    )
-            save_products(products)
-
-        save_orders(orders)
-        return orders[order_id]
-    return None
 
 """Return orders grouped by status for easy separation in 3 tables."""
 def get_orders_grouped():
@@ -446,6 +440,70 @@ def get_orders_grouped():
         status = order["status"]
         grouped.setdefault(status, {})[order_id] = order
     return grouped
+
+def new_user_order(items, date):
+    orders = load_orders()
+    products = load_products()
+
+    errors = []
+
+    for order in items:
+        if order["product_id"] not in products:
+            errors.append(f"Product id: {order['product_id']} not found")
+
+    if errors:
+        return False, errors
+    
+    else:
+        for order in items:
+            for i in range(1, len(items)):
+                if order["product_id"] == items[i]["product_id"]:
+                    order["quantity"] += items[i]["quantity"]
+                    items.pop(i)
+
+        current_ids = orders.keys()
+        for order_number in current_ids:
+            number = order_number[3:]
+            
+        next_id_int = int(number) + 1 if current_ids else 1
+        next_id = "ORD" + str(next_id_int).zfill(3)
+
+        new_order = {"items": items,
+                    "status": "ordered",
+                    "created_at": date
+                    }
+
+        orders[next_id] = new_order
+        save_orders(orders)
+        return True, "Order successfully created"
+    
+def access_user_order(status, order_id):
+    """Viewing the order information
+    Args:
+        return_id (String) the order id to access the order in the DB """
+    
+    orders = load_orders()
+    order_data = orders[order_id]
+
+    products = load_json(FILE_PATH)
+    
+    if order_data["status"] != "delivered" and status != order_data["status"]:
+        
+        for order in order_data["items"]:
+            article = products[order["product_id"]]
+            if article["stock_amount"] < order["quantity"]:
+                return False, f"Too low stock of product #{article['article_id']}."
+            elif status == "dispatched": 
+                article["stock_amount"] -= order["quantity"]
+                save_products(products)
+
+        order_data["status"] = status
+        save_orders(orders)
+        
+        return True, "Order status successfully changed"
+    else:
+        return False, "Order status already has this value"
+
 
 
 # =============================================================================
@@ -503,11 +561,11 @@ def get_done_deliveries_month():
     current_date = datetime.now()
     orders_count = 0
     for order in orders.values():
-        if order["status"] == "done":
+        if order["status"] == "delivered":
             created = datetime.fromisoformat(order["created_at"])
             if created.year == current_date.year and created.month == current_date.month:
                 orders_count += 1
     
-    current_month = current_date.strftime("%B")
+    current_month = current_date.strftime("%m")
     
     return orders_count, current_month
