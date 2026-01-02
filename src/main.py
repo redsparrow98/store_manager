@@ -71,11 +71,11 @@ def dashboard():
     notif_count = len(get_notifications())
     today = datetime.today().strftime("%B %d, %Y") # Date formatting
 
-    #to load datasets for dashboard values
+    # To load datasets for dashboard values
     products = load_json(FILE_PATH)
     users = load_json(USERS_FILE_PATH)
 
-    #getting all the values needed for dashboard
+    # Getting all the values needed for dashboard
     total_products = len(products)
     low_stock = 0
     for product in products.values():
@@ -83,7 +83,7 @@ def dashboard():
             low_stock += 1
     total_users = len(users)
 
-    #real time return product mirroing
+    # Real time return product mirroing
     returns = load_json(RETURNS_FILE_PATH)
     total_returns = len(returns) 
     username = current_user.id
@@ -275,7 +275,7 @@ def update_product_page():
             flash("Stock amount cannot be text, blank or negative.", "error")
             return render_template("update_product.html", product=product_copy)
 
-        #covert stock to integer
+        # Convert stock to integer
         product['stock_amount'] = int(stock_input)
 
         
