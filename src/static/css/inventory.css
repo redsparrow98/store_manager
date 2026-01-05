@@ -237,7 +237,7 @@
   cursor: pointer;
 }
 
-/*for inventory*/
+/* For inventory */
 @media (max-width: 900px) {
   .col-name {
     width: 28%;
@@ -273,5 +273,5 @@
   }
   .products-table {
     min-width: 760px;
-  } /* allow horizontal scroll rather than breaking layout */
+  } /* Allow horizontal scroll rather than breaking layout */
 }

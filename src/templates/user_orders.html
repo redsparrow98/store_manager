@@ -18,7 +18,7 @@ content %}
 	{% endif %}
 </div>
 
-<!--This is already a set template, so only needing the html implementation, pre-linked to both css-->
+<!-- This is already a set template, so only needing the html implementation, pre-linked to both css-->
 {% for status, orders in grouped_orders.items() %}
     <div class="table-wrap">
 			  <h2 class="title">{{ status|title }}</h2>
@@ -52,8 +52,4 @@ content %}
 		</div>
 
 {% endfor %}
-
-
-
-
 {% endblock %}

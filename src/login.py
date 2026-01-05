@@ -6,7 +6,7 @@ from flask_login import UserMixin
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "users.json"
 
-"""Load users from json file"""
+#Load users from json file
 def load_users():
     try:
         raw_users = load_json(FILE_PATH)
@@ -19,14 +19,14 @@ def load_users():
         return{}
 
 
-"""Flask login user class"""
+#Flask login user class
 class User(UserMixin):
     def __init__(self, username, access_level):
         self.id = username
         self.access_level = access_level
 
 
-"""User Authentication"""
+#User Authentication
 def authenticate(username, password):
     users = load_users()
     user_data = users.get(username)

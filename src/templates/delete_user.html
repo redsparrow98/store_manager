@@ -11,7 +11,7 @@
         <h2>Delete User</h2>
     </header>
 
-    <!-- messages field -->
+    <!-- Messages field -->
     <div>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -30,7 +30,7 @@
         {% endif %}
         {% endwith %}
 
-        <!-- form fields -->
+        <!-- Form fields -->
         <form action="{{ url_for('delete_user_page') }}" method="POST">
             <div class="modal-body">
                 <div class="form-grid">

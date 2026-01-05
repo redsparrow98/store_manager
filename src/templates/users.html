@@ -9,7 +9,7 @@
         <a class="btn btn-users" href="{{ url_for('account_page')}}">Back to my account</a>
     </div>
 
-    <!-- messages field -->
+    <!-- Messages field -->
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %}
         {% for category, message in messages %}
@@ -18,7 +18,7 @@
     {% endif %} {% endwith %}
 </div>
 
-<!-- main table of users -->
+<!-- Main table of users -->
 <div class="table-wrap">
     <table class="products-table">
         <thead>
@@ -30,7 +30,7 @@
             </tr>
         </thead>
         
-        <!-- lists all the users in the users dataset -->
+        <!-- Lists all the users in the users dataset -->
         <tbody>
             {% if users %}
                 {% for username, user in users.items() %}
@@ -39,7 +39,7 @@
                         <td>{{ user["name"] }}</td>
                         <td>{{ user["access_level"] }}</td>
                         <td>
-                            <!-- edit the user button -->
+                            <!-- Edit the user button -->
                             <a class="icon-btn" href="{{ url_for('edit_user') }}?username={{ username }}" title="Edit">
                                 <img src="{{ url_for('static', filename='images/edit.svg') }}" alt="Edit">
                             </a>

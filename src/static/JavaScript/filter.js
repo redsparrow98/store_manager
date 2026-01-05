@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Price ranges
   const prices = PRODUCTS.map(product => product.price);
-  const minPrice = 0; //ensuring even ranges instead of lowest dynamic price
+  const minPrice = 0; // Ensuring even ranges instead of lowest dynamic price
   const maxPrice = Math.max(...prices);
   const priceStep = 2000;
   const priceRanges = Math.ceil((maxPrice - minPrice) / priceStep);
@@ -23,15 +23,15 @@ document.addEventListener("DOMContentLoaded", () => {
   for (let i = 0; i < priceRanges; i++) {
     let min = minPrice + priceStep * i;
     let max = (i === priceRanges - 1) ? Infinity : minPrice + priceStep * (i + 1) - 1;
-    let label = (max === Infinity) ? `${min} kr +` : `${min} - ${max} kr`; //format for price range display
+    let label = (max === Infinity) ? `${min} kr +` : `${min} - ${max} kr`; // Format for price range display
     priceCheckboxes.push({ label, min, max });
   }
 
   const activePriceCheckboxes = new Set(priceCheckboxes.map(check => check.label));
 
-  // stock ranges
+  // Stock ranges
   const stocks = PRODUCTS.map(product => product.amount);
-  const minStock = 0; //ensuring even ranges instead of lowest dynamic stock
+  const minStock = 0; // Ensuring even ranges instead of lowest dynamic stock
   const maxStock = Math.max(...stocks);
   const stockStep = 10;
   const stockRanges = Math.ceil((maxStock - minStock) / stockStep);
@@ -40,16 +40,16 @@ document.addEventListener("DOMContentLoaded", () => {
   for (let i = 0; i < stockRanges; i++) {
     let min = minStock + stockStep * i;
     let max = (i === stockRanges - 1) ? Infinity : minStock + stockStep * (i + 1) - 1;
-    let label = (max === Infinity) ? `${min} pcs +` : `${min} - ${max} pcs`; //format for stock range display
+    let label = (max === Infinity) ? `${min} pcs +` : `${min} - ${max} pcs`; // Format for stock range display
     
     stockCheckboxes.push({ label, min, max });
   }
 
   const activeStockCheckboxes = new Set(stockCheckboxes.map(check => check.label));
 
-  // discount ranges
+  // Discount ranges
   const discounts = PRODUCTS.map(product => product.discount);
-  // every 10th percent regardless of dynamic discounts
+  // Every 10th percent regardless of dynamic discounts
   const minDiscount = 0;
   const maxDiscount = 100;
   const discountStep = 10;
@@ -59,21 +59,21 @@ document.addEventListener("DOMContentLoaded", () => {
   for (let i = 0; i < discountRanges; i++) {
     let min = minDiscount + discountStep * i;
     let max = (i === discountRanges - 1) ? Infinity : minDiscount + discountStep * (i + 1) -1;
-    let label = (max === Infinity) ? `${min} % +` : `${min} - ${max} %`; //format for discount range display
+    let label = (max === Infinity) ? `${min} % +` : `${min} - ${max} %`; // Format for discount range display
 
     discountCheckboxes.push({ label, min, max });
   }
 
   const activeDiscountCheckboxes = new Set(discountCheckboxes.map(check => check.label));
 
-  // creating category checkboxes
+  // Creating category checkboxes
   categories.forEach(category => {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = true;
     activeCategories.add(category);
 
-    // toggle active categories
+    // Toggle active categories
     checkbox.addEventListener("change", () => {
       checkbox.checked ? activeCategories.add(category) : activeCategories.delete(category);
       render();
@@ -85,14 +85,14 @@ document.addEventListener("DOMContentLoaded", () => {
     categoryFiltersEl.append(checkbox, categoryLabel, document.createElement("br"));
   });
 
-  // create price checkboxes
+  // Create price checkboxes
   priceCheckboxes.forEach(range => {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = true;
     checkbox.dataset.label = range.label;
 
-    // toggle active price ranges
+    // Toggle active price ranges
     checkbox.addEventListener("change", () => {
       checkbox.checked ? activePriceCheckboxes.add(range.label) : activePriceCheckboxes.delete(range.label);
       render();
@@ -104,14 +104,14 @@ document.addEventListener("DOMContentLoaded", () => {
     priceFiltersEl.append(checkbox, priceLabel, document.createElement("br"));
   });
 
-  // create stock checkboxes
+  // Create stock checkboxes
   stockCheckboxes.forEach(range => {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = true;
     checkbox.dataset.label = range.label;
 
-    // toggle active stock ranges
+    // Toggle active stock ranges
     checkbox.addEventListener("change", () => {
       checkbox.checked ? activeStockCheckboxes.add(range.label) : activeStockCheckboxes.delete(range.label);
       render();
@@ -123,14 +123,14 @@ document.addEventListener("DOMContentLoaded", () => {
     stockFiltersEl.append(checkbox, stockLabel, document.createElement("br"));
   });
 
-  // create discount checkboxes
+  // Create discount checkboxes
   discountCheckboxes.forEach(range => {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = true;
     checkbox.dataset.label = range.label;
 
-    // toggle active discount ranges
+    // Toggle active discount ranges
     checkbox.addEventListener("change", () => {
       checkbox.checked ? activeDiscountCheckboxes.add(range.label) : activeDiscountCheckboxes.delete(range.label);
       render();
@@ -142,13 +142,13 @@ document.addEventListener("DOMContentLoaded", () => {
     discountFiltersEl.append(checkbox, discountLabel, document.createElement("br"));
   });
 
-  // toggle for displaying filtering options
+  // Toggle for displaying filtering options
   filterToggle.addEventListener("click", e => {
     e.preventDefault();
     filterPanel.hidden = !filterPanel.hidden;
   });
 
-  // render active filtering function
+  // Render active filtering function
   function render() {
     tableBody.innerHTML = "";
 
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       return categoryMatch && priceMatch && stockMatch && discountMatch;
 
-      // iterating action buttons for each active product
+      // Iterating action buttons for each active product
     }).forEach(product => {
       const viewBtn = `<a class="icon-btn" href="${BASE_URLS.view}?search_term=${product.id}" title="View">
         <img src="/static/images/eye.svg" alt="View"></a>`;

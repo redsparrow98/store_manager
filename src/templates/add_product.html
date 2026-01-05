@@ -11,7 +11,7 @@
         <h2>Add product</h2>
     </header>
 
-    <!-- messages field -->
+    <!-- Messages field -->
     <div>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -29,7 +29,7 @@
         {% endif %}
         {% endwith %}
     
-        <!-- form field for all required fields to add new product -->
+        <!-- Form field for all required fields to add new product -->
         <form method="post" action="{{ url_for('add_product_page') }}">
             <div class="modal-body">
                 <div class="form-grid">

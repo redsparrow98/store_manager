@@ -69,7 +69,7 @@
   </div>
 </div>
 
-<!-- filtering options in filter panel -->
+<!-- Filtering options in filter panel -->
 <div id="filterPanel" hidden>
   <div class="table-wrap filter-row">
     <div class="filter-column" id="categoryFiltersWrapper">
@@ -91,7 +91,7 @@
   </div>
 </div>
 
-<!-- table hader for labels-->
+<!-- Table header for labels -->
 <div class="table-wrap">
   <table class="products-table">
     <thead>
@@ -106,26 +106,26 @@
       </tr>
     </thead>
     <tbody>
-      <!-- rows of items will be populated by JS -->
+      <!-- Rows of items will be populated by JS -->
     </tbody>
   </table>
 </div>
 
-<!-- flask data -->
+<!-- Flask data -->
 <script>
   window.PRODUCTS_DATA = {{ products | tojson}};
 </script>
 
-<!-- inventory display -->
+<!-- Inventory display -->
  <script>
-  // pass url for action buttons
-const BASE_URLS = {
-  view: "{{ url_for('access_product') }}",
-  edit: "{{ url_for('update_product_page')}}",
-  delete: "{{ url_for('delete_product_page')}}"
-}
+  // Pass url for action buttons
+  const BASE_URLS = {
+    view: "{{ url_for('access_product') }}",
+    edit: "{{ url_for('update_product_page')}}",
+    delete: "{{ url_for('delete_product_page')}}"
+  }
 
-// pass products data to JS
+  // Pass products data to JS
 const PRODUCTS = Object.entries({{ products | tojson }}).map(
     ([id, item]) => ({
     id: id,
@@ -137,11 +137,11 @@ const PRODUCTS = Object.entries({{ products | tojson }}).map(
 })
 );
 
-// pass access level to JS
+// Pass access level to JS
 const accessLevel = "{{ access_level }}";
  </script>
 
-<!-- inventory display with filters -->
+<!-- Inventory display with filters -->
 <script src="{{ url_for('static', filename='JavaScript/filter.js') }}"></script>
 
 {% endblock %}
