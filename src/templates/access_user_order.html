@@ -9,7 +9,7 @@
 	
   <header class="modal-header"><h2>Access User Order</h2></header>
 	<!-- Messages -->
-		<!-- messages field -->
+		<!-- Messages field -->
 	{% with messages = get_flashed_messages(with_categories=true) %}
 	{% if messages %}
 	{% for category, message in messages %}
@@ -27,7 +27,7 @@
 	{% endwith %}
 	<br>
 	
-    <!--Order information-->
+    <!-- Order information-->
 	  <form method="POST" action="{{ url_for('access_user_order_page') }}">
     <div class="modal-body">
         <div class="form-grid">

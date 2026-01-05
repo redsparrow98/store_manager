@@ -17,7 +17,7 @@
         <h2>My Account</h2>
     </header>
 
-    <!-- messages field -->
+    <!-- Messages field -->
     <div>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -35,24 +35,24 @@
         {% endif %}
         {% endwith %}
 
-        <!-- form field for all required fields to add new product -->
+        <!-- Form field for all required fields to add new product -->
         <form action="{{ url_for('account_page') }}" method="POST">
             <div class="modal-body">
                 <div class="form-grid">
 
-                    <!--Displaying the username -->
+                    <!-- Displaying the username -->
                     <div class="form-row">
                         <div class="field-label">Username</div>
                         <input class="field-box" type="text" value="{{ username }}" readonly>
                     </div>
 
-                    <!--Displaying the name -->
+                    <!-- Displaying the name -->
                     <div class="form-row">
                         <div class="field-label">Name</div>
                         <input class="field-box" type="text" value="{{ name }}" readonly>
                     </div>
 
-                    <!--Displaying the access level -->
+                    <!-- Displaying the access level -->
                     <div class="form-row">
                         <div class="field-label">Access Level</div>
                         <input class="field-box" type="text" value="{{ access_level }}" readonly>

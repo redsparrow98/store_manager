@@ -15,5 +15,5 @@ toggleBtn.addEventListener("click", () => {
 
     html.setAttribute("data-theme", newTheme);
     
-    localStorage.setItem("theme", newTheme); // Save theme persistently
+    localStorage.setItem("theme", newTheme); // Save knowledge of current theme
 });

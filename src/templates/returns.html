@@ -5,7 +5,7 @@
 <div class="inventory-header">
   <h1 class="title">All Returns</h1>
 
-  <!-- messages field -->
+  <!-- Messages field -->
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for category, message in messages %}
@@ -30,7 +30,7 @@
   </div>
 </div>
 
-<!-- header for return labels -->
+<!-- Header for return labels -->
 <div class="table-wrap">
   <table class="products-table">
     <thead>
@@ -46,7 +46,7 @@
       </tr>
     </thead>
     <tbody>
-      <!-- return information -->
+      <!-- Return information -->
       {% if returns %}
         {% for return_id, return in returns %}
           <tr>

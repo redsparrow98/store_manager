@@ -9,7 +9,7 @@
         <h1>Edit user {{ username }}</h1>
     </header>
 
-    <!-- messages field -->
+    <!-- Messages field -->
     <div>
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -27,15 +27,15 @@
         {% endif %}
         {% endwith %}
 
-        <!-- form field for all required fields to edit user -->
+        <!-- Form field for all required fields to edit user -->
         <form method="POST" action="{{ url_for('edit_user') }}">
             <input type="hidden" name="original_username" value="{{ username }}">
 
-            <!-- the body container -->
+            <!-- The body container -->
             <div class="modal-body">
                 <div class="form-grid">
 
-                    <!-- all required fields -->
+                    <!-- All required fields -->
                     <div class="form-row">
                         <div class="field-label">Username</div>
                         <input class="btn" type="text" name="username" value="{{ username }}" required>

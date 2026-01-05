@@ -1,15 +1,14 @@
-from math import prod
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask import Flask, render_template, redirect, url_for, request, flash, session
 from inventory_manager import *
 from notifications import *
-from notifications import clear_notifications
+from notifications import *
 from account_manager import *
 from login import *
 from pathlib import Path
 from datetime import datetime
 
-# This is to avoid the file path issues we had
+# To avoid file path issues dependent on running device
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 USERS_FILE_PATH = BASE_DIR / "dataset" / "users.json"
@@ -17,10 +16,8 @@ RETURNS_FILE_PATH = BASE_DIR / "dataset" / "returns.json"
 ORDER_FILE_PATH = BASE_DIR / "dataset" / "stock_orders.json"
 USER_ORDERS_FILE_PATH = BASE_DIR /  "dataset" / "user_orders.json"
 
-
 app = Flask(__name__)
 app.secret_key = "demo-key1234"
-
 
 """Flask Login Setup"""
 login_manager = LoginManager()
@@ -64,7 +61,6 @@ def login():
 
     return render_template("login.html")
 
-
 @app.route("/dashboard")
 @login_required
 def dashboard():
@@ -80,8 +76,9 @@ def dashboard():
     total_products = len(products)
     low_stock = 0
     for product in products.values():
-        if int(product.get("stock_amount", 0)) <= 5:
+        if int(product.get("stock_amount", 0)) <= 3:
             low_stock += 1
+            
     total_users = len(users)
 
     # Real time return product mirroing
@@ -89,12 +86,11 @@ def dashboard():
     total_returns = len(returns) 
     username = current_user.id
 
-    # analytics data for the dashboard
+    # Analytics data for the dashboard
     top_brands = get_top_stored_brand()
     top_products = get_top_stored_product()
     deliveries_this_month, current_month = get_done_deliveries_month()
     
-
     return render_template(
         "dashboard.html",
         notif_count = notif_count,
@@ -179,7 +175,6 @@ def display_inventory():
 
     return render_template("inventory.html", products=filtered, search_term=search_term, access_level=access_level)
 
-
 @app.route('/inventory/add-product', methods=['GET', 'POST'])
 def add_product_page():
     if request.method == "GET":
@@ -202,7 +197,6 @@ def add_product_page():
         
         return render_template("add_product.html")
 
-
 @app.route('/inventory/delete-product', methods=['GET'])
 def delete_product_page():
     if request.method == "GET":
@@ -212,7 +206,6 @@ def delete_product_page():
         deleted_product = delete_product(article_id)
         flash (f"{deleted_product['article_name']} with article id {article_id} has been deleted", "success")
         return redirect(url_for("display_inventory"))
-    
 
 @app.route("/notifications")
 def notifications_page():
@@ -246,7 +239,7 @@ def update_product_page():
         product['article_name'] = request.form.get('name', '').strip()
         product['brand'] = request.form.get('brand', '').strip()
         product['price_SEK'] = float(request.form.get('price', ''))
-        product['discount_percentage'] = int(request.form.get('discount', ''))
+        product['discount_percentage'] = float(request.form.get('discount', ''))
         product['category'] = request.form.get('category', '').strip().capitalize()
         stock_input = request.form.get('stock', '').strip()
 
@@ -278,7 +271,6 @@ def update_product_page():
 
         # Convert stock to integer
         product['stock_amount'] = int(stock_input)
-
         
         # Saves the updated product information to the JSON file
         with open(FILE_PATH, 'w') as f:
@@ -301,8 +293,6 @@ def update_product_page():
             product = ""
 
     return render_template('update_product.html', product=product, id=article_id)
-
-
 
 @app.route('/inventory/apply-discount', methods=['GET', 'POST'])
 def apply_discount_page():
@@ -401,7 +391,7 @@ def delete_user_page():
         password = request.form['password']
         
         # Checks if credentials are correct
-        if authenticate(username, password) == None: # authenticate returns None or the username of the user
+        if authenticate(username, password) == None: # Authenticate returns None or the username of the user
             flash (f"Wrong username or password.", "error")
             return redirect(url_for("delete_user_page"))
     
@@ -516,19 +506,16 @@ def edit_user():
         else:
             users[original_username] = new_user_info
 
-
         with open(USERS_FILE_PATH, 'w') as f:
             json.dump(users, f, indent=2)
 
         return redirect(url_for("users_page"))
 
-    #GET request
+    # GET request
     username = request.args.get('username')
     user = users.get(username)
 
-
     return render_template("edit_user.html", username=username, user=user)
-
 
 @app.route('/dashboard/orders', methods=['GET'])
 def list_orders_page():
@@ -636,7 +623,6 @@ def access_return_info():
         item = returns[return_id]
         return_display = build_return_display(item, return_id)
         
-            
         return render_template("access_return_info.html", 
                                 return_display=return_display, 
                                 return_id=return_id, 
@@ -674,7 +660,6 @@ def add_return_page():
         order_id = request.form["order_id"]
         customer = request.form["customer"]
     
-        
         # Values that don't need to be added when creating new return
         date = datetime.today().strftime("%d/%m/%y")
         

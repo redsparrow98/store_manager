@@ -17,7 +17,7 @@
     <h2 class="welcome">Welcome 👋</h2>
     <p class="instruction">Please enter your credentials</p>
 
-    <!-- display only danger flash messages -->
+    <!-- Display only danger flash messages -->
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %}
     <ul class="flashes">
@@ -39,7 +39,7 @@
       </div>
 
       <div class="btn">
-        <!-- password stays hidden automatically -->
+        <!-- Password stays hidden automatically -->
         <input
           type="password"
           id="password"

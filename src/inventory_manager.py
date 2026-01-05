@@ -3,7 +3,7 @@ import os, random
 from pathlib import Path
 from datetime import datetime
 
-# this is to avoid the file path issues we had
+# This is to avoid the file path issues we had
 BASE_DIR = Path(__file__).parent.parent
 FILE_PATH = BASE_DIR / "dataset" / "products.json"
 ORDER_FILE_PATH = BASE_DIR / "dataset" / "stock_orders.json"
@@ -12,7 +12,7 @@ USER_ORDER_FILE_PATH = BASE_DIR / "dataset" / "user_orders.json"
 
 
 
-#APPLY DISCOUNT FUNCTION
+# APPLY DISCOUNT FUNCTION
 def apply_discount_to_products(discount_percentage, category=None):
     """Applies a discount to all products from our dataset with an option to choose a category to apply the discount to
 
@@ -38,7 +38,7 @@ def apply_discount_to_products(discount_percentage, category=None):
     
     dataset = load_json(FILE_PATH)
 
-    #counter to check how many products were updated(implement a message in flask?)
+    # Counter to check how many products were updated(implement a message in flask?)
     updated_count = 0
     for product in dataset.values():
         if category is None or product.get("category") == category.capitalize():
@@ -52,7 +52,7 @@ def apply_discount_to_products(discount_percentage, category=None):
     write_json(FILE_PATH, dataset)
     return f"Applied {discount_percentage}% discount."
 
-#LISTING ALL PRODUCTS FEATURE
+# LISTING ALL PRODUCTS FEATURE
 def list_all_products():
     """Lists all current products in the inventory
 
@@ -74,7 +74,7 @@ def list_all_products():
         
     return all_products
 
-#ADDING A PRODUCT FEATURE
+# ADDING A PRODUCT FEATURE
 def add_product(name,brand,price,category,discount,stock):
     """creates a new product for the database from the given parameters.
     The article id is calculated based on the current database
@@ -109,7 +109,7 @@ def add_product(name,brand,price,category,discount,stock):
         return False, errors
 
     else:
-        # find the next ID in sequence using the ternary operator
+        # Find the next ID in sequence using the ternary operator
         current_ids = products.keys()
         next_id_int = int(max(current_ids)) + 1 if current_ids else 1
         next_id = str(next_id_int).zfill(4)
@@ -130,7 +130,7 @@ def add_product(name,brand,price,category,discount,stock):
         return True, f"Product name '{name}' added successfully, ID: {next_id}"
 
 
-#DELETING A PRODUCT FEATURE
+# DELETING A PRODUCT FEATURE
 def delete_product(article_id):
     """Deleted an article using the article id frm the DB
 
@@ -144,7 +144,7 @@ def delete_product(article_id):
     write_json(FILE_PATH, products)
     return delete
 
-#ACCESSING A PRODUCT FEATURE AND HELPER FUNCTIONS
+# ACCESSING A PRODUCT FEATURE AND HELPER FUNCTIONS
 def format_product_data(product_info):
     """Formats a product's data when being accessed through search
     
@@ -514,7 +514,7 @@ def get_top_stored_brand():
     stock = load_json(FILE_PATH)
 
     # I choose to find the dictionary of the current brands in the inventory
-    # these brands should not be hardcoded and they can always change
+    # These brands should not be hardcoded and they can always change
     brands = {}
     for item in stock.values():
         current_brand = item["brand"].capitalize()

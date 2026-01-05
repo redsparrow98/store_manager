@@ -88,5 +88,41 @@
     "quantity": 20,
     "order_date": "29/12/2025",
     "order_status": "Ordered"
+  },
+  "O0011": {
+    "order_number": "O0011",
+    "ordered_by": "jane_doe",
+    "article_id": "0006",
+    "product_name": "Ipad 11\" (11th gen)",
+    "quantity": 30,
+    "order_date": "05/01/2026",
+    "order_status": "Delivered"
+  },
+  "O0012": {
+    "order_number": "O0012",
+    "ordered_by": "jane_doe",
+    "article_id": "0007",
+    "product_name": "Galaxy Buds FE",
+    "quantity": 20,
+    "order_date": "05/01/2026",
+    "order_status": "Ordered"
+  },
+  "O0013": {
+    "order_number": "O0013",
+    "ordered_by": "jane_doe",
+    "article_id": "0023",
+    "product_name": "iPhone 14",
+    "quantity": 23,
+    "order_date": "05/01/2026",
+    "order_status": "Ordered"
+  },
+  "O0014": {
+    "order_number": "O0014",
+    "ordered_by": "jane_doe",
+    "article_id": "0024",
+    "product_name": "MAJOR IV",
+    "quantity": 40,
+    "order_date": "05/01/2026",
+    "order_status": "Delivered"
   }
 }

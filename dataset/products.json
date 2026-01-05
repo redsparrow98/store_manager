@@ -5,8 +5,8 @@
     "brand": "Apple",
     "price_SEK": 14994.0,
     "category": "Phones",
-    "discount_percentage": 0,
-    "stock_amount": 9,
+    "discount_percentage": 30.0,
+    "stock_amount": 20,
     "discounted_price_SEK": 14995.0
   },
   "0002": {
@@ -46,7 +46,7 @@
     "price_SEK": 1490.0,
     "category": "Tablets",
     "discount_percentage": 5.0,
-    "stock_amount": 5,
+    "stock_amount": 0,
     "discounted_price_SEK": 1415.5
   },
   "0006": {
@@ -56,7 +56,7 @@
     "price_SEK": 4490.0,
     "category": "Tablets",
     "discount_percentage": 5.0,
-    "stock_amount": 21,
+    "stock_amount": 51,
     "discounted_price_SEK": 4265.5
   },
   "0007": {
@@ -105,8 +105,8 @@
     "brand": "Samsung",
     "price_SEK": 9990.0,
     "category": "Speakers",
-    "discount_percentage": 0,
-    "stock_amount": 32,
+    "discount_percentage": 0.0,
+    "stock_amount": 1,
     "discounted_price_SEK": 9990.0
   },
   "0012": {
@@ -126,7 +126,7 @@
     "price_SEK": 15145.0,
     "category": "Computers",
     "discount_percentage": 0.0,
-    "stock_amount": 5,
+    "stock_amount": 30,
     "discounted_price_SEK": 15145.0
   },
   "0014": {
@@ -196,7 +196,7 @@
     "price_SEK": 599.0,
     "category": "Accessories",
     "discount_percentage": 0.0,
-    "stock_amount": 7,
+    "stock_amount": 1,
     "discounted_price_SEK": 599.0
   },
   "0022": {
@@ -216,6 +216,33 @@
     "price_SEK": 10000.0,
     "category": "Phones",
     "discount_percentage": 0.0,
-    "stock_amount": 2
+    "stock_amount": 10
+  },
+  "0024": {
+    "article_name": "MAJOR IV",
+    "article_id": "0024",
+    "brand": "Marshall",
+    "price_SEK": 1995.0,
+    "category": "Headphones",
+    "discount_percentage": 5,
+    "stock_amount": 49
+  },
+  "0025": {
+    "article_name": "Iphone 5",
+    "article_id": "0025",
+    "brand": "Samsung",
+    "price_SEK": 3550.0,
+    "category": "Phones",
+    "discount_percentage": 7,
+    "stock_amount": 10
+  },
+  "0026": {
+    "article_name": "MAJOR IIV",
+    "article_id": "0026",
+    "brand": "Marshall",
+    "price_SEK": 1190.0,
+    "category": "Headphones",
+    "discount_percentage": 0.0,
+    "stock_amount": 20
   }
 }
