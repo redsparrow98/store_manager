@@ -33,8 +33,8 @@
   --brand-text: #334155;
 
   --btn-border: #e0e6eb;
-  --btn-cancel-bg: #ffffff;
-  --btn-cancel-text: #22333b;
+  --btn-cancel-bg: #f5deae;
+  --btn-cancel-text: #1c3626;
   --btn-edit-bg: #1c3626;
   --btn-edit-text: #f5deae;
   --btn-discount-text: #3b4668;
@@ -117,14 +117,14 @@
 }
 
 .btn-cancel {
-  background: var(--btn-bg);
-  color: var(--btn-cancel);
+  background: var(--btn-cancel-bg) !important;
+  color: var(--btn-cancel-text) !important;
   padding: 1% 2%;
 }
 
 .btn-edit {
-  background: var(--btn-edit-bg);
-  color: var(--btn-edit-text);
+  background: var(--btn-edit-bg) !important;
+  color: var(--btn-edit-text) !important;
   padding: 1% 2%;
 }
 
