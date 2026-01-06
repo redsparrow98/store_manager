@@ -1,32 +1,7 @@
 {
-  "bobby_tables": {
-    "password": "Bobbyspassword",
-    "name": "Bobby Tables",
-    "access_level": "Employee"
-  },
-  "jane_doe": {
-    "password": "Janespassword",
-    "name": "Jane Doe",
+  "base_user": {
+    "password": "base_password",
+    "name": "base_admin",
     "access_level": "Manager"
-  },
-  "joe_doe": {
-    "password": "Joespassword",
-    "name": "Joe Doe",
-    "access_level": "Employee"
-  },
-  "1": {
-    "password": "1",
-    "name": "1",
-    "access_level": "Manager"
-  },
-  "2": {
-    "password": "2",
-    "name": "2",
-    "access_level": "Employee"
-  },
-  "test_user": {
-    "password": "12345",
-    "name": "Test",
-    "access_level": "Employee"
   }
 }
