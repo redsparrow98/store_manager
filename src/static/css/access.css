@@ -117,14 +117,14 @@
 }
 
 .btn-cancel {
-  background: var(--btn-bg);
-  color: var(--btn-cancel);
+  background: var(--btn-cancel-bg);
+  color: var(--btn-cancel-text);
   padding: 1% 2%;
 }
 
 .btn-edit {
-  background: var(--btn-edit-bg);
-  color: var(--btn-edit-text);
+  background: var(--btn-edit-bg) !important;
+  color: var(--btn-edit-text) !important;
   padding: 1% 2%;
 }
 
