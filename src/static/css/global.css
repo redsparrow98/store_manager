@@ -510,14 +510,15 @@ body {
 }
 
 .accounts-box .icon {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 120px;
   height: 120px;
   margin: 0 auto 10px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  line-height: 1;
 }
 
 .accounts-box .icon img {
@@ -863,15 +864,15 @@ body {
   background-repeat: no-repeat;
 }
 
-.date .christmas-calendar-icon {
-  display: none;
-  width: 22px;
-  height: 22px;
-  margin-right: 8px;
+.date-btn .date-icon,
+.date-btn .christmas-calendar-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   vertical-align: middle;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
 }
 
 .christmas-users-icon {
