@@ -41,8 +41,15 @@ def apply_discount_to_products(discount_percentage, category=None):
     # Counter to check how many products were updated(implement a message in flask?)
     updated_count = 0
     for product in dataset.values():
-        if category is None or product.get("category") == category.capitalize():
-            original_price = product.get("price_SEK" , 0)
+        if not category or product.get("category") == category.capitalize():
+            original_price = product.get("price_SEK")
+
+            try:
+                original_price = float(original_price)
+                
+            except (TypeError, ValueError):
+                raise ValueError("Invalid price in dataset")
+
             if original_price > 0:
                 discounted_price = round (original_price * (1 - discount_percentage / 100) , 2)
                 product["discounted_price_SEK"] = discounted_price
