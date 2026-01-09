@@ -64,20 +64,41 @@ The system distinguishes between **Manager** and regular user roles, ensuring th
 
 ```
 store_manager/
-│── app.py
-│── templates/
-│   ├── login.html
-│   ├── my_account.html
-│   ├── notifications.html
-│   ├── returns.html
-│   ├── update_product.html
-│   ├── user_orders.html
-│   ├── users.html
-│   └── base.html
-│── static/
-│   ├── css/
-│   └── images/
-│── README.md
+│
+├── dataset/
+│   ├── users.json
+│   ├── products.json
+│   ├── orders.json
+│   ├── user_orders.json
+│   ├── returns.json
+│   └── stock_orders.json
+│
+├── src/
+│   │
+|   ├── static/
+│   |    ├── css/
+│   |    └── images/
+|   |
+│   ├── templates/
+│   │   ├── base.html
+│   │   ├── login.html
+│   │   ├── my_account.html
+│   │   ├── notifications.html
+│   │   ├── returns.html
+│   │   ├── update_product.html
+│   │   ├── user_orders.html
+│   │   └── users.html
+│   │
+│   ├── account_manager.py
+│   ├── inventory_manager.py
+│   ├── login.py
+│   ├── main.py
+│   ├── notifications.py         
+│   └── reader.py
+│
+├── .gitignore
+├── requirements.txt
+└── README.md
 ```
 
 ---
