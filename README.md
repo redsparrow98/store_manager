@@ -75,10 +75,10 @@ store_manager/
 │
 ├── src/
 │   │
-|   ├── static/
-│   |    ├── css/
-│   |    └── images/
-|   |
+│   ├── static/
+│   │    ├── css/
+│   │    └── images/
+│   │
 │   ├── templates/
 │   │   ├── base.html
 │   │   ├── login.html
