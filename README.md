@@ -66,12 +66,12 @@ The system distinguishes between **Manager** and regular user roles, ensuring th
 store_manager/
 │
 ├── dataset/
-│   ├── users.json
-│   ├── products.json
 │   ├── orders.json
-│   ├── user_orders.json
+│   ├── products.json
 │   ├── returns.json
-│   └── stock_orders.json
+│   ├── stock_orders.json
+│   ├── user_orders.json
+│   └── users.json
 │
 ├── src/
 │   │
@@ -80,19 +80,11 @@ store_manager/
 │   │    └── images/
 │   │
 │   ├── templates/
-│   │   ├── base.html
-│   │   ├── login.html
-│   │   ├── my_account.html
-│   │   ├── notifications.html
-│   │   ├── returns.html
-│   │   ├── update_product.html
-│   │   ├── user_orders.html
-│   │   └── users.html
 │   │
 │   ├── account_manager.py
 │   ├── inventory_manager.py
 │   ├── login.py
-│   ├── main.py
+│   ├── main.py             <-- Main access point to the app
 │   ├── notifications.py         
 │   └── reader.py
 │
