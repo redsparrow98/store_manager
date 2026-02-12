@@ -4,6 +4,17 @@ A web-based **inventory and store management system** built with **Flask** and *
 
 ---
 
+> ⚠️ **IMPORTANT**
+>
+> **Quick Start: To test the system, use the default login below!**
+>
+> - **Username:** base_user  
+> - **Password:** base_password  
+>
+> Full instructions and documentation in the [Wiki](https://github.com/redsparrow98/store_manager/wiki)
+
+---
+
 ## Description
 
 Store Manager is an internal management system for retail operations. It allows staff and managers to:
