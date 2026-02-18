@@ -1,4 +1,4 @@
-from reader import *
+from src.reader import *
 import os, random
 from pathlib import Path
 from datetime import datetime

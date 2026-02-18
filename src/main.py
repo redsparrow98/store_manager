@@ -1,10 +1,9 @@
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask import Flask, render_template, redirect, url_for, request, flash, session
-from .inventory_manager import *
-from notifications import *
-from notifications import *
-from account_manager import *
-from login import *
+from src.inventory_manager import *
+from src.notifications import *
+from src.account_manager import *
+from src.login import *
 from pathlib import Path
 from datetime import datetime
 

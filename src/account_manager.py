@@ -1,4 +1,4 @@
-from reader import *
+from src.reader import *
 from pathlib import Path
 from werkzeug.security import generate_password_hash, check_password_hash
 

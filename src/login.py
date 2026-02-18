@@ -1,4 +1,4 @@
-from reader import *
+from src.reader import *
 from pathlib import Path
 from flask_login import UserMixin
 
