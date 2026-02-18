@@ -2,6 +2,10 @@
 
 A web-based **inventory and store management system** built with **Flask** and **Jinja2**, designed to manage products, users, orders, returns, and notifications with role-based access control.
 
+### Desktop Flask App
+
+**Live Demo:** [https://redsparrow98.pythonanywhere.com/dashboard](https://redsparrow98.pythonanywhere.com/dashboard)
+
 ---
 
 > ⚠️ **IMPORTANT**
@@ -135,14 +139,22 @@ store_manager/
    ```bash
    pip install -r requirements.txt
    ```
+   
+4. Set the Flask app environment variable
+   
+   ```bash
+   export FLASK_APP=src.main   # macOS/Linux
+   set FLASK_APP=src.main      # Windows CMD
+   $env:FLASK_APP="src.main"   # Windows PowerShell
+   ```
 
-4. Run the application
+5. Run the application
 
    ```bash
    flask run
    ```
 
-5. Open your browser and navigate to:
+6. Open your browser and navigate to:
 
    ```
    http://127.0.0.1:5000
